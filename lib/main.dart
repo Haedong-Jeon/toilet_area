@@ -1,9 +1,4 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:toilet_area/data/repository/toilet_data_repository_impl.dart';
-import 'package:toilet_area/data/source/keys.dart';
-import 'package:toilet_area/data/source/toilet_data_source.dart';
 
 void main() {
   runApp(const MyApp());
