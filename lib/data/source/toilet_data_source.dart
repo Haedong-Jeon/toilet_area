@@ -5,12 +5,10 @@ class ToiletDataSource {
   final String _dataEndpoint =
       "http://api.data.go.kr/openapi/tn_pubr_public_toilet_api";
 
-  Future<Response> getToiletData() async {
+  Future<Response> getToiletList() async {
     final response = await Dio().get(_dataEndpoint, queryParameters: {
-      "serviceKey": toiletApiKey,
+      "serviceKey": APIKey().toiletApiKey,
       "type": "json",
-      "pageNo": 1,
-      "numOfRows": 100,
     });
     return response;
   }
