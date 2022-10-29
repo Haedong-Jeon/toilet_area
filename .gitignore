@@ -44,4 +44,4 @@ app.*.map.json
 /android/app/release
 
 # api keys
-/lib/data/source/keys.dart
+/lib/data/source/toilet/keys.dart
