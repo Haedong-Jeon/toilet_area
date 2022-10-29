@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:toilet_area/data/source/keys.dart';
+import 'package:toilet_area/data/source/toilet/keys.dart';
 
 class ToiletDataSource {
   final String _dataEndpoint =
