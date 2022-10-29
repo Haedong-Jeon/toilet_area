@@ -7,7 +7,7 @@ class ToiletDataRepositoryImpl extends ToiletDataRepository {
   ToiletDataRepositoryImpl(this.dataSource);
 
   @override
-  Future<Response> getToiletList() async {
-    return await dataSource.getToiletList();
+  Future<Response> getToiletListFromRemote() async {
+    return await dataSource.getToiletListFromRemote();
   }
 }

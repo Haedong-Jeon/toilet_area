@@ -1,3 +1,3 @@
 abstract class ToiletDataRepository {
-  Future getToiletList();
+  Future getToiletListFromRemote();
 }
