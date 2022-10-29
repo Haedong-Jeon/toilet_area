@@ -1,7 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:toilet_area/data/repository/toilet/toilet_data_repository_impl.dart';
-import 'package:toilet_area/data/source/toilet/toilet_data_source.dart';
-import 'package:toilet_area/domain/model/user/user.dart';
+import 'package:toilet_area/data/source/toilet/remote/toilet_data_source.dart';
 import 'package:toilet_area/domain/use_case/toilet/get_toilet_list_use_case.dart';
 
 void main() {
