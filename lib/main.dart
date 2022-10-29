@@ -1,4 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:toilet_area/data/repository/toilet_data_repository_impl.dart';
+import 'package:toilet_area/data/source/keys.dart';
+import 'package:toilet_area/data/source/toilet_data_source.dart';
 
 void main() {
   runApp(const MyApp());
@@ -50,15 +55,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
+  void _incrementCounter() async {
   }
 
   @override
