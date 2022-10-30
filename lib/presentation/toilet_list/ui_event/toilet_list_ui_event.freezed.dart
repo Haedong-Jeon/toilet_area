@@ -19,21 +19,21 @@ mixin _$ToiletListUiEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() onLoading,
-    required TResult Function() onError,
+    required TResult Function(String message) onError,
     required TResult Function() onSuccess,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? onLoading,
-    TResult? Function()? onError,
+    TResult? Function(String message)? onError,
     TResult? Function()? onSuccess,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? onLoading,
-    TResult Function()? onError,
+    TResult Function(String message)? onError,
     TResult Function()? onSuccess,
     required TResult orElse(),
   }) =>
@@ -119,7 +119,7 @@ class _$OnLoading implements OnLoading {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() onLoading,
-    required TResult Function() onError,
+    required TResult Function(String message) onError,
     required TResult Function() onSuccess,
   }) {
     return onLoading();
@@ -129,7 +129,7 @@ class _$OnLoading implements OnLoading {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? onLoading,
-    TResult? Function()? onError,
+    TResult? Function(String message)? onError,
     TResult? Function()? onSuccess,
   }) {
     return onLoading?.call();
@@ -139,7 +139,7 @@ class _$OnLoading implements OnLoading {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? onLoading,
-    TResult Function()? onError,
+    TResult Function(String message)? onError,
     TResult Function()? onSuccess,
     required TResult orElse(),
   }) {
@@ -192,6 +192,8 @@ abstract class OnLoading implements ToiletListUiEvent {
 abstract class _$$OnErrorCopyWith<$Res> {
   factory _$$OnErrorCopyWith(_$OnError value, $Res Function(_$OnError) then) =
       __$$OnErrorCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String message});
 }
 
 /// @nodoc
@@ -200,57 +202,81 @@ class __$$OnErrorCopyWithImpl<$Res>
     implements _$$OnErrorCopyWith<$Res> {
   __$$OnErrorCopyWithImpl(_$OnError _value, $Res Function(_$OnError) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? message = null,
+  }) {
+    return _then(_$OnError(
+      null == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$OnError implements OnError {
-  const _$OnError();
+  const _$OnError(this.message);
+
+  @override
+  final String message;
 
   @override
   String toString() {
-    return 'ToiletListUiEvent.onError()';
+    return 'ToiletListUiEvent.onError(message: $message)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$OnError);
+        (other.runtimeType == runtimeType &&
+            other is _$OnError &&
+            (identical(other.message, message) || other.message == message));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, message);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$OnErrorCopyWith<_$OnError> get copyWith =>
+      __$$OnErrorCopyWithImpl<_$OnError>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() onLoading,
-    required TResult Function() onError,
+    required TResult Function(String message) onError,
     required TResult Function() onSuccess,
   }) {
-    return onError();
+    return onError(message);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? onLoading,
-    TResult? Function()? onError,
+    TResult? Function(String message)? onError,
     TResult? Function()? onSuccess,
   }) {
-    return onError?.call();
+    return onError?.call(message);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? onLoading,
-    TResult Function()? onError,
+    TResult Function(String message)? onError,
     TResult Function()? onSuccess,
     required TResult orElse(),
   }) {
     if (onError != null) {
-      return onError();
+      return onError(message);
     }
     return orElse();
   }
@@ -291,7 +317,12 @@ class _$OnError implements OnError {
 }
 
 abstract class OnError implements ToiletListUiEvent {
-  const factory OnError() = _$OnError;
+  const factory OnError(final String message) = _$OnError;
+
+  String get message;
+  @JsonKey(ignore: true)
+  _$$OnErrorCopyWith<_$OnError> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -333,7 +364,7 @@ class _$OnSuccess implements OnSuccess {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() onLoading,
-    required TResult Function() onError,
+    required TResult Function(String message) onError,
     required TResult Function() onSuccess,
   }) {
     return onSuccess();
@@ -343,7 +374,7 @@ class _$OnSuccess implements OnSuccess {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? onLoading,
-    TResult? Function()? onError,
+    TResult? Function(String message)? onError,
     TResult? Function()? onSuccess,
   }) {
     return onSuccess?.call();
@@ -353,7 +384,7 @@ class _$OnSuccess implements OnSuccess {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? onLoading,
-    TResult Function()? onError,
+    TResult Function(String message)? onError,
     TResult Function()? onSuccess,
     required TResult orElse(),
   }) {

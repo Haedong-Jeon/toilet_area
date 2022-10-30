@@ -6,7 +6,7 @@ import 'package:toilet_area/domain/model/toilet/toilet.dart';
 import 'package:toilet_area/domain/use_case/toilet/get_toilet_list_local_use_case.dart';
 import 'package:toilet_area/domain/use_case/toilet/get_toilet_list_remote_use_case.dart';
 import 'package:toilet_area/domain/use_case/toilet/save_toilet_list_use_case.dart';
-import 'package:toilet_area/presentation/toilet_list/toilet_list_ui_event.dart';
+import 'package:toilet_area/presentation/toilet_list/ui_event/toilet_list_ui_event.dart';
 
 class ToiletListViewModel extends StateNotifier<List<Toilet>> {
   final GetToiletListLocalUseCase getToiletListLocalUseCase;
@@ -32,7 +32,8 @@ class ToiletListViewModel extends StateNotifier<List<Toilet>> {
       _uiEventController.add(const ToiletListUiEvent.onSuccess());
       saveToiletList(state);
     } catch (e) {
-      _uiEventController.add(const ToiletListUiEvent.onError());
+      e as DioError;
+      _uiEventController.add(ToiletListUiEvent.onError(e.message ?? "no error message"));
     }
     return state;
   }
