@@ -3,9 +3,14 @@ import 'package:dio/dio.dart';
 
 class GetToiletListFromRemoteUseCase {
   final ToiletDataRepository repository;
+
   GetToiletListFromRemoteUseCase(this.repository);
 
   Future<Response> call(int page) async {
-    return await repository.getToiletListFromRemote(page);
+    try {
+      return await repository.getToiletListFromRemote(page);
+    } catch (e) {
+      rethrow;
+    }
   }
 }
