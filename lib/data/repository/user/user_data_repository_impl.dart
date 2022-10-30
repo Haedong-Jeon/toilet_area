@@ -7,7 +7,7 @@ class UserDataRepositoryImpl extends UserDataRepository {
 
   UserDataRepositoryImpl(this.geolocator);
   @override
-  Future getUserPosition() async {
+  Future<Position?> getUserPosition() async {
     return await geolocator.getUserPosition();
   }
 

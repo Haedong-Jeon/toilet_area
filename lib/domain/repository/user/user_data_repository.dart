@@ -2,6 +2,6 @@
 import 'package:geolocator/geolocator.dart';
 
 abstract class UserDataRepository {
-  Future getUserPosition();
+  Future<Position?> getUserPosition();
   Stream<Position> getPositionStream();
 }
