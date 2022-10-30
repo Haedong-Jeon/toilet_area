@@ -6,12 +6,19 @@ class ToiletDataRemoteSource {
       "http://api.data.go.kr/openapi/tn_pubr_public_toilet_api";
 
   Future<Response> getToiletListFromRemote(int page) async {
-    final response = await Dio().get(_dataEndpoint, queryParameters: {
-      "serviceKey": APIKey().toiletApiKey,
-      "type": "json",
-      "numOfRows":100,
-      "pageNo":page,
-    });
-    return response;
+    try {
+      final response = await Dio().get(_dataEndpoint, queryParameters: {
+        "serviceKey": APIKey().toiletApiKey,
+        "type": "json",
+        "numOfRows": 100,
+        "pageNo": page,
+      });
+      if(response.data["response"]["header"]["resultCode"] != 0) {
+        throw DioError(requestOptions: RequestOptions(path:_dataEndpoint));
+      }
+      return response;
+    } catch (e) {
+      rethrow;
+    }
   }
 }
