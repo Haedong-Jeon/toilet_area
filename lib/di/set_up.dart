@@ -8,10 +8,14 @@ import 'package:toilet_area/domain/repository/toilet/toilet_data_repository.dart
 import 'package:toilet_area/domain/use_case/toilet/get_toilet_list_local_use_case.dart';
 import 'package:toilet_area/domain/use_case/toilet/get_toilet_list_remote_use_case.dart';
 import 'package:toilet_area/domain/use_case/toilet/save_toilet_list_use_case.dart';
-import 'package:toilet_area/presentation/toilet_list/toilet_list_view_model.dart';
+import 'package:toilet_area/presentation/text/text_control.dart';
+import 'package:toilet_area/presentation/text/view_model/text_view_model.dart';
+import 'package:toilet_area/presentation/toilet_list/view_model/toilet_list_view_model.dart';
 
 late final StateNotifierProvider<ToiletListViewModel, List<Toilet>>
     toiletListViewModelProvider;
+late final StateNotifierProvider<TextViewModel, TextControl>
+    textViewModelProvider;
 
 Future setUpProviders() async {
   Database database = await openDatabase(
@@ -40,7 +44,10 @@ Future setUpProviders() async {
     getToiletListFromRemoteUseCase,
     saveToiletListUseCase,
   );
+  TextViewModel _textViewModel = TextViewModel(TextControl());
   toiletListViewModelProvider =
       StateNotifierProvider<ToiletListViewModel, List<Toilet>>(
           (ref) => _toiletListViewModel);
+  textViewModelProvider = StateNotifierProvider<TextViewModel, TextControl>(
+      (ref) => _textViewModel);
 }
