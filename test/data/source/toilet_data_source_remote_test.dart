@@ -18,7 +18,7 @@ void main() {
         null,
       ),
     );
-    final response = await getToiletListFromRemoteUseCase();
+    final response = await getToiletListFromRemoteUseCase(0);
     expect(response.data["response"]["header"]["resultCode"], "0");
   });
 }

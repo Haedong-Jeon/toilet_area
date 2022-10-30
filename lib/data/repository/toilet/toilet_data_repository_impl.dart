@@ -9,12 +9,13 @@ class ToiletDataRepositoryImpl extends ToiletDataRepository {
    ToiletDbHelper? toiletDbHelper;
   ToiletDataRepositoryImpl(this.remoteDataSource, this.toiletDbHelper);
 
+
   @override
-  Future<Response?> getToiletListFromRemote() async {
+  Future<Response?> getToiletListFromRemote(int page) async {
     if(remoteDataSource == null) {
       return null;
     }
-    return await remoteDataSource!.getToiletListFromRemote();
+    return await remoteDataSource!.getToiletListFromRemote(page);
   }
 
   @override
