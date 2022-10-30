@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:toilet_area/domain/model/toilet/toilet.dart';
+import 'package:toilet_area/domain/use_case/toilet/get_kakao_key_use_case.dart';
 import 'package:toilet_area/domain/use_case/toilet/get_toilet_list_local_use_case.dart';
 import 'package:toilet_area/domain/use_case/toilet/get_toilet_list_remote_use_case.dart';
 import 'package:toilet_area/domain/use_case/toilet/save_toilet_list_use_case.dart';
@@ -11,6 +12,7 @@ import 'package:toilet_area/presentation/toilet_list/ui_event/toilet_list_ui_eve
 class ToiletListViewModel extends StateNotifier<List<Toilet>> {
   final GetToiletListLocalUseCase getToiletListLocalUseCase;
   final GetToiletListFromRemoteUseCase getToiletListFromRemoteUseCase;
+  final GetKakaoKeyUseCase getKakaoKeyUseCase;
 
   final SaveToiletListUseCase saveToiletListUseCase;
   final _uiEventController = StreamController<ToiletListUiEvent>.broadcast();
@@ -18,7 +20,7 @@ class ToiletListViewModel extends StateNotifier<List<Toilet>> {
   Stream<ToiletListUiEvent> get uiEventStream => _uiEventController.stream;
 
   ToiletListViewModel(this.getToiletListLocalUseCase,
-      this.getToiletListFromRemoteUseCase, this.saveToiletListUseCase)
+      this.getToiletListFromRemoteUseCase, this.saveToiletListUseCase, this.getKakaoKeyUseCase)
       : super([]);
 
   int toiletListPage = 0;
@@ -58,5 +60,9 @@ class ToiletListViewModel extends StateNotifier<List<Toilet>> {
 
   Future saveToiletList(List<Toilet> toilets) async {
     await saveToiletListUseCase(toilets);
+  }
+
+  String getKakaoKey() {
+    return getKakaoKeyUseCase();
   }
 }
