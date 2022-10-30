@@ -4,4 +4,5 @@ abstract class ToiletDataRepository {
   Future getToiletListFromRemote(int page);
   Future getToiletListFromLocal();
   Future saveToiletList(List<Toilet> toiletsFromRemote);
+  String getKakaoMapKey();
 }

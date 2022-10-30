@@ -13,6 +13,7 @@ import 'package:toilet_area/presentation/text/view_model/text_view_model.dart';
 import 'package:toilet_area/presentation/toilet_list/view_model/toilet_list_view_model.dart';
 import 'package:toilet_area/presentation/toilet_list/widget/load_fail_widget.dart';
 import 'package:toilet_area/presentation/toilet_list/widget/loading_widget.dart';
+import 'package:toilet_area/presentation/toilet_list/widget/map_widget.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -101,7 +102,11 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
       body: FutureBuilder(
           future: Future.wait([fetchToiletFromLocal, fetchToiletFromRemote]),
           builder: (context, snapshot) {
-            return const Center();
+            return Column(
+              children: [
+                MapWidget(),
+              ],
+            );
           }),
     );
   }

@@ -46,4 +46,9 @@ class ToiletDataRepositoryImpl extends ToiletDataRepository {
     }
     return await toiletDbHelper!.saveToiletList(toiletsFromRemote);
   }
+
+  @override
+  String getKakaoMapKey() {
+    return remoteDataSource!.getKakaoMapKey();
+  }
 }

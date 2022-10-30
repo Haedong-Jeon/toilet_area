@@ -131,4 +131,9 @@ app.*.symbols
 
 
 #API keys
-/lib/data/source/toilet/remote/keys.dart
+/lib/data/keys.dart
+
+#android manifest
+/android/app/src/main/AndroidManifest.xml
+#iOS AppDelegate
+/ios/Runner/AppDelegate.swift
