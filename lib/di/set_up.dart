@@ -1,3 +1,4 @@
+import 'package:geolocator/geolocator.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:toilet_area/data/repository/toilet/toilet_data_repository_impl.dart';
@@ -62,8 +63,11 @@ Future setUpProviders() async {
     saveToiletListUseCase,
     getKakaoKeyUseCase,
   );
+  Position? pos = await getUserPositionUseCase();
+
   TextViewModel _textViewModel = TextViewModel(TextControl());
   UserViewModel _userViewModel = UserViewModel(getUserPositionUseCase,getPositionStreamUseCase);
+  _userViewModel.saveUserPosition(latitude: pos?.latitude ?? 140, longitude: pos?.longitude??140);
   toiletListViewModelProvider =
       StateNotifierProvider<ToiletListViewModel, List<Toilet>>(
           (ref) => _toiletListViewModel);
