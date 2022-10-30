@@ -9,8 +9,6 @@ import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 void main() {
   test("화장실 목록 받아오기", () async {
-
-
     GetToiletListFromRemoteUseCase getToiletListFromRemoteUseCase =
         GetToiletListFromRemoteUseCase(
       ToiletDataRepositoryImpl(
@@ -18,7 +16,7 @@ void main() {
         null,
       ),
     );
-    final response = await getToiletListFromRemoteUseCase(0);
-    expect(response.data["response"]["header"]["resultCode"], "0");
+    final result = await getToiletListFromRemoteUseCase(0);
+    expect(result.length, "0");
   });
 }
