@@ -22,6 +22,7 @@ User _$UserFromJson(Map<String, dynamic> json) {
 mixin _$User {
   double? get latitude => throw _privateConstructorUsedError;
   double? get longitude => throw _privateConstructorUsedError;
+  String? get lastAppOpenedAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -33,7 +34,7 @@ abstract class $UserCopyWith<$Res> {
   factory $UserCopyWith(User value, $Res Function(User) then) =
       _$UserCopyWithImpl<$Res, User>;
   @useResult
-  $Res call({double? latitude, double? longitude});
+  $Res call({double? latitude, double? longitude, String? lastAppOpenedAt});
 }
 
 /// @nodoc
@@ -51,6 +52,7 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
   $Res call({
     Object? latitude = freezed,
     Object? longitude = freezed,
+    Object? lastAppOpenedAt = freezed,
   }) {
     return _then(_value.copyWith(
       latitude: freezed == latitude
@@ -61,6 +63,10 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
           ? _value.longitude
           : longitude // ignore: cast_nullable_to_non_nullable
               as double?,
+      lastAppOpenedAt: freezed == lastAppOpenedAt
+          ? _value.lastAppOpenedAt
+          : lastAppOpenedAt // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -71,7 +77,7 @@ abstract class _$$_UserCopyWith<$Res> implements $UserCopyWith<$Res> {
       __$$_UserCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({double? latitude, double? longitude});
+  $Res call({double? latitude, double? longitude, String? lastAppOpenedAt});
 }
 
 /// @nodoc
@@ -85,6 +91,7 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
   $Res call({
     Object? latitude = freezed,
     Object? longitude = freezed,
+    Object? lastAppOpenedAt = freezed,
   }) {
     return _then(_$_User(
       latitude: freezed == latitude
@@ -95,6 +102,10 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
           ? _value.longitude
           : longitude // ignore: cast_nullable_to_non_nullable
               as double?,
+      lastAppOpenedAt: freezed == lastAppOpenedAt
+          ? _value.lastAppOpenedAt
+          : lastAppOpenedAt // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -102,7 +113,7 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
 /// @nodoc
 @JsonSerializable()
 class _$_User implements _User {
-  _$_User({this.latitude, this.longitude});
+  _$_User({this.latitude, this.longitude, this.lastAppOpenedAt});
 
   factory _$_User.fromJson(Map<String, dynamic> json) => _$$_UserFromJson(json);
 
@@ -110,10 +121,12 @@ class _$_User implements _User {
   final double? latitude;
   @override
   final double? longitude;
+  @override
+  final String? lastAppOpenedAt;
 
   @override
   String toString() {
-    return 'User(latitude: $latitude, longitude: $longitude)';
+    return 'User(latitude: $latitude, longitude: $longitude, lastAppOpenedAt: $lastAppOpenedAt)';
   }
 
   @override
@@ -124,12 +137,15 @@ class _$_User implements _User {
             (identical(other.latitude, latitude) ||
                 other.latitude == latitude) &&
             (identical(other.longitude, longitude) ||
-                other.longitude == longitude));
+                other.longitude == longitude) &&
+            (identical(other.lastAppOpenedAt, lastAppOpenedAt) ||
+                other.lastAppOpenedAt == lastAppOpenedAt));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, latitude, longitude);
+  int get hashCode =>
+      Object.hash(runtimeType, latitude, longitude, lastAppOpenedAt);
 
   @JsonKey(ignore: true)
   @override
@@ -146,7 +162,10 @@ class _$_User implements _User {
 }
 
 abstract class _User implements User {
-  factory _User({final double? latitude, final double? longitude}) = _$_User;
+  factory _User(
+      {final double? latitude,
+      final double? longitude,
+      final String? lastAppOpenedAt}) = _$_User;
 
   factory _User.fromJson(Map<String, dynamic> json) = _$_User.fromJson;
 
@@ -154,6 +173,8 @@ abstract class _User implements User {
   double? get latitude;
   @override
   double? get longitude;
+  @override
+  String? get lastAppOpenedAt;
   @override
   @JsonKey(ignore: true)
   _$$_UserCopyWith<_$_User> get copyWith => throw _privateConstructorUsedError;

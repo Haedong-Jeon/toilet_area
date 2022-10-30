@@ -1,3 +1,7 @@
+import 'package:toilet_area/domain/model/toilet/toilet.dart';
+
 abstract class ToiletDataRepository {
-  Future getToiletList();
+  Future getToiletListFromRemote();
+  Future getToiletListFromLocal();
+  Future saveToiletList(List<Toilet> toiletsFromRemote);
 }

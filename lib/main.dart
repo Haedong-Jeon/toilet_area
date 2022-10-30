@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:toilet_area/di/set_up.dart';
 
-void main() {
+void main()async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await setUp();
   runApp(const MyApp());
 }
 
