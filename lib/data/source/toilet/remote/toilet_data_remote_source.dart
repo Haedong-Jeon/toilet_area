@@ -7,6 +7,9 @@ class ToiletDataRemoteSource {
   final String _dataEndpoint =
       "http://api.data.go.kr/openapi/tn_pubr_public_toilet_api";
 
+  String getKakaoMapKey() {
+    return  APIKey().kakaoMapKey;
+  }
   Future<Response> getToiletListFromRemote(int page) async {
     try {
       final response = await Dio().get(_dataEndpoint, queryParameters: {
