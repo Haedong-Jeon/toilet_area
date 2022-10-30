@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:toilet_area/data/repository/toilet/toilet_data_repository_impl.dart';
@@ -17,7 +16,10 @@ Future setUp() async {
     onCreate: (db, version) async {
       await db.execute(
           "CREATE TABLE toilet (id INTEGER PRIMARY KEY AUTOINCREMENT, toiletType TEXT, toiletNm INTEGER, rdnmadr TEXT, lnmadr TEXT,menToiletBowlNumber INTEGER, menUrineNumber INTEGER, menHandicapToiletBowlNumber INTEGER, menHandicapUrinalNumber INTEGER, menChildrenToiletBowlNumber INTEGER, menChildrenUrinalNumber INTEGER, ladiesToiletBowlNumber INTEGER, ladiesHandicapToiletBowlNumber INTEGER, ladiesChildrenToiletBowlNumber INTEGER, institutionNm TEXT, phoneNumber TEXT, openTime TEXT, installationYear TEXT, latitude REAL, longitude REAL, toiletPossType TEXT, toiletPosiType TEXT, careSewerageType TEXT, emgBellYn TEXT, enterentCctvYn TINYINT, dipersExchgPosi TEXT, modYear TEXT, referenceDate TEXT, instt_code INTEGER)");
+      await db.execute(
+          "CREATE TABLE user (id INTEGER PRIMARY KEY AUTOINCREMENT, latitude REAL, longitude REAL, lastAppOpenedAt TEXT)");
     },
+
   );
   ToiletDbHelper toiletDbHelper = ToiletDbHelper(database);
   ToiletDataRepository toiletDataRepository = ToiletDataRepositoryImpl(
