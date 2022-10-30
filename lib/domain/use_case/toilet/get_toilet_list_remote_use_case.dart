@@ -5,7 +5,7 @@ class GetToiletListFromRemoteUseCase {
   final ToiletDataRepository repository;
   GetToiletListFromRemoteUseCase(this.repository);
 
-  Future<Response> call() async {
-    return await repository.getToiletListFromRemote();
+  Future<Response> call(int page) async {
+    return await repository.getToiletListFromRemote(page);
   }
 }
