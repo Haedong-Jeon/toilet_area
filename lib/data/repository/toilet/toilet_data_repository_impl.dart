@@ -11,12 +11,17 @@ class ToiletDataRepositoryImpl extends ToiletDataRepository {
   ToiletDataRepositoryImpl(this.remoteDataSource, this.toiletDbHelper);
 
   @override
-  Future<Response?> getToiletListFromRemote(int page) async {
+  Future<List<Toilet>> getToiletListFromRemote(int page) async {
+    List<Toilet> toilets =[];
     if (remoteDataSource == null) {
-      return null;
+      throw Error();
     }
     try {
       final response = await remoteDataSource!.getToiletListFromRemote(page);
+      response.data["data"]["toilet_list"].forEach((e){
+        toilets.add(Toilet.fromJson(e));
+      });
+      return toilets;
     } catch (e) {
       rethrow;
     }
