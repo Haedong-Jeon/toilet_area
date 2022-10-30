@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:geolocator/geolocator.dart';
 
@@ -25,8 +26,11 @@ class GeoLocator {
     }
   }
 
-  Future getUserPosition() async {
-    await Geolocator.getCurrentPosition();
+  Future<Position?> getUserPosition() async {
+    return await Geolocator.getCurrentPosition(
+      desiredAccuracy: LocationAccuracy.high,
+      timeLimit: Duration(seconds: 1),
+    );
   }
 
   Stream<Position> getPositionStream() {
