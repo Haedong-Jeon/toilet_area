@@ -14,6 +14,7 @@ class ToiletDbHelper {
     List<Toilet> localToiletList = await getToiletListFromLocal();
     for (Toilet element in toiletsFromRemote) {
       for (Toilet toilet in localToiletList) {
+        ///위도, 경도가 같다면 같은 화장실로 판단
         if (toilet.longitude == element.longitude && toilet.latitude == element.latitude) {
           await db.update('toilet', element.toJson(),
               where: "latitude = ? AND longitude = ?",
