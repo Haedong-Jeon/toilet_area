@@ -5,30 +5,43 @@ import 'package:toilet_area/domain/model/toilet/toilet.dart';
 import 'package:toilet_area/domain/repository/toilet/toilet_data_repository.dart';
 
 class ToiletDataRepositoryImpl extends ToiletDataRepository {
-   ToiletDataRemoteSource? remoteDataSource;
-   ToiletDbHelper? toiletDbHelper;
+  ToiletDataRemoteSource? remoteDataSource;
+  ToiletDbHelper? toiletDbHelper;
+
   ToiletDataRepositoryImpl(this.remoteDataSource, this.toiletDbHelper);
 
-
   @override
-  Future<Response?> getToiletListFromRemote(int page) async {
-    if(remoteDataSource == null) {
-      return null;
+  Future<List<Toilet>> getToiletListFromRemote(int page) async {
+    List<Toilet> toilets =[];
+    if (remoteDataSource == null) {
+      throw Error();
     }
-    return await remoteDataSource!.getToiletListFromRemote(page);
+    try {
+      final response = await remoteDataSource!.getToiletListFromRemote(page);
+      response.data["data"]["toilet_list"].forEach((e){
+        toilets.add(Toilet.fromJson(e));
+      });
+      return toilets;
+    } catch (e) {
+      rethrow;
+    }
   }
 
   @override
   Future getToiletListFromLocal() async {
-    if(toiletDbHelper == null) {
+    if (toiletDbHelper == null) {
       return;
     }
-    return await toiletDbHelper!.getToiletListFromLocal();
+    try {
+      return await toiletDbHelper!.getToiletListFromLocal();
+    } catch (e) {
+      rethrow;
+    }
   }
 
   @override
   Future saveToiletList(List<Toilet> toiletsFromRemote) async {
-    if(toiletDbHelper == null) {
+    if (toiletDbHelper == null) {
       return;
     }
     return await toiletDbHelper!.saveToiletList(toiletsFromRemote);
