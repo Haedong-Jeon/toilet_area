@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:developer';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:geolocator/geolocator.dart';
@@ -20,7 +21,14 @@ class MapWidget extends ConsumerStatefulWidget {
 class _MapWidgetState extends ConsumerState<MapWidget> {
   Completer<GoogleMapController> _controller = Completer();
   GoogleMapController? googleMapController;
+  late Future getPos;
   double userZoom = 16;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
 
   void setMapController() async {
     googleMapController = await _controller.future;
@@ -33,30 +41,30 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
         ref.watch(toiletListViewModelProvider.notifier);
     UserViewModel userViewModel = ref.watch(userViewModelProvider.notifier);
     setMapController();
-    return StreamBuilder<Position?>(
-        stream: userViewModel.getPositionStream(),
-        builder: (context, snapshot) {
-          double latitude = (snapshot.data?.latitude ?? -1);
-          double longitude = (snapshot.data?.longitude ?? -1);
+    log(
+      userViewModel.getUserLatitude().toString() +
+          "," +
+          userViewModel.getUserLongitude().toString(),
+    );
 
-          return SizedBox(
-            width: size.width,
-            height: size.height - 300,
-            child: GoogleMap(
-              myLocationEnabled: true,
-              zoomControlsEnabled: true,
-              zoomGesturesEnabled: true,
-              onMapCreated: (mapController) {
-                _controller.complete(mapController);
-              },
-              initialCameraPosition: CameraPosition(
-                target: LatLng(
-                  snapshot.data?.latitude ?? 0,
-                  snapshot.data?.longitude ?? 0,
-                ),
-              ),
-            ),
-          );
-        });
+    return SizedBox(
+      width: size.width,
+      height: size.height - 300,
+      child: GoogleMap(
+        myLocationEnabled: true,
+        zoomControlsEnabled: true,
+        zoomGesturesEnabled: true,
+        onMapCreated: (mapController) {
+          _controller.complete(mapController);
+        },
+        initialCameraPosition: CameraPosition(
+          zoom: 15,
+          target: LatLng(
+            userViewModel.getUserLatitude(),
+            userViewModel.getUserLongitude(),
+          ),
+        ),
+      ),
+    );
   }
 }
