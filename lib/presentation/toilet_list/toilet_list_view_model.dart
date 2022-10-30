@@ -15,12 +15,18 @@ class ToiletListViewModel extends StateNotifier<List<Toilet>> {
       this.getToiletListFromRemoteUseCase, this.saveToiletListUseCase)
       : super([]);
 
+  int toiletListPage = 0;
+
   ///원격으로 화장실 목록을 불러오는 함수. 공공 API 응답에 따라 리팩토링 필요
   Future<List<Toilet>> getToiletListFromRemote() async {
-    Response response = await getToiletListFromRemoteUseCase();
+    Response response = await getToiletListFromRemoteUseCase(toiletListPage);
     state = response.data["data"]["toilet_list"];
     saveToiletList(state);
     return state;
+  }
+  Future<List<Toilet>> loadMoreToiletFromRemote() async {
+    toiletListPage +=1;
+    return await getToiletListFromRemote();
   }
 
   Future<List<Toilet>> getToiletListLocal() async {
