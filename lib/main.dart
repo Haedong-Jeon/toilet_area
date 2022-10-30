@@ -1,12 +1,18 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toilet_area/di/set_up.dart';
 import 'package:toilet_area/domain/model/toilet/toilet.dart';
-import 'package:toilet_area/presentation/toilet_list/toilet_list_view_model.dart';
+import 'package:toilet_area/presentation/text/text_control.dart';
+import 'package:toilet_area/presentation/text/view_model/text_view_model.dart';
+import 'package:toilet_area/presentation/toilet_list/view_model/toilet_list_view_model.dart';
+import 'package:toilet_area/presentation/toilet_list/widget/load_fail_widget.dart';
+import 'package:toilet_area/presentation/toilet_list/widget/loading_widget.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -45,35 +51,45 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
 
   @override
   void initState() {
-    ToiletListViewModel viewModel =
+    ToiletListViewModel toiletListViewModel =
         ref.read(toiletListViewModelProvider.notifier);
-    viewModel.uiEventStream.listen((event) {
-      event.when(onLoading: () {
-        showDialog(
-            context: context,
-            barrierDismissible: false,
-            builder: (context) {
-              return const Dialog(
-                child: SizedBox(
-                  height: 300,
-                  width: 300,
-                  child: CupertinoActivityIndicator(
-                    color: Colors.indigo,
-                  ),
-                ),
-              );
-            });
-      }, onError: () {
-        Navigator.of(context).pop();
-        log("error!");
-      }, onSuccess: () {
-        Navigator.of(context).pop();
-        log("success!");
-      });
+
+    TextViewModel textViewModel = ref.read(textViewModelProvider.notifier);
+    textViewModel.setTexts();
+
+    toiletListViewModel.uiEventStream.listen((event) {
+      event.when(
+        onLoading: _onLoading,
+        onError: _onError,
+        onSuccess: _onSuccess,
+      );
     });
-    fetchToiletFromRemote = viewModel.getToiletListLocal();
-    fetchToiletFromLocal = viewModel.getToiletListFromRemote();
+    fetchToiletFromRemote = toiletListViewModel.getToiletListLocal();
+    fetchToiletFromLocal = toiletListViewModel.getToiletListFromRemote();
     super.initState();
+  }
+
+  void _onLoading() {
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) {
+          return const LoadingWidget();
+        });
+  }
+
+  void _onError(String error) {
+    Navigator.of(context).pop();
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) {
+          return LoadFailWidget(error: error);
+        });
+  }
+
+  void _onSuccess() {
+    Navigator.of(context).pop();
   }
 
   @override
@@ -85,9 +101,7 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
       body: FutureBuilder(
           future: Future.wait([fetchToiletFromLocal, fetchToiletFromRemote]),
           builder: (context, snapshot) {
-            return Center(
-              child: Text("${toiletList.length}개"),
-            );
+            return const Center();
           }),
     );
   }
