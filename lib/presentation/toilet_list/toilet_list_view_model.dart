@@ -27,8 +27,8 @@ class ToiletListViewModel extends StateNotifier<List<Toilet>> {
   Future<List<Toilet>> getToiletListFromRemote() async {
     _uiEventController.add(const ToiletListUiEvent.onLoading());
     try {
-      Response response = await getToiletListFromRemoteUseCase(toiletListPage);
-      state = [...state, response.data["data"]["toilet_list"]];
+      List<Toilet> results = await getToiletListFromRemoteUseCase(toiletListPage);
+      state = [...state, ...results];
       _uiEventController.add(const ToiletListUiEvent.onSuccess());
       saveToiletList(state);
     } catch (e) {
@@ -41,9 +41,16 @@ class ToiletListViewModel extends StateNotifier<List<Toilet>> {
     toiletListPage += 1;
     return await getToiletListFromRemote();
   }
+  Future<List<Toilet>> refreshToiletFromRemote() async {
+    toiletListPage = 0;
+    state = [];
+    return await getToiletListFromRemote();
+  }
 
   Future<List<Toilet>> getToiletListLocal() async {
+    _uiEventController.add(const ToiletListUiEvent.onLoading());
     List<Toilet> toilets = await getToiletListLocalUseCase();
+    _uiEventController.add(const ToiletListUiEvent.onSuccess());
     state = toilets;
     return state;
   }
