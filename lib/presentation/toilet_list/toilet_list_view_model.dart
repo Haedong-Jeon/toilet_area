@@ -19,6 +19,7 @@ class ToiletListViewModel extends StateNotifier<List<Toilet>> {
   Future<List<Toilet>> getToiletListFromRemote() async {
     Response response = await getToiletListFromRemoteUseCase();
     state = response.data["data"]["toilet_list"];
+    saveToiletList(state);
     return state;
   }
 
@@ -30,6 +31,5 @@ class ToiletListViewModel extends StateNotifier<List<Toilet>> {
 
   Future saveToiletList(List<Toilet> toilets) async {
     await saveToiletListUseCase(toilets);
-    await getToiletListLocal();
   }
 }
