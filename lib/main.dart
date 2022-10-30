@@ -85,7 +85,9 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
       body: FutureBuilder(
           future: Future.wait([fetchToiletFromLocal, fetchToiletFromRemote]),
           builder: (context, snapshot) {
-            return Container();
+            return Center(
+              child: Text("${toiletList.length}개"),
+            );
           }),
     );
   }
