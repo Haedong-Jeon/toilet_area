@@ -10,10 +10,16 @@ class UserViewModel extends StateNotifier<User> {
   GetUserPositionUseCase getUserPositionUseCase;
   GetPositionStreamUseCase getPositionStreamUseCase;
 
-  Future getUserPosition() async {
-    return await getUserPositionUseCase();
+  double getUserLongitude() {
+    return state.longitude??144;
+  }
+  double getUserLatitude() {
+    return state.latitude??144;
   }
   Stream<Position> getPositionStream() {
     return getPositionStreamUseCase();
+  }
+  void saveUserPosition({double? latitude, double? longitude}) {
+    state = state.copyWith(longitude: longitude, latitude: latitude);
   }
 }
