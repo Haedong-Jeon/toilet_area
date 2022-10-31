@@ -137,3 +137,4 @@ app.*.symbols
 /android/app/src/main/AndroidManifest.xml
 #iOS AppDelegate
 /ios/Runner/AppDelegate.swift
+/ios/Runner/info.plist
