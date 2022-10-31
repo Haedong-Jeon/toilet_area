@@ -1,5 +1,6 @@
 
 {
   "toiletListLoadingText": "화장실 목록을 불러오는 중입니다.",
-  "toiletListLoadFailText": "화장실 목록을 불러오는데 실패했습니다."
+  "toiletListLoadFailText": "화장실 목록을 불러오는데 실패했습니다.",
+  "findToiletInOneKilo": "1km 내 화장실을 탐색 중입니다."
 }
