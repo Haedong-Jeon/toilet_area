@@ -12,6 +12,7 @@ class TextControl with _$TextControl {
  factory TextControl({
    String? toiletListLoadFailText,
    String? toiletListLoadingText,
+   String? findToiletInOneKilo,
 }) =_TextControl;
   factory TextControl.fromJson(Map<String, dynamic> json) => _$TextControlFromJson(json);
 }

@@ -22,6 +22,7 @@ TextControl _$TextControlFromJson(Map<String, dynamic> json) {
 mixin _$TextControl {
   String? get toiletListLoadFailText => throw _privateConstructorUsedError;
   String? get toiletListLoadingText => throw _privateConstructorUsedError;
+  String? get findToiletInOneKilo => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -35,7 +36,10 @@ abstract class $TextControlCopyWith<$Res> {
           TextControl value, $Res Function(TextControl) then) =
       _$TextControlCopyWithImpl<$Res, TextControl>;
   @useResult
-  $Res call({String? toiletListLoadFailText, String? toiletListLoadingText});
+  $Res call(
+      {String? toiletListLoadFailText,
+      String? toiletListLoadingText,
+      String? findToiletInOneKilo});
 }
 
 /// @nodoc
@@ -53,6 +57,7 @@ class _$TextControlCopyWithImpl<$Res, $Val extends TextControl>
   $Res call({
     Object? toiletListLoadFailText = freezed,
     Object? toiletListLoadingText = freezed,
+    Object? findToiletInOneKilo = freezed,
   }) {
     return _then(_value.copyWith(
       toiletListLoadFailText: freezed == toiletListLoadFailText
@@ -62,6 +67,10 @@ class _$TextControlCopyWithImpl<$Res, $Val extends TextControl>
       toiletListLoadingText: freezed == toiletListLoadingText
           ? _value.toiletListLoadingText
           : toiletListLoadingText // ignore: cast_nullable_to_non_nullable
+              as String?,
+      findToiletInOneKilo: freezed == findToiletInOneKilo
+          ? _value.findToiletInOneKilo
+          : findToiletInOneKilo // ignore: cast_nullable_to_non_nullable
               as String?,
     ) as $Val);
   }
@@ -75,7 +84,10 @@ abstract class _$$_TextControlCopyWith<$Res>
       __$$_TextControlCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? toiletListLoadFailText, String? toiletListLoadingText});
+  $Res call(
+      {String? toiletListLoadFailText,
+      String? toiletListLoadingText,
+      String? findToiletInOneKilo});
 }
 
 /// @nodoc
@@ -91,6 +103,7 @@ class __$$_TextControlCopyWithImpl<$Res>
   $Res call({
     Object? toiletListLoadFailText = freezed,
     Object? toiletListLoadingText = freezed,
+    Object? findToiletInOneKilo = freezed,
   }) {
     return _then(_$_TextControl(
       toiletListLoadFailText: freezed == toiletListLoadFailText
@@ -101,6 +114,10 @@ class __$$_TextControlCopyWithImpl<$Res>
           ? _value.toiletListLoadingText
           : toiletListLoadingText // ignore: cast_nullable_to_non_nullable
               as String?,
+      findToiletInOneKilo: freezed == findToiletInOneKilo
+          ? _value.findToiletInOneKilo
+          : findToiletInOneKilo // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -108,7 +125,10 @@ class __$$_TextControlCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_TextControl implements _TextControl {
-  _$_TextControl({this.toiletListLoadFailText, this.toiletListLoadingText});
+  _$_TextControl(
+      {this.toiletListLoadFailText,
+      this.toiletListLoadingText,
+      this.findToiletInOneKilo});
 
   factory _$_TextControl.fromJson(Map<String, dynamic> json) =>
       _$$_TextControlFromJson(json);
@@ -117,10 +137,12 @@ class _$_TextControl implements _TextControl {
   final String? toiletListLoadFailText;
   @override
   final String? toiletListLoadingText;
+  @override
+  final String? findToiletInOneKilo;
 
   @override
   String toString() {
-    return 'TextControl(toiletListLoadFailText: $toiletListLoadFailText, toiletListLoadingText: $toiletListLoadingText)';
+    return 'TextControl(toiletListLoadFailText: $toiletListLoadFailText, toiletListLoadingText: $toiletListLoadingText, findToiletInOneKilo: $findToiletInOneKilo)';
   }
 
   @override
@@ -131,13 +153,15 @@ class _$_TextControl implements _TextControl {
             (identical(other.toiletListLoadFailText, toiletListLoadFailText) ||
                 other.toiletListLoadFailText == toiletListLoadFailText) &&
             (identical(other.toiletListLoadingText, toiletListLoadingText) ||
-                other.toiletListLoadingText == toiletListLoadingText));
+                other.toiletListLoadingText == toiletListLoadingText) &&
+            (identical(other.findToiletInOneKilo, findToiletInOneKilo) ||
+                other.findToiletInOneKilo == findToiletInOneKilo));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, toiletListLoadFailText, toiletListLoadingText);
+  int get hashCode => Object.hash(runtimeType, toiletListLoadFailText,
+      toiletListLoadingText, findToiletInOneKilo);
 
   @JsonKey(ignore: true)
   @override
@@ -156,7 +180,8 @@ class _$_TextControl implements _TextControl {
 abstract class _TextControl implements TextControl {
   factory _TextControl(
       {final String? toiletListLoadFailText,
-      final String? toiletListLoadingText}) = _$_TextControl;
+      final String? toiletListLoadingText,
+      final String? findToiletInOneKilo}) = _$_TextControl;
 
   factory _TextControl.fromJson(Map<String, dynamic> json) =
       _$_TextControl.fromJson;
@@ -165,6 +190,8 @@ abstract class _TextControl implements TextControl {
   String? get toiletListLoadFailText;
   @override
   String? get toiletListLoadingText;
+  @override
+  String? get findToiletInOneKilo;
   @override
   @JsonKey(ignore: true)
   _$$_TextControlCopyWith<_$_TextControl> get copyWith =>

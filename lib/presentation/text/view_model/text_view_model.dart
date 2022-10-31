@@ -18,5 +18,8 @@ class TextViewModel extends StateNotifier<TextControl> {
   String toiletListLoadFailText() {
     return state.toiletListLoadFailText ?? "";
   }
+  String findToiletInOneKilo() {
+    return state.findToiletInOneKilo ?? "";
+  }
 }
 
