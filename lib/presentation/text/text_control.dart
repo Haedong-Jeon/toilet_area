@@ -4,6 +4,7 @@
 // }
 
 import 'package:freezed_annotation/freezed_annotation.dart';
+
 part 'text_control.freezed.dart';
 part 'text_control.g.dart';
 
