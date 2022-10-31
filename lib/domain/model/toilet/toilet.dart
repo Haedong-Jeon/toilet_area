@@ -1,7 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'toilet.freezed.dart';
-
 part 'toilet.g.dart';
 
 @freezed

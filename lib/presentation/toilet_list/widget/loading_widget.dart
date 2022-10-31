@@ -1,11 +1,8 @@
-import 'dart:convert';
-import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lottie/lottie.dart';
-import 'package:toilet_area/di/set_up.dart';
+import 'package:toilet_area/di/text/text_setup.dart';
 
 class LoadingWidget extends ConsumerStatefulWidget {
   const LoadingWidget({Key? key}) : super(key: key);

@@ -1,14 +1,12 @@
 import 'dart:async';
-import 'dart:convert';
-import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toilet_area/di/set_up.dart';
+import 'package:toilet_area/di/text/text_setup.dart';
+import 'package:toilet_area/di/toilet/toilet_setup.dart';
 import 'package:toilet_area/domain/model/toilet/toilet.dart';
-import 'package:toilet_area/presentation/text/text_control.dart';
 import 'package:toilet_area/presentation/text/view_model/text_view_model.dart';
 import 'package:toilet_area/presentation/toilet_list/view_model/toilet_list_view_model.dart';
 import 'package:toilet_area/presentation/toilet_list/widget/load_fail_widget.dart';
@@ -103,8 +101,8 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
           future: Future.wait([fetchToiletFromLocal, fetchToiletFromRemote]),
           builder: (context, snapshot) {
             return Column(
-              children: [
-                MapWidget(),
+              children: const [
+                Expanded(child: MapWidget()),
               ],
             );
           }),
