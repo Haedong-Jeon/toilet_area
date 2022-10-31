@@ -66,6 +66,7 @@ Future setUpProviders() async {
   Position? pos = await getUserPositionUseCase();
 
   TextViewModel _textViewModel = TextViewModel(TextControl());
+  await _textViewModel.setTexts();
   UserViewModel _userViewModel = UserViewModel(getUserPositionUseCase,getPositionStreamUseCase);
   _userViewModel.saveUserPosition(latitude: pos?.latitude ?? 140, longitude: pos?.longitude??140);
   toiletListViewModelProvider =
