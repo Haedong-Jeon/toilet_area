@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:toilet_area/data/source/toilet/local/toilet_db_helper.dart';
 import 'package:toilet_area/data/source/toilet/remote/toilet_data_remote_source.dart';
 import 'package:toilet_area/domain/model/toilet/toilet.dart';

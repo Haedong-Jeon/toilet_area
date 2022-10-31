@@ -1,6 +1,5 @@
 import 'package:toilet_area/domain/model/toilet/toilet.dart';
 import 'package:toilet_area/domain/repository/toilet/toilet_data_repository.dart';
-import 'package:dio/dio.dart';
 
 class GetToiletListFromRemoteUseCase {
   final ToiletDataRepository repository;
