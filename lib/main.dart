@@ -103,8 +103,8 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
           future: Future.wait([fetchToiletFromLocal, fetchToiletFromRemote]),
           builder: (context, snapshot) {
             return Column(
-              children: [
-                MapWidget(),
+              children: const [
+                Expanded(child: MapWidget()),
               ],
             );
           }),
