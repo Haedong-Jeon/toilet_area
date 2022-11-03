@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:toilet_area/data/source/toilet/local/toilet_db_helper.dart';
 import 'package:toilet_area/data/source/toilet/remote/toilet_data_remote_source.dart';
 import 'package:toilet_area/domain/model/toilet/toilet.dart';
@@ -11,14 +12,24 @@ class ToiletDataRepositoryImpl extends ToiletDataRepository {
 
   @override
   Future<List<Toilet>> getToiletListFromRemote(int page) async {
-    List<Toilet> toilets =[];
+    List<Toilet> toilets = [];
     if (remoteDataSource == null) {
       throw Error();
     }
     try {
       final response = await remoteDataSource!.getToiletListFromRemote(page);
-      response.data["data"]["toilet_list"].forEach((e){
-        toilets.add(Toilet.fromJson(e));
+      response.data["response"]["body"]["items"].forEach((e) {
+        try {
+          Toilet toilet = Toilet.fromJson(e);
+          toilets.add(toilet);
+        } catch (e) {
+          throw DioError(
+              requestOptions: RequestOptions(
+                path: "myapp",
+              ),
+              type: DioErrorType.response,
+              error: {"toilet instantiate fail"});
+        }
       });
       return toilets;
     } catch (e) {

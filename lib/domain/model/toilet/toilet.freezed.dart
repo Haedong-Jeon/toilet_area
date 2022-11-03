@@ -21,33 +21,35 @@ Toilet _$ToiletFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Toilet {
   String? get toiletType => throw _privateConstructorUsedError;
-  int? get toiletNm => throw _privateConstructorUsedError;
+  String? get toiletNm => throw _privateConstructorUsedError;
   String? get rdnmadr => throw _privateConstructorUsedError;
   String? get lnmadr => throw _privateConstructorUsedError;
-  int? get menToiletBowlNumber => throw _privateConstructorUsedError;
-  int? get menUrineNumber => throw _privateConstructorUsedError;
-  int? get menHandicapToiletBowlNumber => throw _privateConstructorUsedError;
-  int? get menHandicapUrinalNumber => throw _privateConstructorUsedError;
-  int? get menChildrenToiletBowlNumber => throw _privateConstructorUsedError;
-  int? get menChildrenUrinalNumber => throw _privateConstructorUsedError;
-  int? get ladiesToiletBowlNumber => throw _privateConstructorUsedError;
-  int? get ladiesHandicapToiletBowlNumber => throw _privateConstructorUsedError;
-  int? get ladiesChildrenToiletBowlNumber => throw _privateConstructorUsedError;
+  String? get menToiletBowlNumber => throw _privateConstructorUsedError;
+  String? get menUrineNumber => throw _privateConstructorUsedError;
+  String? get menHandicapToiletBowlNumber => throw _privateConstructorUsedError;
+  String? get menHandicapUrinalNumber => throw _privateConstructorUsedError;
+  String? get menChildrenToiletBowlNumber => throw _privateConstructorUsedError;
+  String? get menChildrenUrinalNumber => throw _privateConstructorUsedError;
+  String? get ladiesToiletBowlNumber => throw _privateConstructorUsedError;
+  String? get ladiesHandicapToiletBowlNumber =>
+      throw _privateConstructorUsedError;
+  String? get ladiesChildrenToiletBowlNumber =>
+      throw _privateConstructorUsedError;
   String? get institutionNm => throw _privateConstructorUsedError;
   String? get phoneNumber => throw _privateConstructorUsedError;
   String? get openTime => throw _privateConstructorUsedError;
   String? get installationYear => throw _privateConstructorUsedError;
-  double? get latitude => throw _privateConstructorUsedError;
-  double? get longitude => throw _privateConstructorUsedError;
+  String? get latitude => throw _privateConstructorUsedError;
+  String? get longitude => throw _privateConstructorUsedError;
   String? get toiletPossType => throw _privateConstructorUsedError;
   String? get toiletPosiType => throw _privateConstructorUsedError;
   String? get careSewerageType => throw _privateConstructorUsedError;
   String? get emgBellYn => throw _privateConstructorUsedError;
-  bool? get enterentCctvYn => throw _privateConstructorUsedError;
+  String? get enterentCctvYn => throw _privateConstructorUsedError;
   String? get dipersExchgPosi => throw _privateConstructorUsedError;
   String? get modYear => throw _privateConstructorUsedError;
   String? get referenceDate => throw _privateConstructorUsedError;
-  int? get instt_code => throw _privateConstructorUsedError;
+  String? get instt_code => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -61,33 +63,33 @@ abstract class $ToiletCopyWith<$Res> {
   @useResult
   $Res call(
       {String? toiletType,
-      int? toiletNm,
+      String? toiletNm,
       String? rdnmadr,
       String? lnmadr,
-      int? menToiletBowlNumber,
-      int? menUrineNumber,
-      int? menHandicapToiletBowlNumber,
-      int? menHandicapUrinalNumber,
-      int? menChildrenToiletBowlNumber,
-      int? menChildrenUrinalNumber,
-      int? ladiesToiletBowlNumber,
-      int? ladiesHandicapToiletBowlNumber,
-      int? ladiesChildrenToiletBowlNumber,
+      String? menToiletBowlNumber,
+      String? menUrineNumber,
+      String? menHandicapToiletBowlNumber,
+      String? menHandicapUrinalNumber,
+      String? menChildrenToiletBowlNumber,
+      String? menChildrenUrinalNumber,
+      String? ladiesToiletBowlNumber,
+      String? ladiesHandicapToiletBowlNumber,
+      String? ladiesChildrenToiletBowlNumber,
       String? institutionNm,
       String? phoneNumber,
       String? openTime,
       String? installationYear,
-      double? latitude,
-      double? longitude,
+      String? latitude,
+      String? longitude,
       String? toiletPossType,
       String? toiletPosiType,
       String? careSewerageType,
       String? emgBellYn,
-      bool? enterentCctvYn,
+      String? enterentCctvYn,
       String? dipersExchgPosi,
       String? modYear,
       String? referenceDate,
-      int? instt_code});
+      String? instt_code});
 }
 
 /// @nodoc
@@ -140,7 +142,7 @@ class _$ToiletCopyWithImpl<$Res, $Val extends Toilet>
       toiletNm: freezed == toiletNm
           ? _value.toiletNm
           : toiletNm // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       rdnmadr: freezed == rdnmadr
           ? _value.rdnmadr
           : rdnmadr // ignore: cast_nullable_to_non_nullable
@@ -152,39 +154,39 @@ class _$ToiletCopyWithImpl<$Res, $Val extends Toilet>
       menToiletBowlNumber: freezed == menToiletBowlNumber
           ? _value.menToiletBowlNumber
           : menToiletBowlNumber // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       menUrineNumber: freezed == menUrineNumber
           ? _value.menUrineNumber
           : menUrineNumber // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       menHandicapToiletBowlNumber: freezed == menHandicapToiletBowlNumber
           ? _value.menHandicapToiletBowlNumber
           : menHandicapToiletBowlNumber // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       menHandicapUrinalNumber: freezed == menHandicapUrinalNumber
           ? _value.menHandicapUrinalNumber
           : menHandicapUrinalNumber // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       menChildrenToiletBowlNumber: freezed == menChildrenToiletBowlNumber
           ? _value.menChildrenToiletBowlNumber
           : menChildrenToiletBowlNumber // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       menChildrenUrinalNumber: freezed == menChildrenUrinalNumber
           ? _value.menChildrenUrinalNumber
           : menChildrenUrinalNumber // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       ladiesToiletBowlNumber: freezed == ladiesToiletBowlNumber
           ? _value.ladiesToiletBowlNumber
           : ladiesToiletBowlNumber // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       ladiesHandicapToiletBowlNumber: freezed == ladiesHandicapToiletBowlNumber
           ? _value.ladiesHandicapToiletBowlNumber
           : ladiesHandicapToiletBowlNumber // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       ladiesChildrenToiletBowlNumber: freezed == ladiesChildrenToiletBowlNumber
           ? _value.ladiesChildrenToiletBowlNumber
           : ladiesChildrenToiletBowlNumber // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       institutionNm: freezed == institutionNm
           ? _value.institutionNm
           : institutionNm // ignore: cast_nullable_to_non_nullable
@@ -204,11 +206,11 @@ class _$ToiletCopyWithImpl<$Res, $Val extends Toilet>
       latitude: freezed == latitude
           ? _value.latitude
           : latitude // ignore: cast_nullable_to_non_nullable
-              as double?,
+              as String?,
       longitude: freezed == longitude
           ? _value.longitude
           : longitude // ignore: cast_nullable_to_non_nullable
-              as double?,
+              as String?,
       toiletPossType: freezed == toiletPossType
           ? _value.toiletPossType
           : toiletPossType // ignore: cast_nullable_to_non_nullable
@@ -228,7 +230,7 @@ class _$ToiletCopyWithImpl<$Res, $Val extends Toilet>
       enterentCctvYn: freezed == enterentCctvYn
           ? _value.enterentCctvYn
           : enterentCctvYn // ignore: cast_nullable_to_non_nullable
-              as bool?,
+              as String?,
       dipersExchgPosi: freezed == dipersExchgPosi
           ? _value.dipersExchgPosi
           : dipersExchgPosi // ignore: cast_nullable_to_non_nullable
@@ -244,7 +246,7 @@ class _$ToiletCopyWithImpl<$Res, $Val extends Toilet>
       instt_code: freezed == instt_code
           ? _value.instt_code
           : instt_code // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
     ) as $Val);
   }
 }
@@ -257,33 +259,33 @@ abstract class _$$_ToiletCopyWith<$Res> implements $ToiletCopyWith<$Res> {
   @useResult
   $Res call(
       {String? toiletType,
-      int? toiletNm,
+      String? toiletNm,
       String? rdnmadr,
       String? lnmadr,
-      int? menToiletBowlNumber,
-      int? menUrineNumber,
-      int? menHandicapToiletBowlNumber,
-      int? menHandicapUrinalNumber,
-      int? menChildrenToiletBowlNumber,
-      int? menChildrenUrinalNumber,
-      int? ladiesToiletBowlNumber,
-      int? ladiesHandicapToiletBowlNumber,
-      int? ladiesChildrenToiletBowlNumber,
+      String? menToiletBowlNumber,
+      String? menUrineNumber,
+      String? menHandicapToiletBowlNumber,
+      String? menHandicapUrinalNumber,
+      String? menChildrenToiletBowlNumber,
+      String? menChildrenUrinalNumber,
+      String? ladiesToiletBowlNumber,
+      String? ladiesHandicapToiletBowlNumber,
+      String? ladiesChildrenToiletBowlNumber,
       String? institutionNm,
       String? phoneNumber,
       String? openTime,
       String? installationYear,
-      double? latitude,
-      double? longitude,
+      String? latitude,
+      String? longitude,
       String? toiletPossType,
       String? toiletPosiType,
       String? careSewerageType,
       String? emgBellYn,
-      bool? enterentCctvYn,
+      String? enterentCctvYn,
       String? dipersExchgPosi,
       String? modYear,
       String? referenceDate,
-      int? instt_code});
+      String? instt_code});
 }
 
 /// @nodoc
@@ -333,7 +335,7 @@ class __$$_ToiletCopyWithImpl<$Res>
       toiletNm: freezed == toiletNm
           ? _value.toiletNm
           : toiletNm // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       rdnmadr: freezed == rdnmadr
           ? _value.rdnmadr
           : rdnmadr // ignore: cast_nullable_to_non_nullable
@@ -345,39 +347,39 @@ class __$$_ToiletCopyWithImpl<$Res>
       menToiletBowlNumber: freezed == menToiletBowlNumber
           ? _value.menToiletBowlNumber
           : menToiletBowlNumber // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       menUrineNumber: freezed == menUrineNumber
           ? _value.menUrineNumber
           : menUrineNumber // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       menHandicapToiletBowlNumber: freezed == menHandicapToiletBowlNumber
           ? _value.menHandicapToiletBowlNumber
           : menHandicapToiletBowlNumber // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       menHandicapUrinalNumber: freezed == menHandicapUrinalNumber
           ? _value.menHandicapUrinalNumber
           : menHandicapUrinalNumber // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       menChildrenToiletBowlNumber: freezed == menChildrenToiletBowlNumber
           ? _value.menChildrenToiletBowlNumber
           : menChildrenToiletBowlNumber // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       menChildrenUrinalNumber: freezed == menChildrenUrinalNumber
           ? _value.menChildrenUrinalNumber
           : menChildrenUrinalNumber // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       ladiesToiletBowlNumber: freezed == ladiesToiletBowlNumber
           ? _value.ladiesToiletBowlNumber
           : ladiesToiletBowlNumber // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       ladiesHandicapToiletBowlNumber: freezed == ladiesHandicapToiletBowlNumber
           ? _value.ladiesHandicapToiletBowlNumber
           : ladiesHandicapToiletBowlNumber // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       ladiesChildrenToiletBowlNumber: freezed == ladiesChildrenToiletBowlNumber
           ? _value.ladiesChildrenToiletBowlNumber
           : ladiesChildrenToiletBowlNumber // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       institutionNm: freezed == institutionNm
           ? _value.institutionNm
           : institutionNm // ignore: cast_nullable_to_non_nullable
@@ -397,11 +399,11 @@ class __$$_ToiletCopyWithImpl<$Res>
       latitude: freezed == latitude
           ? _value.latitude
           : latitude // ignore: cast_nullable_to_non_nullable
-              as double?,
+              as String?,
       longitude: freezed == longitude
           ? _value.longitude
           : longitude // ignore: cast_nullable_to_non_nullable
-              as double?,
+              as String?,
       toiletPossType: freezed == toiletPossType
           ? _value.toiletPossType
           : toiletPossType // ignore: cast_nullable_to_non_nullable
@@ -421,7 +423,7 @@ class __$$_ToiletCopyWithImpl<$Res>
       enterentCctvYn: freezed == enterentCctvYn
           ? _value.enterentCctvYn
           : enterentCctvYn // ignore: cast_nullable_to_non_nullable
-              as bool?,
+              as String?,
       dipersExchgPosi: freezed == dipersExchgPosi
           ? _value.dipersExchgPosi
           : dipersExchgPosi // ignore: cast_nullable_to_non_nullable
@@ -437,7 +439,7 @@ class __$$_ToiletCopyWithImpl<$Res>
       instt_code: freezed == instt_code
           ? _value.instt_code
           : instt_code // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
     ));
   }
 }
@@ -481,29 +483,29 @@ class _$_Toilet implements _Toilet {
   @override
   final String? toiletType;
   @override
-  final int? toiletNm;
+  final String? toiletNm;
   @override
   final String? rdnmadr;
   @override
   final String? lnmadr;
   @override
-  final int? menToiletBowlNumber;
+  final String? menToiletBowlNumber;
   @override
-  final int? menUrineNumber;
+  final String? menUrineNumber;
   @override
-  final int? menHandicapToiletBowlNumber;
+  final String? menHandicapToiletBowlNumber;
   @override
-  final int? menHandicapUrinalNumber;
+  final String? menHandicapUrinalNumber;
   @override
-  final int? menChildrenToiletBowlNumber;
+  final String? menChildrenToiletBowlNumber;
   @override
-  final int? menChildrenUrinalNumber;
+  final String? menChildrenUrinalNumber;
   @override
-  final int? ladiesToiletBowlNumber;
+  final String? ladiesToiletBowlNumber;
   @override
-  final int? ladiesHandicapToiletBowlNumber;
+  final String? ladiesHandicapToiletBowlNumber;
   @override
-  final int? ladiesChildrenToiletBowlNumber;
+  final String? ladiesChildrenToiletBowlNumber;
   @override
   final String? institutionNm;
   @override
@@ -513,9 +515,9 @@ class _$_Toilet implements _Toilet {
   @override
   final String? installationYear;
   @override
-  final double? latitude;
+  final String? latitude;
   @override
-  final double? longitude;
+  final String? longitude;
   @override
   final String? toiletPossType;
   @override
@@ -525,7 +527,7 @@ class _$_Toilet implements _Toilet {
   @override
   final String? emgBellYn;
   @override
-  final bool? enterentCctvYn;
+  final String? enterentCctvYn;
   @override
   final String? dipersExchgPosi;
   @override
@@ -533,7 +535,7 @@ class _$_Toilet implements _Toilet {
   @override
   final String? referenceDate;
   @override
-  final int? instt_code;
+  final String? instt_code;
 
   @override
   String toString() {
@@ -651,62 +653,62 @@ class _$_Toilet implements _Toilet {
 abstract class _Toilet implements Toilet {
   factory _Toilet(
       {final String? toiletType,
-      final int? toiletNm,
+      final String? toiletNm,
       final String? rdnmadr,
       final String? lnmadr,
-      final int? menToiletBowlNumber,
-      final int? menUrineNumber,
-      final int? menHandicapToiletBowlNumber,
-      final int? menHandicapUrinalNumber,
-      final int? menChildrenToiletBowlNumber,
-      final int? menChildrenUrinalNumber,
-      final int? ladiesToiletBowlNumber,
-      final int? ladiesHandicapToiletBowlNumber,
-      final int? ladiesChildrenToiletBowlNumber,
+      final String? menToiletBowlNumber,
+      final String? menUrineNumber,
+      final String? menHandicapToiletBowlNumber,
+      final String? menHandicapUrinalNumber,
+      final String? menChildrenToiletBowlNumber,
+      final String? menChildrenUrinalNumber,
+      final String? ladiesToiletBowlNumber,
+      final String? ladiesHandicapToiletBowlNumber,
+      final String? ladiesChildrenToiletBowlNumber,
       final String? institutionNm,
       final String? phoneNumber,
       final String? openTime,
       final String? installationYear,
-      final double? latitude,
-      final double? longitude,
+      final String? latitude,
+      final String? longitude,
       final String? toiletPossType,
       final String? toiletPosiType,
       final String? careSewerageType,
       final String? emgBellYn,
-      final bool? enterentCctvYn,
+      final String? enterentCctvYn,
       final String? dipersExchgPosi,
       final String? modYear,
       final String? referenceDate,
-      final int? instt_code}) = _$_Toilet;
+      final String? instt_code}) = _$_Toilet;
 
   factory _Toilet.fromJson(Map<String, dynamic> json) = _$_Toilet.fromJson;
 
   @override
   String? get toiletType;
   @override
-  int? get toiletNm;
+  String? get toiletNm;
   @override
   String? get rdnmadr;
   @override
   String? get lnmadr;
   @override
-  int? get menToiletBowlNumber;
+  String? get menToiletBowlNumber;
   @override
-  int? get menUrineNumber;
+  String? get menUrineNumber;
   @override
-  int? get menHandicapToiletBowlNumber;
+  String? get menHandicapToiletBowlNumber;
   @override
-  int? get menHandicapUrinalNumber;
+  String? get menHandicapUrinalNumber;
   @override
-  int? get menChildrenToiletBowlNumber;
+  String? get menChildrenToiletBowlNumber;
   @override
-  int? get menChildrenUrinalNumber;
+  String? get menChildrenUrinalNumber;
   @override
-  int? get ladiesToiletBowlNumber;
+  String? get ladiesToiletBowlNumber;
   @override
-  int? get ladiesHandicapToiletBowlNumber;
+  String? get ladiesHandicapToiletBowlNumber;
   @override
-  int? get ladiesChildrenToiletBowlNumber;
+  String? get ladiesChildrenToiletBowlNumber;
   @override
   String? get institutionNm;
   @override
@@ -716,9 +718,9 @@ abstract class _Toilet implements Toilet {
   @override
   String? get installationYear;
   @override
-  double? get latitude;
+  String? get latitude;
   @override
-  double? get longitude;
+  String? get longitude;
   @override
   String? get toiletPossType;
   @override
@@ -728,7 +730,7 @@ abstract class _Toilet implements Toilet {
   @override
   String? get emgBellYn;
   @override
-  bool? get enterentCctvYn;
+  String? get enterentCctvYn;
   @override
   String? get dipersExchgPosi;
   @override
@@ -736,7 +738,7 @@ abstract class _Toilet implements Toilet {
   @override
   String? get referenceDate;
   @override
-  int? get instt_code;
+  String? get instt_code;
   @override
   @JsonKey(ignore: true)
   _$$_ToiletCopyWith<_$_Toilet> get copyWith =>
