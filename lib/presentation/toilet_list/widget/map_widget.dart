@@ -26,6 +26,7 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
   late Future getPos;
   late BannerAd adBanner;
   double userZoom = 16;
+  BitmapDescriptor userMarker = BitmapDescriptor.defaultMarker;
 
   @override
   void initState() {
@@ -36,11 +37,31 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
       listener: AdManagerBannerAdListener(),
       request: const AdRequest(),
     )..load();
+
+    ref
+        .read(userViewModelProvider.notifier)
+        .getPositionStreamUseCase()
+        .listen((position) {
+      ref.read(userViewModelProvider.notifier).saveUserPosition(
+            latitude: position.latitude,
+            longitude: position.longitude,
+          );
+    });
     super.initState();
   }
 
   void setMapController() async {
     googleMapController = await _controller.future;
+  }
+
+  void makeUserMarker() {
+    BitmapDescriptor.fromAssetImage(
+            ImageConfiguration.empty, "assets/images/crying.png")
+        .then((icon) {
+      setState(() {
+        userMarker = icon;
+      });
+    });
   }
 
   @override
@@ -62,11 +83,29 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
                   SizedBox(
                     width: size.width,
                     child: GoogleMap(
+                      markers: {
+                        Marker(
+                          markerId: const MarkerId("me"),
+                          icon: userMarker,
+                          position: LatLng(
+                            userViewModel.getUserLatitude(),
+                            userViewModel.getUserLongitude(),
+                          ),
+                        ),
+                        Marker(
+                          markerId: const MarkerId("you"),
+                          position: LatLng(
+                            userViewModel.getUserLatitude() + 1,
+                            userViewModel.getUserLongitude() + 5,
+                          ),
+                        ),
+                      },
                       myLocationEnabled: true,
                       zoomControlsEnabled: true,
                       zoomGesturesEnabled: true,
                       onMapCreated: (mapController) {
                         _controller.complete(mapController);
+                        makeUserMarker();
                       },
                       initialCameraPosition: CameraPosition(
                         zoom: 16.5,
@@ -127,7 +166,7 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
             Align(
               alignment: Alignment.bottomCenter,
               child: SizedBox(
-                height:50,
+                height: 50,
                 child: AdWidget(
                   ad: adBanner,
                 ),
