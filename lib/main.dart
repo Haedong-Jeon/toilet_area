@@ -63,8 +63,8 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
         onSuccess: _onSuccess,
       );
     });
-    fetchToiletFromRemote = toiletListViewModel.getToiletListLocal();
-    fetchToiletFromLocal = toiletListViewModel.getToiletListFromRemote();
+    toiletListViewModel.getToiletListLocal();
+    toiletListViewModel.getToiletListFromRemote();
     super.initState();
   }
 
@@ -79,12 +79,16 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
 
   void _onError(String error) {
     Navigator.of(context).pop();
-    showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (context) {
-          return LoadFailWidget(error: error);
-        });
+    //로딩 팝업 후 바로 에러 팝업을 띄우면 화면이 깜빡이는 것처럼 느껴져
+    //에러 팝업은 로딩 팝업 닫고 1초 뒤에 보이도록
+    Future.delayed(const Duration(seconds: 1)).then((_) {
+      showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (context) {
+            return LoadFailWidget(error: error);
+          });
+    });
   }
 
   void _onSuccess() {
@@ -93,19 +97,13 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    List<Toilet> toiletList = ref.watch(toiletListViewModelProvider);
-    ToiletListViewModel toiletListViewModel =
-        ref.watch(toiletListViewModelProvider.notifier);
+
     return Scaffold(
-      body: FutureBuilder(
-          future: Future.wait([fetchToiletFromLocal, fetchToiletFromRemote]),
-          builder: (context, snapshot) {
-            return Column(
-              children: const [
-                Expanded(child: MapWidget()),
-              ],
-            );
-          }),
+      body: Column(
+        children: const [
+          Expanded(child: MapWidget()),
+        ],
+      ),
     );
   }
 }
