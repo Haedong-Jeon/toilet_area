@@ -1,6 +1,8 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
+import 'package:http/http.dart' as http;
 import 'package:toilet_area/data/keys.dart';
 
 class ToiletDataRemoteSource {
@@ -8,11 +10,13 @@ class ToiletDataRemoteSource {
       "http://api.data.go.kr/openapi/tn_pubr_public_toilet_api";
 
   String getKakaoMapKey() {
-    return  APIKey().kakaoMapKey;
+    return APIKey().kakaoMapKey;
   }
+
   String getGoogleKey() {
     return APIKey().googleMapKey;
   }
+
   Future<Response> getToiletListFromRemote(int page) async {
     try {
       final response = await Dio().get(_dataEndpoint, queryParameters: {
@@ -21,7 +25,8 @@ class ToiletDataRemoteSource {
         "numOfRows": 100,
         "pageNo": page,
       });
-      if (response.data["response"]["header"]["resultCode"] != "0") {
+      log(jsonEncode(response.data));
+      if (response.data["response"]["header"]["resultCode"] != "00") {
         throw DioError(
             requestOptions: RequestOptions(path: _dataEndpoint),
             type: DioErrorType.response,
