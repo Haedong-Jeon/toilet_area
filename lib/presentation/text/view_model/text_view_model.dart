@@ -12,14 +12,20 @@ class TextViewModel extends StateNotifier<TextControl> {
         jsonDecode(await rootBundle.loadString("assets/text/text.json"));
     state = TextControl.fromJson(textJson);
   }
+
   String toiletListLoadingText() {
     return state.toiletListLoadingText ?? "";
   }
+
   String toiletListLoadFailText() {
     return state.toiletListLoadFailText ?? "";
   }
+
   String findToiletInOneKilo() {
     return state.findToiletInOneKilo ?? "";
   }
-}
 
+  String toiletListLoadSuccessText() {
+    return state.toiletListLoadSuccessText ?? "";
+  }
+}
