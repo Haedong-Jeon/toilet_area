@@ -79,6 +79,7 @@ flutter:
   assets:
    - assets/lotties/
    - assets/text/
+   - assets/local_data/
    - assets/style/
    - assets/images/
 
