@@ -54,16 +54,6 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
     googleMapController = await _controller.future;
   }
 
-  void makeUserMarker() {
-    BitmapDescriptor.fromAssetImage(
-            ImageConfiguration.empty, "assets/images/crying.png")
-        .then((icon) {
-      setState(() {
-        userMarker = icon;
-      });
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -83,29 +73,12 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
                   SizedBox(
                     width: size.width,
                     child: GoogleMap(
-                      markers: {
-                        Marker(
-                          markerId: const MarkerId("me"),
-                          icon: userMarker,
-                          position: LatLng(
-                            userViewModel.getUserLatitude(),
-                            userViewModel.getUserLongitude(),
-                          ),
-                        ),
-                        Marker(
-                          markerId: const MarkerId("you"),
-                          position: LatLng(
-                            userViewModel.getUserLatitude() + 1,
-                            userViewModel.getUserLongitude() + 5,
-                          ),
-                        ),
-                      },
+                      markers: {},
                       myLocationEnabled: true,
                       zoomControlsEnabled: true,
                       zoomGesturesEnabled: true,
                       onMapCreated: (mapController) {
                         _controller.complete(mapController);
-                        makeUserMarker();
                       },
                       initialCameraPosition: CameraPosition(
                         zoom: 16.5,
