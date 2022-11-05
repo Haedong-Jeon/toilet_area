@@ -19,23 +19,26 @@ class ToiletListViewModel extends StateNotifier<List<Toilet>> {
 
   Stream<ToiletListUiEvent> get uiEventStream => _uiEventController.stream;
 
-  ToiletListViewModel(this.getToiletListLocalUseCase,
-      this.getToiletListFromRemoteUseCase, this.saveToiletListUseCase, this.getKakaoKeyUseCase)
+  ToiletListViewModel(
+      this.getToiletListLocalUseCase,
+      this.getToiletListFromRemoteUseCase,
+      this.saveToiletListUseCase,
+      this.getKakaoKeyUseCase)
       : super([]);
 
   int toiletListPage = 0;
 
-  ///원격으로 화장실 목록을 불러오는 함수. 공공 API 응답에 따라 리팩토링 필요
-  Future<List<Toilet>> getToiletListFromRemote() async {
+  Future getToiletListFromRemote() async {
     _uiEventController.add(const ToiletListUiEvent.onLoading());
     try {
-      List<Toilet> results = await getToiletListFromRemoteUseCase(toiletListPage);
+      List<Toilet> results =
+          await getToiletListFromRemoteUseCase(toiletListPage);
       state = [...state, ...results];
       _uiEventController.add(const ToiletListUiEvent.onSuccess());
       saveToiletList(state);
     } catch (e) {
       e as DioError;
-      _uiEventController.add(ToiletListUiEvent.onError(e.message ?? "no error message"));
+      _uiEventController.add(ToiletListUiEvent.onError(e.message));
     }
     return state;
   }
@@ -44,6 +47,7 @@ class ToiletListViewModel extends StateNotifier<List<Toilet>> {
     toiletListPage += 1;
     return await getToiletListFromRemote();
   }
+
   Future<List<Toilet>> refreshToiletFromRemote() async {
     toiletListPage = 0;
     state = [];
@@ -51,9 +55,9 @@ class ToiletListViewModel extends StateNotifier<List<Toilet>> {
   }
 
   Future<List<Toilet>> getToiletListLocal() async {
-    _uiEventController.add(const ToiletListUiEvent.onLoading());
+    // _uiEventController.add(const ToiletListUiEvent.onLoading());
     List<Toilet> toilets = await getToiletListLocalUseCase();
-    _uiEventController.add(const ToiletListUiEvent.onSuccess());
+    // _uiEventController.add(const ToiletListUiEvent.onSuccess());
     state = toilets;
     return state;
   }

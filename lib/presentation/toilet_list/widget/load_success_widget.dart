@@ -1,22 +1,21 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lottie/lottie.dart';
 import 'package:toilet_area/di/text/text_setup.dart';
 
-class LoadFailWidget extends ConsumerStatefulWidget {
-  final String error;
-
-  LoadFailWidget({required this.error});
+class LoadSuccessWidget extends ConsumerStatefulWidget {
+  const LoadSuccessWidget({Key? key}) : super(key: key);
 
   @override
-  _LoadFailWidgetState createState() => _LoadFailWidgetState();
+  _LoadSuccessWidgetState createState() => _LoadSuccessWidgetState();
 }
 
-class _LoadFailWidgetState extends ConsumerState<LoadFailWidget> {
+class _LoadSuccessWidgetState extends ConsumerState<LoadSuccessWidget> {
   late Timer timer;
   int secCounter = 0;
-
   @override
   void initState() {
     // TODO: implement initState
@@ -49,17 +48,12 @@ class _LoadFailWidgetState extends ConsumerState<LoadFailWidget> {
               const CircleAvatar(
                 radius: 25,
                 backgroundColor: Colors.indigo,
-                child: Icon(Icons.close, color: Colors.white),
+                child: Icon(Icons.check, color: Colors.white),
               ),
               const SizedBox(height: 15),
-              Text(ref.watch(textViewModelProvider).toiletListLoadFailText ??
+              Text(ref.watch(textViewModelProvider).toiletListLoadSuccessText ??
                   ""),
               const SizedBox(height: 10),
-              Text(
-                widget.error,
-                textAlign: TextAlign.center,
-                style: const TextStyle(color: Colors.grey),
-              ),
             ],
           ),
         ),
