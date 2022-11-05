@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:toilet_area/di/ad/ad_setup.dart';
+import 'package:toilet_area/di/map/map_setup.dart';
 import 'package:toilet_area/di/text/text_setup.dart';
 import 'package:toilet_area/di/toilet/toilet_setup.dart';
 import 'package:toilet_area/di/user/user_setup.dart';
@@ -52,7 +53,7 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
           );
     });
     BitmapDescriptor.fromAssetImage(
-            const ImageConfiguration(size: Size(12, 12)),
+            const ImageConfiguration(size: Size(10, 10)),
             'assets/images/toilet_marker_icon.png')
         .then((d) {
       toiletMarkerIcon = d;
@@ -65,21 +66,22 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
     googleMapController = await _controller.future;
   }
 
-  Set<Marker> setToiletMarkers(List<Toilet> toilets) {
-    Set<Marker> toiletMarkers = {};
+  List<Marker> setToiletMarkers(List<Toilet> toilets) {
+    List<Marker> toiletMarkers = [];
     for (var element in toilets) {
       double? longitude = double.tryParse(element.longitude ?? "");
-      double? latitude = double.tryParse(element.longitude ?? "");
+      double? latitude = double.tryParse(element.latitude ?? "");
       if (longitude == null || latitude == null) {
         continue;
       }
       Marker marker = Marker(
         markerId: MarkerId(element.lnmadr ?? ""),
-        position: LatLng(longitude, latitude),
-        icon: toiletMarkerIcon,
+        position: LatLng(latitude, longitude),
+        icon: BitmapDescriptor.defaultMarker,
       );
       toiletMarkers.add(marker);
     }
+
     return toiletMarkers;
   }
 
@@ -99,24 +101,29 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
                 children: [
                   SizedBox(
                     width: size.width,
-                    child: GoogleMap(
-                      markers: setToiletMarkers(
-                        ref.watch(toiletListViewModelProvider),
-                      ),
-                      myLocationEnabled: true,
-                      zoomControlsEnabled: true,
-                      zoomGesturesEnabled: true,
-                      onMapCreated: (mapController) {
-                        _controller.complete(mapController);
-                      },
-                      initialCameraPosition: CameraPosition(
-                        zoom: 1,
-                        target: LatLng(
-                          userViewModel.getUserLatitude(),
-                          userViewModel.getUserLongitude(),
+                    child: Builder(builder: (context) {
+                      return GoogleMap(
+                        markers: Set.from(
+                          setToiletMarkers(
+                            ref.watch(toiletListViewModelProvider),
+                          ),
                         ),
-                      ),
-                    ),
+                        myLocationEnabled: true,
+                        zoomControlsEnabled: true,
+                        zoomGesturesEnabled: true,
+                        onMapCreated: (mapController) {
+                          _controller.complete(mapController);
+                          mapController.setMapStyle(mapStyle);
+                        },
+                        initialCameraPosition: CameraPosition(
+                          zoom: 10,
+                          target: LatLng(
+                            userViewModel.getUserLatitude(),
+                            userViewModel.getUserLongitude(),
+                          ),
+                        ),
+                      );
+                    }),
                   ),
                   Column(
                     children: [
