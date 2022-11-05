@@ -1,12 +1,15 @@
 import 'dart:async';
+import 'dart:developer';
 import 'dart:typed_data';
 import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:toilet_area/data/keys.dart';
 import 'package:toilet_area/di/ad/ad_setup.dart';
 import 'package:toilet_area/di/map/map_setup.dart';
 import 'package:toilet_area/di/text/text_setup.dart';
@@ -32,6 +35,25 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
   late BannerAd adBanner;
   double userZoom = 16;
   BitmapDescriptor toiletMarkerIcon = BitmapDescriptor.defaultMarker;
+  Polyline polyline = Polyline(
+    polylineId: const PolylineId("route"),
+  );
+
+  Future<void> getPolyLines({
+    double userLat = 0,
+    double userLng = 0,
+    double destLat = 0,
+    double destLng = 0,
+  }) async {
+    polyline = Polyline(
+      polylineId: const PolylineId("route"),
+      color: Colors.blue,
+      points: [
+        LatLng(userLat, userLng),
+        LatLng(destLat, destLng),
+      ],
+    );
+  }
 
   @override
   void initState() {
@@ -51,6 +73,20 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
             latitude: position.latitude,
             longitude: position.longitude,
           );
+      double destLat = ref
+          .read(toiletListViewModelProvider.notifier)
+          .getNearestToilet(position.latitude, position.longitude)
+          .latitude;
+      double destLng = ref
+          .read(toiletListViewModelProvider.notifier)
+          .getNearestToilet(position.latitude, position.longitude)
+          .longitude;
+      getPolyLines(
+        userLat: position.latitude,
+        userLng: position.longitude,
+        destLat: destLat,
+        destLng: destLng,
+      );
     });
     BitmapDescriptor.fromAssetImage(
             const ImageConfiguration(size: Size(10, 10)),
@@ -108,6 +144,9 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
                             ref.watch(toiletListViewModelProvider),
                           ),
                         ),
+                        polylines: {
+                          polyline,
+                        },
                         myLocationEnabled: true,
                         zoomControlsEnabled: true,
                         zoomGesturesEnabled: true,
