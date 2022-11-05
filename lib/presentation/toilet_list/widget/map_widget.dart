@@ -1,13 +1,17 @@
 import 'dart:async';
+import 'dart:typed_data';
+import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:toilet_area/di/ad/ad_setup.dart';
 import 'package:toilet_area/di/text/text_setup.dart';
 import 'package:toilet_area/di/toilet/toilet_setup.dart';
 import 'package:toilet_area/di/user/user_setup.dart';
+import 'package:toilet_area/domain/model/toilet/toilet.dart';
 import 'package:toilet_area/presentation/text/view_model/text_view_model.dart';
 import 'package:toilet_area/presentation/toilet_list/view_model/toilet_list_view_model.dart';
 import 'package:toilet_area/presentation/user/view_model/user_view_model.dart';
@@ -26,7 +30,7 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
   late Future getPos;
   late BannerAd adBanner;
   double userZoom = 16;
-  BitmapDescriptor userMarker = BitmapDescriptor.defaultMarker;
+  BitmapDescriptor toiletMarkerIcon = BitmapDescriptor.defaultMarker;
 
   @override
   void initState() {
@@ -47,6 +51,13 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
             longitude: position.longitude,
           );
     });
+    BitmapDescriptor.fromAssetImage(
+            const ImageConfiguration(size: Size(12, 12)),
+            'assets/images/toilet_marker_icon.png')
+        .then((d) {
+      toiletMarkerIcon = d;
+    });
+
     super.initState();
   }
 
@@ -54,11 +65,27 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
     googleMapController = await _controller.future;
   }
 
+  Set<Marker> setToiletMarkers(List<Toilet> toilets) {
+    Set<Marker> toiletMarkers = {};
+    for (var element in toilets) {
+      double? longitude = double.tryParse(element.longitude ?? "");
+      double? latitude = double.tryParse(element.longitude ?? "");
+      if (longitude == null || latitude == null) {
+        continue;
+      }
+      Marker marker = Marker(
+        markerId: MarkerId(element.lnmadr ?? ""),
+        position: LatLng(longitude, latitude),
+        icon: toiletMarkerIcon,
+      );
+      toiletMarkers.add(marker);
+    }
+    return toiletMarkers;
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    ToiletListViewModel toiletListViewModel =
-        ref.watch(toiletListViewModelProvider.notifier);
     UserViewModel userViewModel = ref.watch(userViewModelProvider.notifier);
     TextViewModel textViewModel = ref.watch(textViewModelProvider.notifier);
     setMapController();
@@ -73,7 +100,9 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
                   SizedBox(
                     width: size.width,
                     child: GoogleMap(
-                      markers: {},
+                      markers: setToiletMarkers(
+                        ref.watch(toiletListViewModelProvider),
+                      ),
                       myLocationEnabled: true,
                       zoomControlsEnabled: true,
                       zoomGesturesEnabled: true,
@@ -81,7 +110,7 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
                         _controller.complete(mapController);
                       },
                       initialCameraPosition: CameraPosition(
-                        zoom: 16.5,
+                        zoom: 1,
                         target: LatLng(
                           userViewModel.getUserLatitude(),
                           userViewModel.getUserLongitude(),
