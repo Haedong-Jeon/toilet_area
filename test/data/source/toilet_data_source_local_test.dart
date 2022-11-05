@@ -9,19 +9,19 @@ import 'package:toilet_area/domain/use_case/toilet/get_toilet_list_local_use_cas
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  test('로컬 DB 테스트', ()async {
+  test('로컬 DB 테스트', () async {
     final db = await databaseFactoryFfi.openDatabase(inMemoryDatabasePath);
     Database database = await openDatabase(
       'toilet_area_db',
       version: 1,
       onCreate: (db, version) async {
         await db.execute(
-            "CREATE TABLE toilet (id INTEGER PRIMARY KEY AUTOINCREMENT, toiletType TEXT, toiletNm INTEGER, rdnmadr TEXT, lnmadr TEXT,menToiletBowlNumber INTEGER, menUrineNumber INTEGER, menHandicapToiletBowlNumber INTEGER, menHandicapUrinalNumber INTEGER, menChildrenToiletBowlNumber INTEGER, menChildrenUrinalNumber INTEGER, ladiesToiletBowlNumber INTEGER, ladiesHandicapToiletBowlNumber INTEGER, ladiesChildrenToiletBowlNumber INTEGER, institutionNm TEXT, phoneNumber TEXT, openTime TEXT, installationYear TEXT, latitude REAL, longitude REAL, toiletPossType TEXT, toiletPosiType TEXT, careSewerageType TEXT, emgBellYn TEXT, enterentCctvYn TINYINT, dipersExchgPosi TEXT, modYear TEXT, referenceDate TEXT, instt_code INTEGER)"
-        );
+            "CREATE TABLE toilet (id INTEGER PRIMARY KEY AUTOINCREMENT, toiletType TEXT, toiletNm INTEGER, rdnmadr TEXT, lnmadr TEXT,menToiletBowlNumber INTEGER, menUrineNumber INTEGER, menHandicapToiletBowlNumber INTEGER, menHandicapUrinalNumber INTEGER, menChildrenToiletBowlNumber INTEGER, menChildrenUrinalNumber INTEGER, ladiesToiletBowlNumber INTEGER, ladiesHandicapToiletBowlNumber INTEGER, ladiesChildrenToiletBowlNumber INTEGER, institutionNm TEXT, phoneNumber TEXT, openTime TEXT, installationYear TEXT, latitude REAL, longitude REAL, toiletPossType TEXT, toiletPosiType TEXT, careSewerageType TEXT, emgBellYn TEXT, enterentCctvYn TINYINT, dipersExchgPosi TEXT, modYear TEXT, referenceDate TEXT, instt_code INTEGER)");
       },
     );
     ToiletDbHelper dpHelper = ToiletDbHelper(db);
-    List<Toilet> response = await GetToiletListLocalUseCase(ToiletDataRepositoryImpl(null, dpHelper))();
+    List<Toilet> response = await GetToiletListLocalUseCase(
+        ToiletDataRepositoryImpl(null, dpHelper))();
     expect(response.length, 0);
   });
 }
