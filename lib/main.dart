@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toilet_area/di/set_up.dart';
 import 'package:toilet_area/di/text/text_setup.dart';
 import 'package:toilet_area/di/toilet/toilet_setup.dart';
+import 'package:toilet_area/di/user/user_setup.dart';
 import 'package:toilet_area/domain/model/toilet/toilet.dart';
 import 'package:toilet_area/presentation/text/view_model/text_view_model.dart';
 import 'package:toilet_area/presentation/toilet_list/view_model/toilet_list_view_model.dart';
@@ -14,6 +15,7 @@ import 'package:toilet_area/presentation/toilet_list/widget/load_fail_widget.dar
 import 'package:toilet_area/presentation/toilet_list/widget/load_success_widget.dart';
 import 'package:toilet_area/presentation/toilet_list/widget/loading_widget.dart';
 import 'package:toilet_area/presentation/toilet_list/widget/map_widget.dart';
+import 'package:toilet_area/presentation/user/view_model/user_view_model.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -57,6 +59,7 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
         ref.read(toiletListViewModelProvider.notifier);
 
     TextViewModel textViewModel = ref.read(textViewModelProvider.notifier);
+    UserViewModel userViewModel = ref.read(userViewModelProvider.notifier);
 
     textViewModel.setTexts();
 
@@ -68,7 +71,8 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
       );
     });
     toiletListViewModel.getToiletListLocal();
-    toiletListViewModel.getToiletListFromRemote();
+    toiletListViewModel.getToiletListFromRemote(
+        userViewModel.getUserLatitude(), userViewModel.getUserLongitude());
   }
 
   void _onLoading() {
