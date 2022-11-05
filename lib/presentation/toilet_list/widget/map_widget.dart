@@ -39,22 +39,6 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
     polylineId: const PolylineId("route"),
   );
 
-  Future<void> getPolyLines({
-    double userLat = 0,
-    double userLng = 0,
-    double destLat = 0,
-    double destLng = 0,
-  }) async {
-    polyline = Polyline(
-      polylineId: const PolylineId("route"),
-      color: Colors.blue,
-      points: [
-        LatLng(userLat, userLng),
-        LatLng(destLat, destLng),
-      ],
-    );
-  }
-
   @override
   void initState() {
     // TODO: implement initState
@@ -81,12 +65,6 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
           .read(toiletListViewModelProvider.notifier)
           .getNearestToilet(position.latitude, position.longitude)
           .longitude;
-      getPolyLines(
-        userLat: position.latitude,
-        userLng: position.longitude,
-        destLat: destLat,
-        destLng: destLng,
-      );
     });
     BitmapDescriptor.fromAssetImage(
             const ImageConfiguration(size: Size(10, 10)),
@@ -114,6 +92,10 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
         markerId: MarkerId(element.lnmadr ?? ""),
         position: LatLng(latitude, longitude),
         icon: BitmapDescriptor.defaultMarker,
+        infoWindow: InfoWindow(
+          title: element.toiletNm,
+          snippet: element.lnmadr ?? "",
+        ),
       );
       toiletMarkers.add(marker);
     }
