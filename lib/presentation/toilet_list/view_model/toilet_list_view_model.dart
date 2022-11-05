@@ -34,7 +34,7 @@ class ToiletListViewModel extends StateNotifier<List<Toilet>> {
       : super([]);
 
   int toiletListPage = 0;
-  int range = 3 * KILO;
+  int range = 1 * KILO;
 
   Future getToiletListFromRemote(double userLat, double userLng,
       {bool isLoadMore = false}) async {
@@ -44,8 +44,7 @@ class ToiletListViewModel extends StateNotifier<List<Toilet>> {
     try {
       List<Toilet> results =
           await getToiletListFromRemoteUseCase(toiletListPage);
-      state = [...state, ...results];
-      if (noToiletNearby(userLat, userLng)) {
+      if (noToiletNearby(userLat, userLng, results)) {
         state = [];
         dv.log("❌ no toilet found...! in page ${toiletListPage}");
         await loadMoreToiletFromRemote(userLat, userLng);
@@ -54,6 +53,8 @@ class ToiletListViewModel extends StateNotifier<List<Toilet>> {
         _uiEventController.add(const ToiletListUiEvent.onSuccess());
         dv.log("✅ toilet found...!");
         saveToiletList(state);
+        state = [...state, ...results];
+        return state;
       }
     } catch (e) {
       e as DioError;
@@ -68,9 +69,10 @@ class ToiletListViewModel extends StateNotifier<List<Toilet>> {
     return await getToiletListFromRemote(userLat, userLng, isLoadMore: true);
   }
 
-  bool noToiletNearby(double userLatitude, double userLongitude) {
+  bool noToiletNearby(
+      double userLatitude, double userLongitude, List<Toilet> toilets) {
     List<Toilet> nearToilets = [];
-    for (Toilet toilet in state) {
+    for (Toilet toilet in toilets) {
       double? latitude = double.tryParse(toilet.latitude ?? "");
       double? longitude = double.tryParse(toilet.longitude ?? "");
 
