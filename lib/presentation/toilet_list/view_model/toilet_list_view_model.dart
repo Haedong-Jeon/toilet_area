@@ -8,18 +8,19 @@ import 'package:riverpod/riverpod.dart';
 import 'package:maps_toolkit/maps_toolkit.dart';
 import 'package:toilet_area/domain/model/toilet/toilet.dart';
 import 'package:toilet_area/domain/use_case/toilet/get_kakao_key_use_case.dart';
+import 'package:toilet_area/domain/use_case/toilet/get_nearest_toilet_pos_use_case.dart';
 import 'package:toilet_area/domain/use_case/toilet/get_toilet_list_local_use_case.dart';
 import 'package:toilet_area/domain/use_case/toilet/get_toilet_list_remote_use_case.dart';
+import 'package:toilet_area/domain/use_case/toilet/is_no_toilet_nearby_use_case.dart';
 import 'package:toilet_area/domain/use_case/toilet/save_toilet_list_use_case.dart';
 import 'package:toilet_area/presentation/toilet_list/ui_event/toilet_list_ui_event.dart';
-
-const double EARTH_RADIUS = 6371;
-const KILO = 1000;
 
 class ToiletListViewModel extends StateNotifier<List<Toilet>> {
   final GetToiletListLocalUseCase getToiletListLocalUseCase;
   final GetToiletListFromRemoteUseCase getToiletListFromRemoteUseCase;
   final GetKakaoKeyUseCase getKakaoKeyUseCase;
+  final IsNoToiletNearByUseCase isNoToiletNearByUseCase;
+  final GetNearestToiletPosUseCase getNearestToiletPosUseCase;
 
   final SaveToiletListUseCase saveToiletListUseCase;
   final _uiEventController = StreamController<ToiletListUiEvent>.broadcast();
@@ -29,12 +30,13 @@ class ToiletListViewModel extends StateNotifier<List<Toilet>> {
   ToiletListViewModel(
       this.getToiletListLocalUseCase,
       this.getToiletListFromRemoteUseCase,
+      this.getNearestToiletPosUseCase,
       this.saveToiletListUseCase,
+      this.isNoToiletNearByUseCase,
       this.getKakaoKeyUseCase)
       : super([]);
 
   int toiletListPage = 0;
-  int range = 1 * KILO;
 
   Future getToiletListFromRemote(double userLat, double userLng,
       {bool isLoadMore = false}) async {
@@ -44,7 +46,12 @@ class ToiletListViewModel extends StateNotifier<List<Toilet>> {
     try {
       List<Toilet> results =
           await getToiletListFromRemoteUseCase(toiletListPage);
-      if (noToiletNearby(userLat, userLng, results)) {
+      if (isNoToiletNearByUseCase(
+        userLat: userLat,
+        userLng: userLng,
+        toilets: results,
+      )) {
+        ///화장실 없다
         state = [];
         dv.log("❌ no toilet found...! in page ${toiletListPage}");
         await loadMoreToiletFromRemote(userLat, userLng);
@@ -69,34 +76,15 @@ class ToiletListViewModel extends StateNotifier<List<Toilet>> {
     return await getToiletListFromRemote(userLat, userLng, isLoadMore: true);
   }
 
-  bool noToiletNearby(
-      double userLatitude, double userLongitude, List<Toilet> toilets) {
-    List<Toilet> nearToilets = [];
-    for (Toilet toilet in toilets) {
-      double? latitude = double.tryParse(toilet.latitude ?? "");
-      double? longitude = double.tryParse(toilet.longitude ?? "");
-
-      if (latitude == null || longitude == null) {
-        continue;
-      }
-      if (_getDistance(userLatitude, userLongitude, latitude, longitude)
-              .abs() <=
-          range) {
-        nearToilets.add(toilet);
-      }
-    }
-    if (nearToilets.isNotEmpty) {
-      _uiEventController.add(const ToiletListUiEvent.onSuccess());
-    }
-    return nearToilets.isEmpty;
-  }
-
   Future<List<Toilet>> getToiletListLocal() async {
-    // _uiEventController.add(const ToiletListUiEvent.onLoading());
     List<Toilet> toilets = await getToiletListLocalUseCase();
-    // _uiEventController.add(const ToiletListUiEvent.onSuccess());
     state = toilets;
     return state;
+  }
+
+  LatLng getNearestToilet(double userLat, double userLng) {
+    return getNearestToiletPosUseCase(
+        toilets: state, userLat: userLat, userLng: userLat);
   }
 
   Future saveToiletList(List<Toilet> toilets) async {
@@ -105,11 +93,5 @@ class ToiletListViewModel extends StateNotifier<List<Toilet>> {
 
   String getKakaoKey() {
     return getKakaoKeyUseCase();
-  }
-
-  double _getDistance(double lat1, double lng1, double lat2, double lng2) {
-    var distanceBetweenPoints = SphericalUtil.computeDistanceBetween(
-        LatLng(lat1, lng1), LatLng(lat2, lng2));
-    return distanceBetweenPoints.toDouble();
   }
 }
