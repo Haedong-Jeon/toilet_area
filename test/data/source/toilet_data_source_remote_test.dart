@@ -13,6 +13,6 @@ void main() {
       ),
     );
     final result = await getToiletListFromRemoteUseCase(0);
-    expect(result.length, "0");
+    expect(result.isNotEmpty, true);
   });
 }

@@ -1,11 +1,17 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:dio/dio.dart';
+import 'dart:developer' as dv;
 import 'package:riverpod/riverpod.dart';
+
+import 'package:maps_toolkit/maps_toolkit.dart';
 import 'package:toilet_area/domain/model/toilet/toilet.dart';
 import 'package:toilet_area/domain/use_case/toilet/get_kakao_key_use_case.dart';
+import 'package:toilet_area/domain/use_case/toilet/get_nearest_toilet_pos_use_case.dart';
 import 'package:toilet_area/domain/use_case/toilet/get_toilet_list_local_use_case.dart';
 import 'package:toilet_area/domain/use_case/toilet/get_toilet_list_remote_use_case.dart';
+import 'package:toilet_area/domain/use_case/toilet/is_no_toilet_nearby_use_case.dart';
 import 'package:toilet_area/domain/use_case/toilet/save_toilet_list_use_case.dart';
 import 'package:toilet_area/presentation/toilet_list/ui_event/toilet_list_ui_event.dart';
 
@@ -13,49 +19,72 @@ class ToiletListViewModel extends StateNotifier<List<Toilet>> {
   final GetToiletListLocalUseCase getToiletListLocalUseCase;
   final GetToiletListFromRemoteUseCase getToiletListFromRemoteUseCase;
   final GetKakaoKeyUseCase getKakaoKeyUseCase;
+  final IsNoToiletNearByUseCase isNoToiletNearByUseCase;
+  final GetNearestToiletPosUseCase getNearestToiletPosUseCase;
 
   final SaveToiletListUseCase saveToiletListUseCase;
   final _uiEventController = StreamController<ToiletListUiEvent>.broadcast();
 
   Stream<ToiletListUiEvent> get uiEventStream => _uiEventController.stream;
 
-  ToiletListViewModel(this.getToiletListLocalUseCase,
-      this.getToiletListFromRemoteUseCase, this.saveToiletListUseCase, this.getKakaoKeyUseCase)
+  ToiletListViewModel(
+      this.getToiletListLocalUseCase,
+      this.getToiletListFromRemoteUseCase,
+      this.getNearestToiletPosUseCase,
+      this.saveToiletListUseCase,
+      this.isNoToiletNearByUseCase,
+      this.getKakaoKeyUseCase)
       : super([]);
 
   int toiletListPage = 0;
 
-  ///원격으로 화장실 목록을 불러오는 함수. 공공 API 응답에 따라 리팩토링 필요
-  Future<List<Toilet>> getToiletListFromRemote() async {
-    _uiEventController.add(const ToiletListUiEvent.onLoading());
+  Future getToiletListFromRemote(double userLat, double userLng,
+      {bool isLoadMore = false}) async {
+    if (!isLoadMore) {
+      _uiEventController.add(const ToiletListUiEvent.onLoading());
+    }
     try {
-      List<Toilet> results = await getToiletListFromRemoteUseCase(toiletListPage);
-      state = [...state, ...results];
-      _uiEventController.add(const ToiletListUiEvent.onSuccess());
-      saveToiletList(state);
+      List<Toilet> results =
+          await getToiletListFromRemoteUseCase(toiletListPage);
+      if (isNoToiletNearByUseCase(
+        userLat: userLat,
+        userLng: userLng,
+        toilets: results,
+      )) {
+        ///화장실 없다
+        state = [];
+        dv.log("❌ no toilet found...! in page ${toiletListPage}");
+        await loadMoreToiletFromRemote(userLat, userLng);
+        return state;
+      } else {
+        _uiEventController.add(const ToiletListUiEvent.onSuccess());
+        dv.log("✅ toilet found...!");
+        saveToiletList(state);
+        state = [...state, ...results];
+        return state;
+      }
     } catch (e) {
       e as DioError;
-      _uiEventController.add(ToiletListUiEvent.onError(e.message ?? "no error message"));
+      _uiEventController.add(ToiletListUiEvent.onError(e.message));
     }
     return state;
   }
 
-  Future<List<Toilet>> loadMoreToiletFromRemote() async {
+  Future<List<Toilet>> loadMoreToiletFromRemote(
+      double userLat, double userLng) async {
     toiletListPage += 1;
-    return await getToiletListFromRemote();
-  }
-  Future<List<Toilet>> refreshToiletFromRemote() async {
-    toiletListPage = 0;
-    state = [];
-    return await getToiletListFromRemote();
+    return await getToiletListFromRemote(userLat, userLng, isLoadMore: true);
   }
 
   Future<List<Toilet>> getToiletListLocal() async {
-    _uiEventController.add(const ToiletListUiEvent.onLoading());
     List<Toilet> toilets = await getToiletListLocalUseCase();
-    _uiEventController.add(const ToiletListUiEvent.onSuccess());
     state = toilets;
     return state;
+  }
+
+  LatLng getNearestToilet(double userLat, double userLng) {
+    return getNearestToiletPosUseCase(
+        toilets: state, userLat: userLat, userLng: userLat);
   }
 
   Future saveToiletList(List<Toilet> toilets) async {

@@ -6,8 +6,10 @@ import 'package:toilet_area/data/source/toilet/remote/toilet_data_remote_source.
 import 'package:toilet_area/domain/model/toilet/toilet.dart';
 import 'package:toilet_area/domain/repository/toilet/toilet_data_repository.dart';
 import 'package:toilet_area/domain/use_case/toilet/get_kakao_key_use_case.dart';
+import 'package:toilet_area/domain/use_case/toilet/get_nearest_toilet_pos_use_case.dart';
 import 'package:toilet_area/domain/use_case/toilet/get_toilet_list_local_use_case.dart';
 import 'package:toilet_area/domain/use_case/toilet/get_toilet_list_remote_use_case.dart';
+import 'package:toilet_area/domain/use_case/toilet/is_no_toilet_nearby_use_case.dart';
 import 'package:toilet_area/domain/use_case/toilet/save_toilet_list_use_case.dart';
 import 'package:toilet_area/presentation/toilet_list/view_model/toilet_list_view_model.dart';
 
@@ -20,7 +22,7 @@ Future setUp() async {
     version: 1,
     onCreate: (db, version) async {
       await db.execute(
-          "CREATE TABLE toilet (id INTEGER PRIMARY KEY AUTOINCREMENT, toiletType TEXT, toiletNm INTEGER, rdnmadr TEXT, lnmadr TEXT,menToiletBowlNumber INTEGER, menUrineNumber INTEGER, menHandicapToiletBowlNumber INTEGER, menHandicapUrinalNumber INTEGER, menChildrenToiletBowlNumber INTEGER, menChildrenUrinalNumber INTEGER, ladiesToiletBowlNumber INTEGER, ladiesHandicapToiletBowlNumber INTEGER, ladiesChildrenToiletBowlNumber INTEGER, institutionNm TEXT, phoneNumber TEXT, openTime TEXT, installationYear TEXT, latitude REAL, longitude REAL, toiletPossType TEXT, toiletPosiType TEXT, careSewerageType TEXT, emgBellYn TEXT, enterentCctvYn TINYINT, dipersExchgPosi TEXT, modYear TEXT, referenceDate TEXT, instt_code INTEGER)");
+          "CREATE TABLE toilet (id INTEGER PRIMARY KEY AUTOINCREMENT, toiletType TEXT, toiletNm TEXT, rdnmadr TEXT, lnmadr TEXT,menToiletBowlNumber TEXT, menUrineNumber TEXT, menHandicapToiletBowlNumber TEXT, menHandicapUrinalNumber TEXT, menChildrenToiletBowlNumber TEXT, menChildrenUrinalNumber TEXT, ladiesToiletBowlNumber TEXT, ladiesHandicapToiletBowlNumber TEXT, ladiesChildrenToiletBowlNumber TEXT, institutionNm TEXT, phoneNumber TEXT, openTime TEXT, installationYear TEXT, latitude TEXT, longitude TEXT, toiletPossType TEXT, toiletPosiType TEXT, careSewerageType TEXT, emgBellYn TEXT, enterentCctvYn TEXT, dipersExchgPosi TEXT, modYear TEXT, referenceDate TEXT, instt_code TEXT)");
       await db.execute(
           "CREATE TABLE user (id INTEGER PRIMARY KEY AUTOINCREMENT, latitude REAL, longitude REAL, lastAppOpenedAt TEXT)");
     },
@@ -31,18 +33,23 @@ Future setUp() async {
     toiletDbHelper,
   );
   GetToiletListLocalUseCase getToiletListLocalUseCase =
-  GetToiletListLocalUseCase(toiletDataRepository);
+      GetToiletListLocalUseCase(toiletDataRepository);
   GetToiletListFromRemoteUseCase getToiletListFromRemoteUseCase =
-  GetToiletListFromRemoteUseCase(toiletDataRepository);
+      GetToiletListFromRemoteUseCase(toiletDataRepository);
   SaveToiletListUseCase saveToiletListUseCase =
-  SaveToiletListUseCase(toiletDataRepository);
+      SaveToiletListUseCase(toiletDataRepository);
+  IsNoToiletNearByUseCase isNoToiletNearByUseCase = IsNoToiletNearByUseCase();
+  GetNearestToiletPosUseCase getNearestToiletPosUseCase =
+      GetNearestToiletPosUseCase();
   GetKakaoKeyUseCase getKakaoKeyUseCase =
-  GetKakaoKeyUseCase(toiletDataRepository);
+      GetKakaoKeyUseCase(toiletDataRepository);
 
   ToiletListViewModel _toiletListViewModel = ToiletListViewModel(
     getToiletListLocalUseCase,
     getToiletListFromRemoteUseCase,
+    getNearestToiletPosUseCase,
     saveToiletListUseCase,
+    isNoToiletNearByUseCase,
     getKakaoKeyUseCase,
   );
   toiletListViewModelProvider =

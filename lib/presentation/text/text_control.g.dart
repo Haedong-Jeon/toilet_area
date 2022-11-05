@@ -11,6 +11,7 @@ _$_TextControl _$$_TextControlFromJson(Map<String, dynamic> json) =>
       toiletListLoadFailText: json['toiletListLoadFailText'] as String?,
       toiletListLoadingText: json['toiletListLoadingText'] as String?,
       findToiletInOneKilo: json['findToiletInOneKilo'] as String?,
+      toiletListLoadSuccessText: json['toiletListLoadSuccessText'] as String?,
     );
 
 Map<String, dynamic> _$$_TextControlToJson(_$_TextControl instance) =>
@@ -18,4 +19,5 @@ Map<String, dynamic> _$$_TextControlToJson(_$_TextControl instance) =>
       'toiletListLoadFailText': instance.toiletListLoadFailText,
       'toiletListLoadingText': instance.toiletListLoadingText,
       'findToiletInOneKilo': instance.findToiletInOneKilo,
+      'toiletListLoadSuccessText': instance.toiletListLoadSuccessText,
     };

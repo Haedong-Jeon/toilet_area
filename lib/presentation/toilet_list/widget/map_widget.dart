@@ -1,13 +1,21 @@
 import 'dart:async';
+import 'dart:developer';
+import 'dart:typed_data';
+import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:toilet_area/data/keys.dart';
 import 'package:toilet_area/di/ad/ad_setup.dart';
+import 'package:toilet_area/di/map/map_setup.dart';
 import 'package:toilet_area/di/text/text_setup.dart';
 import 'package:toilet_area/di/toilet/toilet_setup.dart';
 import 'package:toilet_area/di/user/user_setup.dart';
+import 'package:toilet_area/domain/model/toilet/toilet.dart';
 import 'package:toilet_area/presentation/text/view_model/text_view_model.dart';
 import 'package:toilet_area/presentation/toilet_list/view_model/toilet_list_view_model.dart';
 import 'package:toilet_area/presentation/user/view_model/user_view_model.dart';
@@ -26,7 +34,26 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
   late Future getPos;
   late BannerAd adBanner;
   double userZoom = 16;
-  BitmapDescriptor userMarker = BitmapDescriptor.defaultMarker;
+  BitmapDescriptor toiletMarkerIcon = BitmapDescriptor.defaultMarker;
+  Polyline polyline = Polyline(
+    polylineId: const PolylineId("route"),
+  );
+
+  Future<void> getPolyLines({
+    double userLat = 0,
+    double userLng = 0,
+    double destLat = 0,
+    double destLng = 0,
+  }) async {
+    polyline = Polyline(
+      polylineId: const PolylineId("route"),
+      color: Colors.blue,
+      points: [
+        LatLng(userLat, userLng),
+        LatLng(destLat, destLng),
+      ],
+    );
+  }
 
   @override
   void initState() {
@@ -46,7 +73,28 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
             latitude: position.latitude,
             longitude: position.longitude,
           );
+      double destLat = ref
+          .read(toiletListViewModelProvider.notifier)
+          .getNearestToilet(position.latitude, position.longitude)
+          .latitude;
+      double destLng = ref
+          .read(toiletListViewModelProvider.notifier)
+          .getNearestToilet(position.latitude, position.longitude)
+          .longitude;
+      getPolyLines(
+        userLat: position.latitude,
+        userLng: position.longitude,
+        destLat: destLat,
+        destLng: destLng,
+      );
     });
+    BitmapDescriptor.fromAssetImage(
+            const ImageConfiguration(size: Size(10, 10)),
+            'assets/images/toilet_marker_icon.png')
+        .then((d) {
+      toiletMarkerIcon = d;
+    });
+
     super.initState();
   }
 
@@ -54,21 +102,28 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
     googleMapController = await _controller.future;
   }
 
-  void makeUserMarker() {
-    BitmapDescriptor.fromAssetImage(
-            ImageConfiguration.empty, "assets/images/crying.png")
-        .then((icon) {
-      setState(() {
-        userMarker = icon;
-      });
-    });
+  List<Marker> setToiletMarkers(List<Toilet> toilets) {
+    List<Marker> toiletMarkers = [];
+    for (var element in toilets) {
+      double? longitude = double.tryParse(element.longitude ?? "");
+      double? latitude = double.tryParse(element.latitude ?? "");
+      if (longitude == null || latitude == null) {
+        continue;
+      }
+      Marker marker = Marker(
+        markerId: MarkerId(element.lnmadr ?? ""),
+        position: LatLng(latitude, longitude),
+        icon: BitmapDescriptor.defaultMarker,
+      );
+      toiletMarkers.add(marker);
+    }
+
+    return toiletMarkers;
   }
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    ToiletListViewModel toiletListViewModel =
-        ref.watch(toiletListViewModelProvider.notifier);
     UserViewModel userViewModel = ref.watch(userViewModelProvider.notifier);
     TextViewModel textViewModel = ref.watch(textViewModelProvider.notifier);
     setMapController();
@@ -82,39 +137,32 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
                 children: [
                   SizedBox(
                     width: size.width,
-                    child: GoogleMap(
-                      markers: {
-                        Marker(
-                          markerId: const MarkerId("me"),
-                          icon: userMarker,
-                          position: LatLng(
+                    child: Builder(builder: (context) {
+                      return GoogleMap(
+                        markers: Set.from(
+                          setToiletMarkers(
+                            ref.watch(toiletListViewModelProvider),
+                          ),
+                        ),
+                        polylines: {
+                          polyline,
+                        },
+                        myLocationEnabled: true,
+                        zoomControlsEnabled: true,
+                        zoomGesturesEnabled: true,
+                        onMapCreated: (mapController) {
+                          _controller.complete(mapController);
+                          mapController.setMapStyle(mapStyle);
+                        },
+                        initialCameraPosition: CameraPosition(
+                          zoom: 10,
+                          target: LatLng(
                             userViewModel.getUserLatitude(),
                             userViewModel.getUserLongitude(),
                           ),
                         ),
-                        Marker(
-                          markerId: const MarkerId("you"),
-                          position: LatLng(
-                            userViewModel.getUserLatitude() + 1,
-                            userViewModel.getUserLongitude() + 5,
-                          ),
-                        ),
-                      },
-                      myLocationEnabled: true,
-                      zoomControlsEnabled: true,
-                      zoomGesturesEnabled: true,
-                      onMapCreated: (mapController) {
-                        _controller.complete(mapController);
-                        makeUserMarker();
-                      },
-                      initialCameraPosition: CameraPosition(
-                        zoom: 16.5,
-                        target: LatLng(
-                          userViewModel.getUserLatitude(),
-                          userViewModel.getUserLongitude(),
-                        ),
-                      ),
-                    ),
+                      );
+                    }),
                   ),
                   Column(
                     children: [
