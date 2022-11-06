@@ -22,7 +22,7 @@ class _LoadSuccessWidgetState extends ConsumerState<LoadSuccessWidget> {
     super.initState();
     timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       secCounter += 1;
-      if (secCounter >= 2) {
+      if (secCounter >= 1) {
         Navigator.of(context).pop();
       }
     });

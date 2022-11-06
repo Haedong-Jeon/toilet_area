@@ -15,4 +15,5 @@ class UserDataRepositoryImpl extends UserDataRepository {
   Stream<Position> getPositionStream() {
     return geolocator.getPositionStream();
   }
+
 }

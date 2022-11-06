@@ -10,6 +10,7 @@ class UserViewModel extends StateNotifier<User> {
   GetUserPositionUseCase getUserPositionUseCase;
   GetPositionStreamUseCase getPositionStreamUseCase;
 
+
   double getUserLongitude() {
     return state.longitude??144;
   }
@@ -21,5 +22,11 @@ class UserViewModel extends StateNotifier<User> {
   }
   void saveUserPosition({double? latitude, double? longitude}) {
     state = state.copyWith(longitude: longitude, latitude: latitude);
+  }
+  void setDestination({double destLat = 0, double destLng = 0, String name=""}) {
+    state = state.copyWith(destLng: destLng, destLat: destLat, desetName: name);
+  }
+  String getDestName() {
+    return state.desetName ?? "";
   }
 }
