@@ -19,5 +19,6 @@
   "yesText": "네",
   "noText": "아니오",
   "destText": "목적지",
-  "arrivalText": "도착했습니다!"
+  "arrivalText": "도착했습니다!",
+  "appNameText":"배아포"
 }
