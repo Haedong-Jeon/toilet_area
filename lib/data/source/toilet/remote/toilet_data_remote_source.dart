@@ -17,13 +17,16 @@ class ToiletDataRemoteSource {
     return APIKey().googleMapKey;
   }
 
-  Future<Response> getToiletListFromRemote(int page) async {
+  Future<Response> getToiletListFromRemote(int page,
+      {double userLat = 0, double userLng = 0}) async {
     try {
       final response = await Dio().get(_dataEndpoint, queryParameters: {
         "serviceKey": APIKey().toiletApiKey,
         "type": "json",
         "numOfRows": 100,
         "pageNo": page,
+        if (userLat != 0) "latitude": userLat,
+        if (userLng != 0) "longitude": userLng,
       });
       log(jsonEncode(response.data));
       if (response.data["response"]["header"]["resultCode"] != "00") {

@@ -71,8 +71,8 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
       );
     });
     toiletListViewModel.getToiletListLocal();
-    toiletListViewModel.getToiletListFromRemote(
-        userViewModel.getUserLatitude(), userViewModel.getUserLongitude());
+    // toiletListViewModel.getToiletListFromRemote(
+    //     userViewModel.getUserLatitude(), userViewModel.getUserLongitude());
   }
 
   void _onLoading() {
