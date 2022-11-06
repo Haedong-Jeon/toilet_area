@@ -29,19 +29,21 @@ class MapWidget extends ConsumerStatefulWidget {
 }
 
 class _MapWidgetState extends ConsumerState<MapWidget> {
-  Completer<GoogleMapController> _controller = Completer();
+  final Completer<GoogleMapController> _controller = Completer();
   GoogleMapController? googleMapController;
   late Future getPos;
   late BannerAd adBanner;
   double userZoom = 16;
-  BitmapDescriptor toiletMarkerIcon = BitmapDescriptor.defaultMarker;
-  Polyline polyline = Polyline(
-    polylineId: const PolylineId("route"),
-  );
+  Set<Marker> markers = {};
 
   @override
   void initState() {
     // TODO: implement initState
+    UserViewModel userViewModel = ref.read(userViewModelProvider.notifier);
+    TextViewModel textViewModel = ref.read(textViewModelProvider.notifier);
+    ToiletListViewModel toiletListViewModel =
+        ref.read(toiletListViewModelProvider.notifier);
+
     adBanner = BannerAd(
       size: AdSize.banner,
       adUnitId: ref.read(adViewModelProvider).bannerTestKey,
@@ -49,30 +51,23 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
       request: const AdRequest(),
     )..load();
 
-    ref
-        .read(userViewModelProvider.notifier)
-        .getPositionStreamUseCase()
-        .listen((position) {
-      ref.read(userViewModelProvider.notifier).saveUserPosition(
-            latitude: position.latitude,
-            longitude: position.longitude,
-          );
-      double destLat = ref
-          .read(toiletListViewModelProvider.notifier)
-          .getNearestToilet(position.latitude, position.longitude)
-          .latitude;
-      double destLng = ref
-          .read(toiletListViewModelProvider.notifier)
-          .getNearestToilet(position.latitude, position.longitude)
-          .longitude;
+    toiletListViewModel.uiEventStream.listen((event) {
+      event.when(
+        onLoading: () {},
+        onError: (_) {},
+        onSuccess: () {
+          setState(() {
+            markers = Set.from(
+              setToiletMarkers(
+                ref.read(
+                  toiletListViewModelProvider,
+                ),
+              ),
+            );
+          });
+        },
+      );
     });
-    BitmapDescriptor.fromAssetImage(
-            const ImageConfiguration(size: Size(10, 10)),
-            'assets/images/toilet_marker_icon.png')
-        .then((d) {
-      toiletMarkerIcon = d;
-    });
-
     super.initState();
   }
 
@@ -108,6 +103,8 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
     Size size = MediaQuery.of(context).size;
     UserViewModel userViewModel = ref.watch(userViewModelProvider.notifier);
     TextViewModel textViewModel = ref.watch(textViewModelProvider.notifier);
+    ToiletListViewModel toiletListViewModel =
+        ref.watch(toiletListViewModelProvider.notifier);
     setMapController();
 
     return Scaffold(
@@ -121,14 +118,7 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
                     width: size.width,
                     child: Builder(builder: (context) {
                       return GoogleMap(
-                        markers: Set.from(
-                          setToiletMarkers(
-                            ref.watch(toiletListViewModelProvider),
-                          ),
-                        ),
-                        polylines: {
-                          polyline,
-                        },
+                        markers: markers,
                         myLocationEnabled: true,
                         zoomControlsEnabled: true,
                         zoomGesturesEnabled: true,
@@ -171,7 +161,7 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
                                 ),
                                 const SizedBox(width: 10),
                                 Text(
-                                  textViewModel.findToiletInOneKilo(),
+                                  textViewModel.findToiletInRange(),
                                   style: const TextStyle(
                                     color: Colors.red,
                                     fontWeight: FontWeight.bold,
