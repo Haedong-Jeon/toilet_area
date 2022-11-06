@@ -2,17 +2,18 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:dio/dio.dart';
+import 'package:geolocator/geolocator.dart';
 import 'dart:developer' as dv;
 import 'package:riverpod/riverpod.dart';
 
 import 'package:maps_toolkit/maps_toolkit.dart';
+import 'package:toilet_area/data/source/user/geolocator.dart';
 import 'package:toilet_area/domain/model/toilet/toilet.dart';
 import 'package:toilet_area/domain/use_case/toilet/get_kakao_key_use_case.dart';
-import 'package:toilet_area/domain/use_case/toilet/get_nearest_toilet_pos_use_case.dart';
+import 'package:toilet_area/domain/use_case/toilet/get_near_toilets_use_case.dart';
 import 'package:toilet_area/domain/use_case/toilet/get_toilet_list_local_use_case.dart';
 import 'package:toilet_area/domain/use_case/toilet/get_toilet_list_remote_use_case.dart';
 import 'package:toilet_area/domain/use_case/toilet/is_no_toilet_nearby_use_case.dart';
-import 'package:toilet_area/domain/use_case/toilet/save_toilet_list_use_case.dart';
 import 'package:toilet_area/presentation/toilet_list/ui_event/toilet_list_ui_event.dart';
 
 class ToiletListViewModel extends StateNotifier<List<Toilet>> {
@@ -20,9 +21,8 @@ class ToiletListViewModel extends StateNotifier<List<Toilet>> {
   final GetToiletListFromRemoteUseCase getToiletListFromRemoteUseCase;
   final GetKakaoKeyUseCase getKakaoKeyUseCase;
   final IsNoToiletNearByUseCase isNoToiletNearByUseCase;
-  final GetNearestToiletPosUseCase getNearestToiletPosUseCase;
+  final GetNearToiletsUseCase getNearToiletsUseCase;
 
-  final SaveToiletListUseCase saveToiletListUseCase;
   final _uiEventController = StreamController<ToiletListUiEvent>.broadcast();
 
   Stream<ToiletListUiEvent> get uiEventStream => _uiEventController.stream;
@@ -30,8 +30,7 @@ class ToiletListViewModel extends StateNotifier<List<Toilet>> {
   ToiletListViewModel(
       this.getToiletListLocalUseCase,
       this.getToiletListFromRemoteUseCase,
-      this.getNearestToiletPosUseCase,
-      this.saveToiletListUseCase,
+      this.getNearToiletsUseCase,
       this.isNoToiletNearByUseCase,
       this.getKakaoKeyUseCase)
       : super([]);
@@ -59,7 +58,6 @@ class ToiletListViewModel extends StateNotifier<List<Toilet>> {
       } else {
         _uiEventController.add(const ToiletListUiEvent.onSuccess());
         dv.log("✅ toilet found...!");
-        saveToiletList(state);
         state = [...state, ...results];
         return state;
       }
@@ -77,18 +75,19 @@ class ToiletListViewModel extends StateNotifier<List<Toilet>> {
   }
 
   Future<List<Toilet>> getToiletListLocal() async {
+    _uiEventController.add(const ToiletListUiEvent.onLoading());
     List<Toilet> toilets = await getToiletListLocalUseCase();
-    state = toilets;
+    Position? userPos = await GeoLocator().getUserPosition();
+    state = getNearToilets(
+        toilets, userPos?.latitude ?? 0, userPos?.longitude ?? 0);
+    _uiEventController.add(const ToiletListUiEvent.onSuccess());
     return state;
   }
 
-  LatLng getNearestToilet(double userLat, double userLng) {
-    return getNearestToiletPosUseCase(
-        toilets: state, userLat: userLat, userLng: userLat);
-  }
-
-  Future saveToiletList(List<Toilet> toilets) async {
-    await saveToiletListUseCase(toilets);
+  List<Toilet> getNearToilets(
+      List<Toilet> toilets, double userLat, double userLng) {
+    return getNearToiletsUseCase(
+        toilets: toilets, userLat: userLat, userLng: userLng);
   }
 
   String getKakaoKey() {

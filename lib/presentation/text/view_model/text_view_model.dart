@@ -21,8 +21,8 @@ class TextViewModel extends StateNotifier<TextControl> {
     return state.toiletListLoadFailText ?? "";
   }
 
-  String findToiletInOneKilo() {
-    return state.findToiletInOneKilo ?? "";
+  String findToiletInRange() {
+    return state.findToiletInRange ?? "";
   }
 
   String toiletListLoadSuccessText() {
