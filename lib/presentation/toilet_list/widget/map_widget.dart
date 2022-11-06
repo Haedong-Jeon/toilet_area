@@ -3,6 +3,8 @@ import 'dart:developer';
 import 'dart:typed_data';
 import 'dart:ui';
 
+import 'package:vibration/vibration.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -43,6 +45,7 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
     ToiletListViewModel toiletListViewModel =
         ref.read(toiletListViewModelProvider.notifier);
 
+    UserViewModel userViewModel = ref.read(userViewModelProvider.notifier);
     adBanner = BannerAd(
       size: AdSize.banner,
       adUnitId: ref.read(adViewModelProvider).bannerTestKey,
@@ -58,6 +61,22 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
           setState(() {});
         },
       );
+    });
+    userViewModel.getPositionStreamUseCase().listen((userPos) {
+      if (hasDestination()) {
+        bool isNear = userViewModel.checkIsDestNear(
+            curLat: userPos.latitude, curLng: userPos.longitude);
+        if (isNear) {
+          print("near");
+          try {
+            Vibration.vibrate();
+          } catch (_) {
+            //혹시 진동 못 하는 기계일 수도 있음.
+          }
+        } else {
+          print("not near");
+        }
+      }
     });
     super.initState();
   }
@@ -184,7 +203,8 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
                                     ),
                                     TextButton(
                                       onPressed: () {
-                                        userViewModel.setDestination(destLng: 0,destLat: 0);
+                                        userViewModel.setDestination(
+                                            destLng: 0, destLat: 0);
                                         Navigator.of(context).pop();
                                       },
                                       child: Text(
