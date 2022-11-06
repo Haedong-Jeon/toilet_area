@@ -41,6 +41,7 @@ dependencies:
   flutter_polyline_points: 1.0.0
   google_mobile_ads: 2.2.0
   maps_toolkit: 2.0.1
+  vibration: 1.7.6
 
 
 

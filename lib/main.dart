@@ -35,6 +35,19 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        bottomSheetTheme: const BottomSheetThemeData(
+          backgroundColor: Colors.white,
+          constraints: BoxConstraints(
+            minHeight: 300,
+            maxHeight: 500,
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(20),
+            ),
+          ),
+        ),
       ),
       home: MyHomePage(),
     );

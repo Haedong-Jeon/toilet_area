@@ -8,6 +8,9 @@ class User with _$User {
   factory User({
     double? latitude,
     double? longitude,
+    double? destLat,
+    double? destLng,
+    String? desetName,
     String? lastAppOpenedAt,
   }) = _User;
 

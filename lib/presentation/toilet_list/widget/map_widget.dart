@@ -3,6 +3,8 @@ import 'dart:developer';
 import 'dart:typed_data';
 import 'dart:ui';
 
+import 'package:vibration/vibration.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -18,6 +20,7 @@ import 'package:toilet_area/di/user/user_setup.dart';
 import 'package:toilet_area/domain/model/toilet/toilet.dart';
 import 'package:toilet_area/presentation/text/view_model/text_view_model.dart';
 import 'package:toilet_area/presentation/toilet_list/view_model/toilet_list_view_model.dart';
+import 'package:toilet_area/presentation/toilet_list/widget/map_detail_modal.dart';
 import 'package:toilet_area/presentation/user/view_model/user_view_model.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
@@ -39,11 +42,10 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
   @override
   void initState() {
     // TODO: implement initState
-    UserViewModel userViewModel = ref.read(userViewModelProvider.notifier);
-    TextViewModel textViewModel = ref.read(textViewModelProvider.notifier);
     ToiletListViewModel toiletListViewModel =
         ref.read(toiletListViewModelProvider.notifier);
 
+    UserViewModel userViewModel = ref.read(userViewModelProvider.notifier);
     adBanner = BannerAd(
       size: AdSize.banner,
       adUnitId: ref.read(adViewModelProvider).bannerTestKey,
@@ -56,17 +58,25 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
         onLoading: () {},
         onError: (_) {},
         onSuccess: () {
-          setState(() {
-            markers = Set.from(
-              setToiletMarkers(
-                ref.read(
-                  toiletListViewModelProvider,
-                ),
-              ),
-            );
-          });
+          setState(() {});
         },
       );
+    });
+    userViewModel.getPositionStreamUseCase().listen((userPos) {
+      if (hasDestination()) {
+        bool isNear = userViewModel.checkIsDestNear(
+            curLat: userPos.latitude, curLng: userPos.longitude);
+        if (isNear) {
+          print("near");
+          try {
+            Vibration.vibrate();
+          } catch (_) {
+            //혹시 진동 못 하는 기계일 수도 있음.
+          }
+        } else {
+          print("not near");
+        }
+      }
     });
     super.initState();
   }
@@ -83,14 +93,27 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
       if (longitude == null || latitude == null) {
         continue;
       }
+      bool destMarker = ref.watch(userViewModelProvider).destLat == latitude &&
+          ref.watch(userViewModelProvider).destLng == longitude;
       Marker marker = Marker(
         markerId: MarkerId(element.lnmadr ?? ""),
         position: LatLng(latitude, longitude),
-        icon: BitmapDescriptor.defaultMarker,
-        infoWindow: InfoWindow(
-          title: element.toiletNm,
-          snippet: element.lnmadr ?? "",
+        icon: BitmapDescriptor.defaultMarkerWithHue(
+          (hasDestination() && destMarker)
+              ? BitmapDescriptor.hueBlue
+              : BitmapDescriptor.hueRed,
         ),
+        infoWindow: InfoWindow(
+            title: element.toiletNm ??
+                ref.read(textViewModelProvider).noNameToilet,
+            snippet: element.lnmadr ?? "",
+            onTap: () {
+              showModalBottomSheet(
+                  context: context,
+                  builder: (context) {
+                    return MapDetailModal(toilet: element);
+                  });
+            }),
       );
       toiletMarkers.add(marker);
     }
@@ -98,19 +121,37 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
     return toiletMarkers;
   }
 
+  bool hasDestination() {
+    return ref.watch(userViewModelProvider).destLat != null &&
+        ref.watch(userViewModelProvider).destLat != 0 &&
+        ref.watch(userViewModelProvider).destLat != null &&
+        ref.watch(userViewModelProvider).destLat != 0;
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     UserViewModel userViewModel = ref.watch(userViewModelProvider.notifier);
     TextViewModel textViewModel = ref.watch(textViewModelProvider.notifier);
-    ToiletListViewModel toiletListViewModel =
-        ref.watch(toiletListViewModelProvider.notifier);
-    setMapController();
 
+    setMapController();
+    markers = Set.from(
+      setToiletMarkers(
+        ref.read(
+          toiletListViewModelProvider,
+        ),
+      ),
+    );
     return Scaffold(
       body: SafeArea(
         child: Column(
           children: [
+            SizedBox(
+              height: 50,
+              child: AdWidget(
+                ad: adBanner,
+              ),
+            ),
             Expanded(
               child: Stack(
                 children: [
@@ -139,41 +180,85 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
                   Column(
                     children: [
                       const SizedBox(height: 35),
-                      Align(
-                        alignment: Alignment.topCenter,
-                        child: Container(
-                          height: 30,
-                          width: 300,
-                          decoration: BoxDecoration(
-                            color: Colors.grey.withOpacity(0.3),
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(20),
-                            ),
-                          ),
-                          child: Center(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                SizedBox(
-                                  height: 20,
-                                  width: 20,
-                                  child: Image.asset("assets/images/siren.png"),
-                                ),
-                                const SizedBox(width: 10),
-                                Text(
-                                  textViewModel.findToiletInRange(),
-                                  style: const TextStyle(
-                                    color: Colors.red,
-                                    fontWeight: FontWeight.bold,
+                      InkWell(
+                        onTap: () {
+                          if (!hasDestination()) {
+                            return;
+                          }
+                          showCupertinoDialog(
+                              context: context,
+                              builder: (context) {
+                                return CupertinoAlertDialog(
+                                  title: Text(
+                                    textViewModel.cancelDestinationAskText(),
                                   ),
-                                ),
-                                const SizedBox(width: 10),
-                                SizedBox(
-                                  height: 20,
-                                  width: 20,
-                                  child: Image.asset("assets/images/siren.png"),
-                                ),
-                              ],
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: Text(
+                                        textViewModel.noText(),
+                                      ),
+                                    ),
+                                    TextButton(
+                                      onPressed: () {
+                                        userViewModel.setDestination(
+                                            destLng: 0, destLat: 0);
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: Text(
+                                        textViewModel.yesText(),
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              });
+                        },
+                        child: Align(
+                          alignment: Alignment.topCenter,
+                          child: Container(
+                            height: 30,
+                            width: 300,
+                            decoration: BoxDecoration(
+                              color: hasDestination()
+                                  ? Colors.white
+                                  : Colors.grey.withOpacity(0.3),
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(20),
+                              ),
+                            ),
+                            child: Center(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  SizedBox(
+                                    height: 20,
+                                    width: 20,
+                                    child:
+                                        Image.asset("assets/images/siren.png"),
+                                  ),
+                                  const SizedBox(width: 10),
+                                  Text(
+                                    hasDestination()
+                                        ? "${textViewModel.destText()}: ${userViewModel.getDestName()}"
+                                        : textViewModel.findToiletInRange(),
+                                    style: TextStyle(
+                                      color: hasDestination()
+                                          ? Colors.blue
+                                          : Colors.red,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  const SizedBox(width: 10),
+                                  SizedBox(
+                                    height: 20,
+                                    width: 20,
+                                    child:
+                                        Image.asset("assets/images/siren.png"),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
@@ -181,15 +266,6 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
                     ],
                   ),
                 ],
-              ),
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: SizedBox(
-                height: 50,
-                child: AdWidget(
-                  ad: adBanner,
-                ),
               ),
             ),
           ],

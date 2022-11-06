@@ -1,7 +1,22 @@
-
 {
   "toiletListLoadingText": "화장실 목록을 불러오는 중입니다.",
   "toiletListLoadFailText": "화장실 목록을 불러오는데 실패했습니다.",
   "toiletListLoadSuccessText": "화장실 목록을 불러오는데 성공했습니다.",
-  "findToiletInRange": "3km 내 화장실을 탐색 중입니다."
+  "findToiletInRange": "3km 내 화장실을 탐색 중입니다.",
+  "noNameToilet": "이름 없는 화장실",
+  "menUrineNumberText": "남성 소변기 수",
+  "menToiletBowlNumberText": "남성 대변기 수",
+  "ladiesToiletBowlNumberText": "여성 칸 수",
+  "menHandicapUrinalNumberText": "남성 장애인 소변기 수",
+  "menHandicapToiletBowlNumberText": "남성 장애인 대변기 수",
+  "ladiesHandicapToiletBowlNumberText": "여성 장애인 칸 수",
+  "dipersExchgPosiText": "기저귀 교환대",
+  "enterentCctvYnText": "입구 CCTV",
+  "setDestinationAskText": "목적지로 설정하겠습니까?",
+  "cancelDestinationAskText": "목적지를 취소하시겠습니까?",
+  "vibrateWhenNearText": "근처에 도착하면 진동으로 알려드려요",
+  "setDestinationButtnText": "도착지 설정",
+  "yesText": "네",
+  "noText": "아니오",
+  "destText": "목적지"
 }

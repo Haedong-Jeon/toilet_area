@@ -24,6 +24,24 @@ mixin _$TextControl {
   String? get toiletListLoadingText => throw _privateConstructorUsedError;
   String? get findToiletInRange => throw _privateConstructorUsedError;
   String? get toiletListLoadSuccessText => throw _privateConstructorUsedError;
+  String? get noNameToilet => throw _privateConstructorUsedError;
+  String? get menUrineNumberText => throw _privateConstructorUsedError;
+  String? get menToiletBowlNumberText => throw _privateConstructorUsedError;
+  String? get ladiesToiletBowlNumberText => throw _privateConstructorUsedError;
+  String? get menHandicapUrinalNumberText => throw _privateConstructorUsedError;
+  String? get ladiesHandicapToiletBowlNumberText =>
+      throw _privateConstructorUsedError;
+  String? get dipersExchgPosiText => throw _privateConstructorUsedError;
+  String? get menHandicapToiletBowlNumberText =>
+      throw _privateConstructorUsedError;
+  String? get enterentCctvYnText => throw _privateConstructorUsedError;
+  String? get setDestinationAskText => throw _privateConstructorUsedError;
+  String? get vibrateWhenNearText => throw _privateConstructorUsedError;
+  String? get setDestinationButtnText => throw _privateConstructorUsedError;
+  String? get yesText => throw _privateConstructorUsedError;
+  String? get noText => throw _privateConstructorUsedError;
+  String? get destText => throw _privateConstructorUsedError;
+  String? get cancelDestinationAskText => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -41,7 +59,23 @@ abstract class $TextControlCopyWith<$Res> {
       {String? toiletListLoadFailText,
       String? toiletListLoadingText,
       String? findToiletInRange,
-      String? toiletListLoadSuccessText});
+      String? toiletListLoadSuccessText,
+      String? noNameToilet,
+      String? menUrineNumberText,
+      String? menToiletBowlNumberText,
+      String? ladiesToiletBowlNumberText,
+      String? menHandicapUrinalNumberText,
+      String? ladiesHandicapToiletBowlNumberText,
+      String? dipersExchgPosiText,
+      String? menHandicapToiletBowlNumberText,
+      String? enterentCctvYnText,
+      String? setDestinationAskText,
+      String? vibrateWhenNearText,
+      String? setDestinationButtnText,
+      String? yesText,
+      String? noText,
+      String? destText,
+      String? cancelDestinationAskText});
 }
 
 /// @nodoc
@@ -61,6 +95,22 @@ class _$TextControlCopyWithImpl<$Res, $Val extends TextControl>
     Object? toiletListLoadingText = freezed,
     Object? findToiletInRange = freezed,
     Object? toiletListLoadSuccessText = freezed,
+    Object? noNameToilet = freezed,
+    Object? menUrineNumberText = freezed,
+    Object? menToiletBowlNumberText = freezed,
+    Object? ladiesToiletBowlNumberText = freezed,
+    Object? menHandicapUrinalNumberText = freezed,
+    Object? ladiesHandicapToiletBowlNumberText = freezed,
+    Object? dipersExchgPosiText = freezed,
+    Object? menHandicapToiletBowlNumberText = freezed,
+    Object? enterentCctvYnText = freezed,
+    Object? setDestinationAskText = freezed,
+    Object? vibrateWhenNearText = freezed,
+    Object? setDestinationButtnText = freezed,
+    Object? yesText = freezed,
+    Object? noText = freezed,
+    Object? destText = freezed,
+    Object? cancelDestinationAskText = freezed,
   }) {
     return _then(_value.copyWith(
       toiletListLoadFailText: freezed == toiletListLoadFailText
@@ -79,6 +129,72 @@ class _$TextControlCopyWithImpl<$Res, $Val extends TextControl>
           ? _value.toiletListLoadSuccessText
           : toiletListLoadSuccessText // ignore: cast_nullable_to_non_nullable
               as String?,
+      noNameToilet: freezed == noNameToilet
+          ? _value.noNameToilet
+          : noNameToilet // ignore: cast_nullable_to_non_nullable
+              as String?,
+      menUrineNumberText: freezed == menUrineNumberText
+          ? _value.menUrineNumberText
+          : menUrineNumberText // ignore: cast_nullable_to_non_nullable
+              as String?,
+      menToiletBowlNumberText: freezed == menToiletBowlNumberText
+          ? _value.menToiletBowlNumberText
+          : menToiletBowlNumberText // ignore: cast_nullable_to_non_nullable
+              as String?,
+      ladiesToiletBowlNumberText: freezed == ladiesToiletBowlNumberText
+          ? _value.ladiesToiletBowlNumberText
+          : ladiesToiletBowlNumberText // ignore: cast_nullable_to_non_nullable
+              as String?,
+      menHandicapUrinalNumberText: freezed == menHandicapUrinalNumberText
+          ? _value.menHandicapUrinalNumberText
+          : menHandicapUrinalNumberText // ignore: cast_nullable_to_non_nullable
+              as String?,
+      ladiesHandicapToiletBowlNumberText: freezed ==
+              ladiesHandicapToiletBowlNumberText
+          ? _value.ladiesHandicapToiletBowlNumberText
+          : ladiesHandicapToiletBowlNumberText // ignore: cast_nullable_to_non_nullable
+              as String?,
+      dipersExchgPosiText: freezed == dipersExchgPosiText
+          ? _value.dipersExchgPosiText
+          : dipersExchgPosiText // ignore: cast_nullable_to_non_nullable
+              as String?,
+      menHandicapToiletBowlNumberText: freezed ==
+              menHandicapToiletBowlNumberText
+          ? _value.menHandicapToiletBowlNumberText
+          : menHandicapToiletBowlNumberText // ignore: cast_nullable_to_non_nullable
+              as String?,
+      enterentCctvYnText: freezed == enterentCctvYnText
+          ? _value.enterentCctvYnText
+          : enterentCctvYnText // ignore: cast_nullable_to_non_nullable
+              as String?,
+      setDestinationAskText: freezed == setDestinationAskText
+          ? _value.setDestinationAskText
+          : setDestinationAskText // ignore: cast_nullable_to_non_nullable
+              as String?,
+      vibrateWhenNearText: freezed == vibrateWhenNearText
+          ? _value.vibrateWhenNearText
+          : vibrateWhenNearText // ignore: cast_nullable_to_non_nullable
+              as String?,
+      setDestinationButtnText: freezed == setDestinationButtnText
+          ? _value.setDestinationButtnText
+          : setDestinationButtnText // ignore: cast_nullable_to_non_nullable
+              as String?,
+      yesText: freezed == yesText
+          ? _value.yesText
+          : yesText // ignore: cast_nullable_to_non_nullable
+              as String?,
+      noText: freezed == noText
+          ? _value.noText
+          : noText // ignore: cast_nullable_to_non_nullable
+              as String?,
+      destText: freezed == destText
+          ? _value.destText
+          : destText // ignore: cast_nullable_to_non_nullable
+              as String?,
+      cancelDestinationAskText: freezed == cancelDestinationAskText
+          ? _value.cancelDestinationAskText
+          : cancelDestinationAskText // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -95,7 +211,23 @@ abstract class _$$_TextControlCopyWith<$Res>
       {String? toiletListLoadFailText,
       String? toiletListLoadingText,
       String? findToiletInRange,
-      String? toiletListLoadSuccessText});
+      String? toiletListLoadSuccessText,
+      String? noNameToilet,
+      String? menUrineNumberText,
+      String? menToiletBowlNumberText,
+      String? ladiesToiletBowlNumberText,
+      String? menHandicapUrinalNumberText,
+      String? ladiesHandicapToiletBowlNumberText,
+      String? dipersExchgPosiText,
+      String? menHandicapToiletBowlNumberText,
+      String? enterentCctvYnText,
+      String? setDestinationAskText,
+      String? vibrateWhenNearText,
+      String? setDestinationButtnText,
+      String? yesText,
+      String? noText,
+      String? destText,
+      String? cancelDestinationAskText});
 }
 
 /// @nodoc
@@ -113,6 +245,22 @@ class __$$_TextControlCopyWithImpl<$Res>
     Object? toiletListLoadingText = freezed,
     Object? findToiletInRange = freezed,
     Object? toiletListLoadSuccessText = freezed,
+    Object? noNameToilet = freezed,
+    Object? menUrineNumberText = freezed,
+    Object? menToiletBowlNumberText = freezed,
+    Object? ladiesToiletBowlNumberText = freezed,
+    Object? menHandicapUrinalNumberText = freezed,
+    Object? ladiesHandicapToiletBowlNumberText = freezed,
+    Object? dipersExchgPosiText = freezed,
+    Object? menHandicapToiletBowlNumberText = freezed,
+    Object? enterentCctvYnText = freezed,
+    Object? setDestinationAskText = freezed,
+    Object? vibrateWhenNearText = freezed,
+    Object? setDestinationButtnText = freezed,
+    Object? yesText = freezed,
+    Object? noText = freezed,
+    Object? destText = freezed,
+    Object? cancelDestinationAskText = freezed,
   }) {
     return _then(_$_TextControl(
       toiletListLoadFailText: freezed == toiletListLoadFailText
@@ -131,6 +279,72 @@ class __$$_TextControlCopyWithImpl<$Res>
           ? _value.toiletListLoadSuccessText
           : toiletListLoadSuccessText // ignore: cast_nullable_to_non_nullable
               as String?,
+      noNameToilet: freezed == noNameToilet
+          ? _value.noNameToilet
+          : noNameToilet // ignore: cast_nullable_to_non_nullable
+              as String?,
+      menUrineNumberText: freezed == menUrineNumberText
+          ? _value.menUrineNumberText
+          : menUrineNumberText // ignore: cast_nullable_to_non_nullable
+              as String?,
+      menToiletBowlNumberText: freezed == menToiletBowlNumberText
+          ? _value.menToiletBowlNumberText
+          : menToiletBowlNumberText // ignore: cast_nullable_to_non_nullable
+              as String?,
+      ladiesToiletBowlNumberText: freezed == ladiesToiletBowlNumberText
+          ? _value.ladiesToiletBowlNumberText
+          : ladiesToiletBowlNumberText // ignore: cast_nullable_to_non_nullable
+              as String?,
+      menHandicapUrinalNumberText: freezed == menHandicapUrinalNumberText
+          ? _value.menHandicapUrinalNumberText
+          : menHandicapUrinalNumberText // ignore: cast_nullable_to_non_nullable
+              as String?,
+      ladiesHandicapToiletBowlNumberText: freezed ==
+              ladiesHandicapToiletBowlNumberText
+          ? _value.ladiesHandicapToiletBowlNumberText
+          : ladiesHandicapToiletBowlNumberText // ignore: cast_nullable_to_non_nullable
+              as String?,
+      dipersExchgPosiText: freezed == dipersExchgPosiText
+          ? _value.dipersExchgPosiText
+          : dipersExchgPosiText // ignore: cast_nullable_to_non_nullable
+              as String?,
+      menHandicapToiletBowlNumberText: freezed ==
+              menHandicapToiletBowlNumberText
+          ? _value.menHandicapToiletBowlNumberText
+          : menHandicapToiletBowlNumberText // ignore: cast_nullable_to_non_nullable
+              as String?,
+      enterentCctvYnText: freezed == enterentCctvYnText
+          ? _value.enterentCctvYnText
+          : enterentCctvYnText // ignore: cast_nullable_to_non_nullable
+              as String?,
+      setDestinationAskText: freezed == setDestinationAskText
+          ? _value.setDestinationAskText
+          : setDestinationAskText // ignore: cast_nullable_to_non_nullable
+              as String?,
+      vibrateWhenNearText: freezed == vibrateWhenNearText
+          ? _value.vibrateWhenNearText
+          : vibrateWhenNearText // ignore: cast_nullable_to_non_nullable
+              as String?,
+      setDestinationButtnText: freezed == setDestinationButtnText
+          ? _value.setDestinationButtnText
+          : setDestinationButtnText // ignore: cast_nullable_to_non_nullable
+              as String?,
+      yesText: freezed == yesText
+          ? _value.yesText
+          : yesText // ignore: cast_nullable_to_non_nullable
+              as String?,
+      noText: freezed == noText
+          ? _value.noText
+          : noText // ignore: cast_nullable_to_non_nullable
+              as String?,
+      destText: freezed == destText
+          ? _value.destText
+          : destText // ignore: cast_nullable_to_non_nullable
+              as String?,
+      cancelDestinationAskText: freezed == cancelDestinationAskText
+          ? _value.cancelDestinationAskText
+          : cancelDestinationAskText // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -142,7 +356,23 @@ class _$_TextControl implements _TextControl {
       {this.toiletListLoadFailText,
       this.toiletListLoadingText,
       this.findToiletInRange,
-      this.toiletListLoadSuccessText});
+      this.toiletListLoadSuccessText,
+      this.noNameToilet,
+      this.menUrineNumberText,
+      this.menToiletBowlNumberText,
+      this.ladiesToiletBowlNumberText,
+      this.menHandicapUrinalNumberText,
+      this.ladiesHandicapToiletBowlNumberText,
+      this.dipersExchgPosiText,
+      this.menHandicapToiletBowlNumberText,
+      this.enterentCctvYnText,
+      this.setDestinationAskText,
+      this.vibrateWhenNearText,
+      this.setDestinationButtnText,
+      this.yesText,
+      this.noText,
+      this.destText,
+      this.cancelDestinationAskText});
 
   factory _$_TextControl.fromJson(Map<String, dynamic> json) =>
       _$$_TextControlFromJson(json);
@@ -155,10 +385,42 @@ class _$_TextControl implements _TextControl {
   final String? findToiletInRange;
   @override
   final String? toiletListLoadSuccessText;
+  @override
+  final String? noNameToilet;
+  @override
+  final String? menUrineNumberText;
+  @override
+  final String? menToiletBowlNumberText;
+  @override
+  final String? ladiesToiletBowlNumberText;
+  @override
+  final String? menHandicapUrinalNumberText;
+  @override
+  final String? ladiesHandicapToiletBowlNumberText;
+  @override
+  final String? dipersExchgPosiText;
+  @override
+  final String? menHandicapToiletBowlNumberText;
+  @override
+  final String? enterentCctvYnText;
+  @override
+  final String? setDestinationAskText;
+  @override
+  final String? vibrateWhenNearText;
+  @override
+  final String? setDestinationButtnText;
+  @override
+  final String? yesText;
+  @override
+  final String? noText;
+  @override
+  final String? destText;
+  @override
+  final String? cancelDestinationAskText;
 
   @override
   String toString() {
-    return 'TextControl(toiletListLoadFailText: $toiletListLoadFailText, toiletListLoadingText: $toiletListLoadingText, findToiletInRange: $findToiletInRange, toiletListLoadSuccessText: $toiletListLoadSuccessText)';
+    return 'TextControl(toiletListLoadFailText: $toiletListLoadFailText, toiletListLoadingText: $toiletListLoadingText, findToiletInRange: $findToiletInRange, toiletListLoadSuccessText: $toiletListLoadSuccessText, noNameToilet: $noNameToilet, menUrineNumberText: $menUrineNumberText, menToiletBowlNumberText: $menToiletBowlNumberText, ladiesToiletBowlNumberText: $ladiesToiletBowlNumberText, menHandicapUrinalNumberText: $menHandicapUrinalNumberText, ladiesHandicapToiletBowlNumberText: $ladiesHandicapToiletBowlNumberText, dipersExchgPosiText: $dipersExchgPosiText, menHandicapToiletBowlNumberText: $menHandicapToiletBowlNumberText, enterentCctvYnText: $enterentCctvYnText, setDestinationAskText: $setDestinationAskText, vibrateWhenNearText: $vibrateWhenNearText, setDestinationButtnText: $setDestinationButtnText, yesText: $yesText, noText: $noText, destText: $destText, cancelDestinationAskText: $cancelDestinationAskText)';
   }
 
   @override
@@ -172,15 +434,70 @@ class _$_TextControl implements _TextControl {
                 other.toiletListLoadingText == toiletListLoadingText) &&
             (identical(other.findToiletInRange, findToiletInRange) ||
                 other.findToiletInRange == findToiletInRange) &&
-            (identical(other.toiletListLoadSuccessText,
-                    toiletListLoadSuccessText) ||
-                other.toiletListLoadSuccessText == toiletListLoadSuccessText));
+            (identical(other.toiletListLoadSuccessText, toiletListLoadSuccessText) ||
+                other.toiletListLoadSuccessText == toiletListLoadSuccessText) &&
+            (identical(other.noNameToilet, noNameToilet) ||
+                other.noNameToilet == noNameToilet) &&
+            (identical(other.menUrineNumberText, menUrineNumberText) ||
+                other.menUrineNumberText == menUrineNumberText) &&
+            (identical(other.menToiletBowlNumberText, menToiletBowlNumberText) ||
+                other.menToiletBowlNumberText == menToiletBowlNumberText) &&
+            (identical(other.ladiesToiletBowlNumberText, ladiesToiletBowlNumberText) ||
+                other.ladiesToiletBowlNumberText ==
+                    ladiesToiletBowlNumberText) &&
+            (identical(other.menHandicapUrinalNumberText, menHandicapUrinalNumberText) ||
+                other.menHandicapUrinalNumberText ==
+                    menHandicapUrinalNumberText) &&
+            (identical(other.ladiesHandicapToiletBowlNumberText, ladiesHandicapToiletBowlNumberText) ||
+                other.ladiesHandicapToiletBowlNumberText ==
+                    ladiesHandicapToiletBowlNumberText) &&
+            (identical(other.dipersExchgPosiText, dipersExchgPosiText) ||
+                other.dipersExchgPosiText == dipersExchgPosiText) &&
+            (identical(other.menHandicapToiletBowlNumberText, menHandicapToiletBowlNumberText) ||
+                other.menHandicapToiletBowlNumberText ==
+                    menHandicapToiletBowlNumberText) &&
+            (identical(other.enterentCctvYnText, enterentCctvYnText) ||
+                other.enterentCctvYnText == enterentCctvYnText) &&
+            (identical(other.setDestinationAskText, setDestinationAskText) ||
+                other.setDestinationAskText == setDestinationAskText) &&
+            (identical(other.vibrateWhenNearText, vibrateWhenNearText) ||
+                other.vibrateWhenNearText == vibrateWhenNearText) &&
+            (identical(other.setDestinationButtnText, setDestinationButtnText) ||
+                other.setDestinationButtnText == setDestinationButtnText) &&
+            (identical(other.yesText, yesText) || other.yesText == yesText) &&
+            (identical(other.noText, noText) || other.noText == noText) &&
+            (identical(other.destText, destText) ||
+                other.destText == destText) &&
+            (identical(
+                    other.cancelDestinationAskText, cancelDestinationAskText) ||
+                other.cancelDestinationAskText == cancelDestinationAskText));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, toiletListLoadFailText,
-      toiletListLoadingText, findToiletInRange, toiletListLoadSuccessText);
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        toiletListLoadFailText,
+        toiletListLoadingText,
+        findToiletInRange,
+        toiletListLoadSuccessText,
+        noNameToilet,
+        menUrineNumberText,
+        menToiletBowlNumberText,
+        ladiesToiletBowlNumberText,
+        menHandicapUrinalNumberText,
+        ladiesHandicapToiletBowlNumberText,
+        dipersExchgPosiText,
+        menHandicapToiletBowlNumberText,
+        enterentCctvYnText,
+        setDestinationAskText,
+        vibrateWhenNearText,
+        setDestinationButtnText,
+        yesText,
+        noText,
+        destText,
+        cancelDestinationAskText
+      ]);
 
   @JsonKey(ignore: true)
   @override
@@ -201,7 +518,23 @@ abstract class _TextControl implements TextControl {
       {final String? toiletListLoadFailText,
       final String? toiletListLoadingText,
       final String? findToiletInRange,
-      final String? toiletListLoadSuccessText}) = _$_TextControl;
+      final String? toiletListLoadSuccessText,
+      final String? noNameToilet,
+      final String? menUrineNumberText,
+      final String? menToiletBowlNumberText,
+      final String? ladiesToiletBowlNumberText,
+      final String? menHandicapUrinalNumberText,
+      final String? ladiesHandicapToiletBowlNumberText,
+      final String? dipersExchgPosiText,
+      final String? menHandicapToiletBowlNumberText,
+      final String? enterentCctvYnText,
+      final String? setDestinationAskText,
+      final String? vibrateWhenNearText,
+      final String? setDestinationButtnText,
+      final String? yesText,
+      final String? noText,
+      final String? destText,
+      final String? cancelDestinationAskText}) = _$_TextControl;
 
   factory _TextControl.fromJson(Map<String, dynamic> json) =
       _$_TextControl.fromJson;
@@ -214,6 +547,38 @@ abstract class _TextControl implements TextControl {
   String? get findToiletInRange;
   @override
   String? get toiletListLoadSuccessText;
+  @override
+  String? get noNameToilet;
+  @override
+  String? get menUrineNumberText;
+  @override
+  String? get menToiletBowlNumberText;
+  @override
+  String? get ladiesToiletBowlNumberText;
+  @override
+  String? get menHandicapUrinalNumberText;
+  @override
+  String? get ladiesHandicapToiletBowlNumberText;
+  @override
+  String? get dipersExchgPosiText;
+  @override
+  String? get menHandicapToiletBowlNumberText;
+  @override
+  String? get enterentCctvYnText;
+  @override
+  String? get setDestinationAskText;
+  @override
+  String? get vibrateWhenNearText;
+  @override
+  String? get setDestinationButtnText;
+  @override
+  String? get yesText;
+  @override
+  String? get noText;
+  @override
+  String? get destText;
+  @override
+  String? get cancelDestinationAskText;
   @override
   @JsonKey(ignore: true)
   _$$_TextControlCopyWith<_$_TextControl> get copyWith =>

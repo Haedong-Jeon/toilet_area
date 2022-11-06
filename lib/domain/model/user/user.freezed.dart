@@ -22,6 +22,9 @@ User _$UserFromJson(Map<String, dynamic> json) {
 mixin _$User {
   double? get latitude => throw _privateConstructorUsedError;
   double? get longitude => throw _privateConstructorUsedError;
+  double? get destLat => throw _privateConstructorUsedError;
+  double? get destLng => throw _privateConstructorUsedError;
+  String? get desetName => throw _privateConstructorUsedError;
   String? get lastAppOpenedAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -34,7 +37,13 @@ abstract class $UserCopyWith<$Res> {
   factory $UserCopyWith(User value, $Res Function(User) then) =
       _$UserCopyWithImpl<$Res, User>;
   @useResult
-  $Res call({double? latitude, double? longitude, String? lastAppOpenedAt});
+  $Res call(
+      {double? latitude,
+      double? longitude,
+      double? destLat,
+      double? destLng,
+      String? desetName,
+      String? lastAppOpenedAt});
 }
 
 /// @nodoc
@@ -52,6 +61,9 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
   $Res call({
     Object? latitude = freezed,
     Object? longitude = freezed,
+    Object? destLat = freezed,
+    Object? destLng = freezed,
+    Object? desetName = freezed,
     Object? lastAppOpenedAt = freezed,
   }) {
     return _then(_value.copyWith(
@@ -63,6 +75,18 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
           ? _value.longitude
           : longitude // ignore: cast_nullable_to_non_nullable
               as double?,
+      destLat: freezed == destLat
+          ? _value.destLat
+          : destLat // ignore: cast_nullable_to_non_nullable
+              as double?,
+      destLng: freezed == destLng
+          ? _value.destLng
+          : destLng // ignore: cast_nullable_to_non_nullable
+              as double?,
+      desetName: freezed == desetName
+          ? _value.desetName
+          : desetName // ignore: cast_nullable_to_non_nullable
+              as String?,
       lastAppOpenedAt: freezed == lastAppOpenedAt
           ? _value.lastAppOpenedAt
           : lastAppOpenedAt // ignore: cast_nullable_to_non_nullable
@@ -77,7 +101,13 @@ abstract class _$$_UserCopyWith<$Res> implements $UserCopyWith<$Res> {
       __$$_UserCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({double? latitude, double? longitude, String? lastAppOpenedAt});
+  $Res call(
+      {double? latitude,
+      double? longitude,
+      double? destLat,
+      double? destLng,
+      String? desetName,
+      String? lastAppOpenedAt});
 }
 
 /// @nodoc
@@ -91,6 +121,9 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
   $Res call({
     Object? latitude = freezed,
     Object? longitude = freezed,
+    Object? destLat = freezed,
+    Object? destLng = freezed,
+    Object? desetName = freezed,
     Object? lastAppOpenedAt = freezed,
   }) {
     return _then(_$_User(
@@ -102,6 +135,18 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
           ? _value.longitude
           : longitude // ignore: cast_nullable_to_non_nullable
               as double?,
+      destLat: freezed == destLat
+          ? _value.destLat
+          : destLat // ignore: cast_nullable_to_non_nullable
+              as double?,
+      destLng: freezed == destLng
+          ? _value.destLng
+          : destLng // ignore: cast_nullable_to_non_nullable
+              as double?,
+      desetName: freezed == desetName
+          ? _value.desetName
+          : desetName // ignore: cast_nullable_to_non_nullable
+              as String?,
       lastAppOpenedAt: freezed == lastAppOpenedAt
           ? _value.lastAppOpenedAt
           : lastAppOpenedAt // ignore: cast_nullable_to_non_nullable
@@ -113,7 +158,13 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
 /// @nodoc
 @JsonSerializable()
 class _$_User implements _User {
-  _$_User({this.latitude, this.longitude, this.lastAppOpenedAt});
+  _$_User(
+      {this.latitude,
+      this.longitude,
+      this.destLat,
+      this.destLng,
+      this.desetName,
+      this.lastAppOpenedAt});
 
   factory _$_User.fromJson(Map<String, dynamic> json) => _$$_UserFromJson(json);
 
@@ -122,11 +173,17 @@ class _$_User implements _User {
   @override
   final double? longitude;
   @override
+  final double? destLat;
+  @override
+  final double? destLng;
+  @override
+  final String? desetName;
+  @override
   final String? lastAppOpenedAt;
 
   @override
   String toString() {
-    return 'User(latitude: $latitude, longitude: $longitude, lastAppOpenedAt: $lastAppOpenedAt)';
+    return 'User(latitude: $latitude, longitude: $longitude, destLat: $destLat, destLng: $destLng, desetName: $desetName, lastAppOpenedAt: $lastAppOpenedAt)';
   }
 
   @override
@@ -138,14 +195,18 @@ class _$_User implements _User {
                 other.latitude == latitude) &&
             (identical(other.longitude, longitude) ||
                 other.longitude == longitude) &&
+            (identical(other.destLat, destLat) || other.destLat == destLat) &&
+            (identical(other.destLng, destLng) || other.destLng == destLng) &&
+            (identical(other.desetName, desetName) ||
+                other.desetName == desetName) &&
             (identical(other.lastAppOpenedAt, lastAppOpenedAt) ||
                 other.lastAppOpenedAt == lastAppOpenedAt));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, latitude, longitude, lastAppOpenedAt);
+  int get hashCode => Object.hash(runtimeType, latitude, longitude, destLat,
+      destLng, desetName, lastAppOpenedAt);
 
   @JsonKey(ignore: true)
   @override
@@ -165,6 +226,9 @@ abstract class _User implements User {
   factory _User(
       {final double? latitude,
       final double? longitude,
+      final double? destLat,
+      final double? destLng,
+      final String? desetName,
       final String? lastAppOpenedAt}) = _$_User;
 
   factory _User.fromJson(Map<String, dynamic> json) = _$_User.fromJson;
@@ -173,6 +237,12 @@ abstract class _User implements User {
   double? get latitude;
   @override
   double? get longitude;
+  @override
+  double? get destLat;
+  @override
+  double? get destLng;
+  @override
+  String? get desetName;
   @override
   String? get lastAppOpenedAt;
   @override
