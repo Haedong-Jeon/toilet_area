@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:toilet_area/di/noti/noti_setup.dart';
 import 'package:toilet_area/di/set_up.dart';
 import 'package:toilet_area/di/text/text_setup.dart';
 import 'package:toilet_area/di/toilet/toilet_setup.dart';

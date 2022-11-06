@@ -18,5 +18,6 @@
   "setDestinationButtnText": "도착지 설정",
   "yesText": "네",
   "noText": "아니오",
-  "destText": "목적지"
+  "destText": "목적지",
+  "arrivalText": "도착했습니다!"
 }
