@@ -114,9 +114,10 @@ class _MapDetailModalState extends ConsumerState<MapDetailModal> {
                                     widget.toilet.longitude ?? "") ??
                                 0;
                             userViewModel.setDestination(
-                                destLng: destLng,
-                                destLat: destLat,
-                                name: widget.toilet.toiletNm.toString());
+                              destLng: destLng,
+                              destLat: destLat,
+                              name: widget.toilet.toiletNm.toString(),
+                            );
 
                             Navigator.of(context).pop();
                             Navigator.of(context).pop();
