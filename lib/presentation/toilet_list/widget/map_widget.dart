@@ -80,9 +80,11 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
             curLat: userPos.latitude, curLng: userPos.longitude);
         if (isNear) {
           try {
+            String destName = userViewModel.getDestName();
+            userViewModel.setDestination(destLng: 0, destLat: 0);
             Vibration.vibrate();
             ref.read(notiViewModelProvider.notifier).setNoti("",
-                "${textViewModel.destText()}: [${userViewModel.getDestName()}]${textViewModel.arrivalText()}");
+                "${textViewModel.destText()}: [$destName]${textViewModel.arrivalText()}");
 
             ref.read(notiViewModelProvider.notifier).showNoti(1);
             showDialog(
@@ -96,7 +98,6 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
                     actions: [
                       TextButton(
                         onPressed: () {
-                          userViewModel.setDestination(destLng: 0, destLat: 0);
                           Navigator.of(context).pop();
                           interstitialAd.show();
                         },
