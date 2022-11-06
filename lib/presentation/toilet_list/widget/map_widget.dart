@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'dart:typed_data';
 import 'dart:ui';
 
+import 'package:toilet_area/di/noti/noti_setup.dart';
 import 'package:vibration/vibration.dart';
 
 import 'package:flutter/cupertino.dart';
@@ -36,6 +37,7 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
   GoogleMapController? googleMapController;
   late Future getPos;
   late BannerAd adBanner;
+  late InterstitialAd interstitialAd;
   double userZoom = 16;
   Set<Marker> markers = {};
 
@@ -44,7 +46,7 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
     // TODO: implement initState
     ToiletListViewModel toiletListViewModel =
         ref.read(toiletListViewModelProvider.notifier);
-
+    TextViewModel textViewModel = ref.read(textViewModelProvider.notifier);
     UserViewModel userViewModel = ref.read(userViewModelProvider.notifier);
     adBanner = BannerAd(
       size: AdSize.banner,
@@ -52,6 +54,16 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
       listener: AdManagerBannerAdListener(),
       request: const AdRequest(),
     )..load();
+    InterstitialAd.load(
+      adUnitId: ref.read(adViewModelProvider).foregroundTestKey,
+      request: const AdRequest(),
+      adLoadCallback: InterstitialAdLoadCallback(
+        onAdFailedToLoad: (_) {},
+        onAdLoaded: (ad) {
+          interstitialAd = ad;
+        },
+      ),
+    );
 
     toiletListViewModel.uiEventStream.listen((event) {
       event.when(
@@ -67,11 +79,36 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
         bool isNear = userViewModel.checkIsDestNear(
             curLat: userPos.latitude, curLng: userPos.longitude);
         if (isNear) {
-          print("near");
           try {
+            userViewModel.setDestination(destLng: 0, destLat: 0);
             Vibration.vibrate();
-          } catch (_) {
+            ref.read(notiViewModelProvider.notifier).setNoti("",
+                "${textViewModel.destText()}: [${userViewModel.getDestName()}]${textViewModel.arrivalText()}");
+
+            ref.read(notiViewModelProvider.notifier).showNoti(1);
+            showDialog(
+                context: context,
+                builder: (context) {
+                  return CupertinoAlertDialog(
+                    title: Text(
+                      textViewModel.arrivalText(),
+                    ),
+                    actions: [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                          interstitialAd.show();
+                        },
+                        child: Text(
+                          textViewModel.yesText(),
+                        ),
+                      )
+                    ],
+                  );
+                });
+          } catch (e) {
             //혹시 진동 못 하는 기계일 수도 있음.
+            log("somthing wrong -$e");
           }
         } else {
           print("not near");
@@ -99,8 +136,10 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
         markerId: MarkerId(element.lnmadr ?? ""),
         position: LatLng(latitude, longitude),
         icon: BitmapDescriptor.defaultMarkerWithHue(
-          (hasDestination() && destMarker)
-              ? BitmapDescriptor.hueBlue
+          hasDestination()
+              ? destMarker
+                  ? BitmapDescriptor.hueBlue
+                  : BitmapDescriptor.hueRed
               : BitmapDescriptor.hueRed,
         ),
         infoWindow: InfoWindow(

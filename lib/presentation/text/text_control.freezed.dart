@@ -42,6 +42,7 @@ mixin _$TextControl {
   String? get noText => throw _privateConstructorUsedError;
   String? get destText => throw _privateConstructorUsedError;
   String? get cancelDestinationAskText => throw _privateConstructorUsedError;
+  String? get arrivalText => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -75,7 +76,8 @@ abstract class $TextControlCopyWith<$Res> {
       String? yesText,
       String? noText,
       String? destText,
-      String? cancelDestinationAskText});
+      String? cancelDestinationAskText,
+      String? arrivalText});
 }
 
 /// @nodoc
@@ -111,6 +113,7 @@ class _$TextControlCopyWithImpl<$Res, $Val extends TextControl>
     Object? noText = freezed,
     Object? destText = freezed,
     Object? cancelDestinationAskText = freezed,
+    Object? arrivalText = freezed,
   }) {
     return _then(_value.copyWith(
       toiletListLoadFailText: freezed == toiletListLoadFailText
@@ -195,6 +198,10 @@ class _$TextControlCopyWithImpl<$Res, $Val extends TextControl>
           ? _value.cancelDestinationAskText
           : cancelDestinationAskText // ignore: cast_nullable_to_non_nullable
               as String?,
+      arrivalText: freezed == arrivalText
+          ? _value.arrivalText
+          : arrivalText // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -227,7 +234,8 @@ abstract class _$$_TextControlCopyWith<$Res>
       String? yesText,
       String? noText,
       String? destText,
-      String? cancelDestinationAskText});
+      String? cancelDestinationAskText,
+      String? arrivalText});
 }
 
 /// @nodoc
@@ -261,6 +269,7 @@ class __$$_TextControlCopyWithImpl<$Res>
     Object? noText = freezed,
     Object? destText = freezed,
     Object? cancelDestinationAskText = freezed,
+    Object? arrivalText = freezed,
   }) {
     return _then(_$_TextControl(
       toiletListLoadFailText: freezed == toiletListLoadFailText
@@ -345,6 +354,10 @@ class __$$_TextControlCopyWithImpl<$Res>
           ? _value.cancelDestinationAskText
           : cancelDestinationAskText // ignore: cast_nullable_to_non_nullable
               as String?,
+      arrivalText: freezed == arrivalText
+          ? _value.arrivalText
+          : arrivalText // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -372,7 +385,8 @@ class _$_TextControl implements _TextControl {
       this.yesText,
       this.noText,
       this.destText,
-      this.cancelDestinationAskText});
+      this.cancelDestinationAskText,
+      this.arrivalText});
 
   factory _$_TextControl.fromJson(Map<String, dynamic> json) =>
       _$$_TextControlFromJson(json);
@@ -417,10 +431,12 @@ class _$_TextControl implements _TextControl {
   final String? destText;
   @override
   final String? cancelDestinationAskText;
+  @override
+  final String? arrivalText;
 
   @override
   String toString() {
-    return 'TextControl(toiletListLoadFailText: $toiletListLoadFailText, toiletListLoadingText: $toiletListLoadingText, findToiletInRange: $findToiletInRange, toiletListLoadSuccessText: $toiletListLoadSuccessText, noNameToilet: $noNameToilet, menUrineNumberText: $menUrineNumberText, menToiletBowlNumberText: $menToiletBowlNumberText, ladiesToiletBowlNumberText: $ladiesToiletBowlNumberText, menHandicapUrinalNumberText: $menHandicapUrinalNumberText, ladiesHandicapToiletBowlNumberText: $ladiesHandicapToiletBowlNumberText, dipersExchgPosiText: $dipersExchgPosiText, menHandicapToiletBowlNumberText: $menHandicapToiletBowlNumberText, enterentCctvYnText: $enterentCctvYnText, setDestinationAskText: $setDestinationAskText, vibrateWhenNearText: $vibrateWhenNearText, setDestinationButtnText: $setDestinationButtnText, yesText: $yesText, noText: $noText, destText: $destText, cancelDestinationAskText: $cancelDestinationAskText)';
+    return 'TextControl(toiletListLoadFailText: $toiletListLoadFailText, toiletListLoadingText: $toiletListLoadingText, findToiletInRange: $findToiletInRange, toiletListLoadSuccessText: $toiletListLoadSuccessText, noNameToilet: $noNameToilet, menUrineNumberText: $menUrineNumberText, menToiletBowlNumberText: $menToiletBowlNumberText, ladiesToiletBowlNumberText: $ladiesToiletBowlNumberText, menHandicapUrinalNumberText: $menHandicapUrinalNumberText, ladiesHandicapToiletBowlNumberText: $ladiesHandicapToiletBowlNumberText, dipersExchgPosiText: $dipersExchgPosiText, menHandicapToiletBowlNumberText: $menHandicapToiletBowlNumberText, enterentCctvYnText: $enterentCctvYnText, setDestinationAskText: $setDestinationAskText, vibrateWhenNearText: $vibrateWhenNearText, setDestinationButtnText: $setDestinationButtnText, yesText: $yesText, noText: $noText, destText: $destText, cancelDestinationAskText: $cancelDestinationAskText, arrivalText: $arrivalText)';
   }
 
   @override
@@ -468,9 +484,10 @@ class _$_TextControl implements _TextControl {
             (identical(other.noText, noText) || other.noText == noText) &&
             (identical(other.destText, destText) ||
                 other.destText == destText) &&
-            (identical(
-                    other.cancelDestinationAskText, cancelDestinationAskText) ||
-                other.cancelDestinationAskText == cancelDestinationAskText));
+            (identical(other.cancelDestinationAskText, cancelDestinationAskText) ||
+                other.cancelDestinationAskText == cancelDestinationAskText) &&
+            (identical(other.arrivalText, arrivalText) ||
+                other.arrivalText == arrivalText));
   }
 
   @JsonKey(ignore: true)
@@ -496,7 +513,8 @@ class _$_TextControl implements _TextControl {
         yesText,
         noText,
         destText,
-        cancelDestinationAskText
+        cancelDestinationAskText,
+        arrivalText
       ]);
 
   @JsonKey(ignore: true)
@@ -534,7 +552,8 @@ abstract class _TextControl implements TextControl {
       final String? yesText,
       final String? noText,
       final String? destText,
-      final String? cancelDestinationAskText}) = _$_TextControl;
+      final String? cancelDestinationAskText,
+      final String? arrivalText}) = _$_TextControl;
 
   factory _TextControl.fromJson(Map<String, dynamic> json) =
       _$_TextControl.fromJson;
@@ -579,6 +598,8 @@ abstract class _TextControl implements TextControl {
   String? get destText;
   @override
   String? get cancelDestinationAskText;
+  @override
+  String? get arrivalText;
   @override
   @JsonKey(ignore: true)
   _$$_TextControlCopyWith<_$_TextControl> get copyWith =>

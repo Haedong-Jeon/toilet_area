@@ -76,4 +76,7 @@ class TextViewModel extends StateNotifier<TextControl> {
   String cancelDestinationAskText() {
     return state.cancelDestinationAskText ?? "";
   }
+  String arrivalText() {
+    return state.arrivalText ?? "";
+  }
 }

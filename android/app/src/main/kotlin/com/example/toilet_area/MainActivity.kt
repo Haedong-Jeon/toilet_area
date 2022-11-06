@@ -1,4 +1,4 @@
-package com.example.toilet_area
+package com.haedong.toilet_area
 
 import io.flutter.embedding.android.FlutterActivity
 

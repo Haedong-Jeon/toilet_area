@@ -31,7 +31,7 @@ class UserViewModel extends StateNotifier<User> {
     state = state.copyWith(destLng: destLng, destLat: destLat, desetName: name);
   }
   bool checkIsDestNear({double curLat = 0, double curLng = 0}) {
-    return checkIsDestNearUseCase(curLat: curLat, curLng: curLat, destLat: state.destLat ?? 0, destLng: state.destLng ?? 0);
+    return checkIsDestNearUseCase(curLat: curLat, curLng: curLng, destLat: state.destLat ?? 0, destLng: state.destLng ?? 0);
   }
   String getDestName() {
     return state.desetName ?? "";
