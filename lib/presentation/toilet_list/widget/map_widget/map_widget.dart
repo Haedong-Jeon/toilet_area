@@ -4,6 +4,8 @@ import 'dart:typed_data';
 import 'dart:ui';
 
 import 'package:toilet_area/di/noti/noti_setup.dart';
+import 'package:toilet_area/di/setting/setting_setup.dart';
+import 'package:toilet_area/presentation/setting/view_model/setting_view_model.dart';
 import 'package:vibration/vibration.dart';
 
 import 'package:flutter/cupertino.dart';
@@ -21,7 +23,7 @@ import 'package:toilet_area/di/user/user_setup.dart';
 import 'package:toilet_area/domain/model/toilet/toilet.dart';
 import 'package:toilet_area/presentation/text/view_model/text_view_model.dart';
 import 'package:toilet_area/presentation/toilet_list/view_model/toilet_list_view_model.dart';
-import 'package:toilet_area/presentation/toilet_list/widget/map_detail_modal.dart';
+import 'package:toilet_area/presentation/toilet_list/widget/map_widget/map_detail_modal.dart';
 import 'package:toilet_area/presentation/user/view_model/user_view_model.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
@@ -80,13 +82,15 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
             curLat: userPos.latitude, curLng: userPos.longitude);
         if (isNear) {
           try {
-            userViewModel.setDestination(destLng: 0, destLat: 0);
+            String destName = userViewModel.getDestName();
+            userViewModel.cancelDestination();
             Vibration.vibrate();
             ref.read(notiViewModelProvider.notifier).setNoti("",
-                "${textViewModel.destText()}: [${userViewModel.getDestName()}]${textViewModel.arrivalText()}");
+                "${textViewModel.destText()}: [$destName]${textViewModel.arrivalText()}");
 
             ref.read(notiViewModelProvider.notifier).showNoti(1);
             showDialog(
+                barrierDismissible: false,
                 context: context,
                 builder: (context) {
                   return CupertinoAlertDialog(
@@ -123,6 +127,8 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
   }
 
   List<Marker> setToiletMarkers(List<Toilet> toilets) {
+    SettingViewModel settingViewModel =
+        ref.watch(settingViewModelProvider.notifier);
     List<Marker> toiletMarkers = [];
     for (var element in toilets) {
       double? longitude = double.tryParse(element.longitude ?? "");
@@ -138,9 +144,10 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
         icon: BitmapDescriptor.defaultMarkerWithHue(
           hasDestination()
               ? destMarker
-                  ? BitmapDescriptor.hueBlue
-                  : BitmapDescriptor.hueRed
-              : BitmapDescriptor.hueRed,
+                  ? stringToMarkerColor(settingViewModel.getDestMarkerColor())
+                  : stringToMarkerColor(
+                      settingViewModel.getNotDestMarkerColor())
+              : stringToMarkerColor(settingViewModel.getNotDestMarkerColor()),
         ),
         infoWindow: InfoWindow(
             title: element.toiletNm ??
@@ -172,6 +179,8 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
     Size size = MediaQuery.of(context).size;
     UserViewModel userViewModel = ref.watch(userViewModelProvider.notifier);
     TextViewModel textViewModel = ref.watch(textViewModelProvider.notifier);
+    ToiletListViewModel toiletListViewModel =
+        ref.watch(toiletListViewModelProvider.notifier);
 
     setMapController();
     markers = Set.from(
@@ -185,12 +194,6 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
       body: SafeArea(
         child: Column(
           children: [
-            SizedBox(
-              height: 50,
-              child: AdWidget(
-                ad: adBanner,
-              ),
-            ),
             Expanded(
               child: Stack(
                 children: [
@@ -281,7 +284,9 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
                                   Text(
                                     hasDestination()
                                         ? "${textViewModel.destText()}: ${userViewModel.getDestName()}"
-                                        : textViewModel.findToiletInRange(),
+                                        : toiletListViewModel.searchRange
+                                                .toStringAsFixed(2) +
+                                            textViewModel.findToiletInRange(),
                                     style: TextStyle(
                                       color: hasDestination()
                                           ? Colors.blue
@@ -307,9 +312,49 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
                 ],
               ),
             ),
+            SizedBox(
+              height: 50,
+              child: AdWidget(
+                ad: adBanner,
+              ),
+            ),
           ],
         ),
       ),
     );
+  }
+
+  double stringToMarkerColor(String str) {
+    if (str == "red") {
+      return BitmapDescriptor.hueRed;
+    }
+    if (str == "blue") {
+      return BitmapDescriptor.hueBlue;
+    }
+    if (str == "orange") {
+      return BitmapDescriptor.hueOrange;
+    }
+    if (str == "yellow") {
+      return BitmapDescriptor.hueYellow;
+    }
+    if (str == "green") {
+      return BitmapDescriptor.hueGreen;
+    }
+    if (str == "cyan") {
+      return BitmapDescriptor.hueCyan;
+    }
+    if (str == "azure") {
+      return BitmapDescriptor.hueAzure;
+    }
+    if (str == "violet") {
+      return BitmapDescriptor.hueViolet;
+    }
+    if (str == "magenta") {
+      return BitmapDescriptor.hueMagenta;
+    }
+    if (str == "rose") {
+      return BitmapDescriptor.hueRose;
+    }
+    return BitmapDescriptor.hueRed;
   }
 }

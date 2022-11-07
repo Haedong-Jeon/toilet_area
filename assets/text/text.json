@@ -2,7 +2,7 @@
   "toiletListLoadingText": "화장실 목록을 불러오는 중입니다.",
   "toiletListLoadFailText": "화장실 목록을 불러오는데 실패했습니다.",
   "toiletListLoadSuccessText": "화장실 목록을 불러오는데 성공했습니다.",
-  "findToiletInRange": "3km 내 화장실을 탐색 중입니다.",
+  "findToiletInRange": "km 내 화장실을 탐색 중입니다.",
   "noNameToilet": "이름 없는 화장실",
   "menUrineNumberText": "남성 소변기 수",
   "menToiletBowlNumberText": "남성 대변기 수",
@@ -14,10 +14,15 @@
   "enterentCctvYnText": "입구 CCTV",
   "setDestinationAskText": "목적지로 설정하겠습니까?",
   "cancelDestinationAskText": "목적지를 취소하시겠습니까?",
-  "vibrateWhenNearText": "근처에 도착하면 진동으로 알려드려요",
+  "notiWhenNear": "근처에 도착하면 푸시 알림으로 알려드려요",
   "setDestinationButtnText": "도착지 설정",
+  "cancelDestinationButtnText": "도착지 취소",
   "yesText": "네",
   "noText": "아니오",
   "destText": "목적지",
-  "arrivalText": "도착했습니다!"
+  "arrivalText": "근처에 도착했습니다!",
+  "destMarkerColorText": "목적지 마커 색상",
+  "notDestMarkerColorText": "목적지가 아닌 마커 색상",
+  "searchRangeText": "탐색 범위",
+  "appNameText":"배아포"
 }

@@ -26,14 +26,17 @@ class TextControl with _$TextControl {
     String? menHandicapToiletBowlNumberText,
     String? enterentCctvYnText,
     String? setDestinationAskText,
-    String? vibrateWhenNearText,
+    String? notiWhenNear,
     String? setDestinationButtnText,
     String? yesText,
     String? noText,
     String? destText,
     String? cancelDestinationAskText,
+    String ? searchRangeText,
+    String? cancelDestinationButtnText,
+  String? destMarkerColorText,
+  String? notDestMarkerColorText,
     String? arrivalText,
-
   }) = _TextControl;
 
   factory TextControl.fromJson(Map<String, dynamic> json) =>

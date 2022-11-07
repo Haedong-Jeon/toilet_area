@@ -28,55 +28,85 @@ class TextViewModel extends StateNotifier<TextControl> {
   String toiletListLoadSuccessText() {
     return state.toiletListLoadSuccessText ?? "";
   }
+
   String noNameToilet() {
     return state.noNameToilet ?? "";
   }
+
   String menUrineNumberText() {
     return state.menUrineNumberText ?? "";
   }
+
   String menToiletBowlNumberText() {
     return state.menToiletBowlNumberText ?? "";
   }
+
   String ladiesToiletBowlNumberText() {
     return state.ladiesToiletBowlNumberText ?? "";
   }
+
   String menHandicapUrinalNumberText() {
     return state.menHandicapUrinalNumberText ?? "";
   }
+
   String menHandicapToiletBowlNumberText() {
     return state.menHandicapToiletBowlNumberText ?? "";
   }
+
   String ladiesHandicapToiletBowlNumberText() {
     return state.ladiesHandicapToiletBowlNumberText ?? "";
   }
+
   String dipersExchgPosiText() {
     return state.dipersExchgPosiText ?? "";
   }
+
   String enterentCctvYnText() {
     return state.enterentCctvYnText ?? "";
   }
+
   String setDestinationAskText() {
     return state.setDestinationAskText ?? "";
   }
-  String  vibrateWhenNearText() {
-    return state.vibrateWhenNearText ?? "";
+
+  String notiWhenNear() {
+    return state.notiWhenNear ?? "";
   }
+
   String setDestinationButtnText() {
     return state.setDestinationButtnText ?? "";
   }
+
   String yesText() {
-    return state.yesText??"";
+    return state.yesText ?? "";
   }
+
   String noText() {
-    return state.noText??"";
+    return state.noText ?? "";
   }
+
   String destText() {
-    return state.destText??"";
+    return state.destText ?? "";
   }
+
   String cancelDestinationAskText() {
     return state.cancelDestinationAskText ?? "";
   }
+
   String arrivalText() {
     return state.arrivalText ?? "";
+  }
+
+  String cancelDestinationButtnText() {
+    return state.cancelDestinationButtnText ?? "";
+  }
+  String searchRangeText() {
+    return state.searchRangeText ?? "";
+  }
+  String destMarkerColorText() {
+    return state.destMarkerColorText ?? "";
+  }
+  String notDestMarkerColorText() {
+    return state.notDestMarkerColorText ?? "";
   }
 }
