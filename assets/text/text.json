@@ -20,7 +20,9 @@
   "yesText": "네",
   "noText": "아니오",
   "destText": "목적지",
-  "arrivalText": "도착했습니다!",
+  "arrivalText": "근처에 도착했습니다!",
+  "destMarkerColorText": "목적지 마커 색상",
+  "notDestMarkerColorText": "목적지가 아닌 마커 색상",
   "searchRangeText": "탐색 범위",
   "appNameText":"배아포"
 }

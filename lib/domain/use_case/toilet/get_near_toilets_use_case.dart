@@ -10,7 +10,7 @@ class GetNearToiletsUseCase {
     double userLat = 0,
     double userLng = 0,
 
-    ///range는 미터 단위
+    ///range는 km 단위
     double range = 3,
     List<Toilet> toilets = const [],
   }) {

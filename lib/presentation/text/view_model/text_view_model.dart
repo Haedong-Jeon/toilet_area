@@ -103,4 +103,10 @@ class TextViewModel extends StateNotifier<TextControl> {
   String searchRangeText() {
     return state.searchRangeText ?? "";
   }
+  String destMarkerColorText() {
+    return state.destMarkerColorText ?? "";
+  }
+  String notDestMarkerColorText() {
+    return state.notDestMarkerColorText ?? "";
+  }
 }

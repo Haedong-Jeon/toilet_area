@@ -34,6 +34,8 @@ class TextControl with _$TextControl {
     String? cancelDestinationAskText,
     String ? searchRangeText,
     String? cancelDestinationButtnText,
+  String? destMarkerColorText,
+  String? notDestMarkerColorText,
     String? arrivalText,
   }) = _TextControl;
 

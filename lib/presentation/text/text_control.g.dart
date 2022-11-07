@@ -33,6 +33,8 @@ _$_TextControl _$$_TextControlFromJson(Map<String, dynamic> json) =>
       cancelDestinationAskText: json['cancelDestinationAskText'] as String?,
       searchRangeText: json['searchRangeText'] as String?,
       cancelDestinationButtnText: json['cancelDestinationButtnText'] as String?,
+      destMarkerColorText: json['destMarkerColorText'] as String?,
+      notDestMarkerColorText: json['notDestMarkerColorText'] as String?,
       arrivalText: json['arrivalText'] as String?,
     );
 
@@ -62,5 +64,7 @@ Map<String, dynamic> _$$_TextControlToJson(_$_TextControl instance) =>
       'cancelDestinationAskText': instance.cancelDestinationAskText,
       'searchRangeText': instance.searchRangeText,
       'cancelDestinationButtnText': instance.cancelDestinationButtnText,
+      'destMarkerColorText': instance.destMarkerColorText,
+      'notDestMarkerColorText': instance.notDestMarkerColorText,
       'arrivalText': instance.arrivalText,
     };

@@ -1,12 +1,15 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toilet_area/di/set_up.dart';
+import 'package:toilet_area/di/setting/setting_setup.dart';
 import 'package:toilet_area/di/text/text_setup.dart';
 import 'package:toilet_area/di/toilet/toilet_setup.dart';
 import 'package:toilet_area/di/user/user_setup.dart';
+import 'package:toilet_area/presentation/setting/view_model/setting_view_model.dart';
 import 'package:toilet_area/presentation/style/color/color.dart';
 import 'package:toilet_area/presentation/text/view_model/text_view_model.dart';
 import 'package:toilet_area/presentation/toilet_list/view_model/toilet_list_view_model.dart';
@@ -71,6 +74,9 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
     super.initState();
     ToiletListViewModel toiletListViewModel =
         ref.read(toiletListViewModelProvider.notifier);
+    SettingViewModel settingViewModel =
+        ref.read(settingViewModelProvider.notifier);
+    toiletListViewModel.setRange(settingViewModel.getSearchRange());
 
     TextViewModel textViewModel = ref.read(textViewModelProvider.notifier);
     UserViewModel userViewModel = ref.read(userViewModelProvider.notifier);
@@ -132,7 +138,10 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    ToiletListViewModel toiletListViewModel = ref.watch(toiletListViewModelProvider.notifier);
+    ToiletListViewModel toiletListViewModel =
+        ref.watch(toiletListViewModelProvider.notifier);
+    SettingViewModel settingViewModel =
+        ref.watch(settingViewModelProvider.notifier);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).primaryColor,
@@ -140,8 +149,15 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
       drawer: const CustomSideDrawer(),
       onDrawerChanged: (isOpen) {
         //드로어가 열리고 닫힐 때, 콜백 함수를 이곳에서 정의 할 수 있다.
-        if(!isOpen) {
+        if (!isOpen) {
           toiletListViewModel.updateToiletListByRangeChange();
+
+          Map<String, dynamic> newSetting = {
+            "dest_marker_color": "red",
+            "not_dest_marker_color": "blue",
+            "search_range": toiletListViewModel.searchRange,
+          };
+          settingViewModel.saveSetting(settingJson: jsonEncode(newSetting));
         }
       },
       body: Column(
@@ -155,4 +171,13 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
   //현재 화면에 팝업이 있는지 점검 하는 함수
   bool _isThereCurrentDialogShowing(BuildContext context) =>
       ModalRoute.of(context)?.isCurrent != true;
+
+/*
+{
+  dest_marker_color: 도착지 마커 색상,
+  not_dest_marker_color: 도착지가 아닌 마커 색상
+  search_range: 탐색 범위 (km) 단위
+}
+ */
+
 }

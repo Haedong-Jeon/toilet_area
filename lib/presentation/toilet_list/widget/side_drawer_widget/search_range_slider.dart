@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:toilet_area/di/setting/setting_setup.dart';
 import 'package:toilet_area/di/text/text_setup.dart';
 import 'package:toilet_area/di/toilet/toilet_setup.dart';
+import 'package:toilet_area/presentation/setting/view_model/setting_view_model.dart';
 import 'package:toilet_area/presentation/style/drawer_style/drawer_style.dart';
 import 'package:toilet_area/presentation/text/view_model/text_view_model.dart';
 import 'package:toilet_area/presentation/toilet_list/view_model/toilet_list_view_model.dart';
@@ -30,10 +32,15 @@ class _SearchRangeSliderState extends ConsumerState<SearchRangeSlider> {
         ref.watch(toiletListViewModelProvider.notifier);
     TextViewModel textViewModel = ref.watch(textViewModelProvider.notifier);
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           textViewModel.searchRangeText(),
           style: drawerSectionTitleStyle,
+        ),
+        Text(
+          "${toiletListViewModel.searchRange.toStringAsFixed(2)}km",
+          style: drawerDataStyle,
         ),
         Container(
           child: Slider(
@@ -45,10 +52,6 @@ class _SearchRangeSliderState extends ConsumerState<SearchRangeSlider> {
               toiletListViewModel.setRange(val * 5);
             },
           ),
-        ),
-        Text(
-          "${toiletListViewModel.searchRange.toStringAsFixed(2)}km",
-          style: drawerDataStyle,
         ),
       ],
     );
