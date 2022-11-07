@@ -174,6 +174,7 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
     Size size = MediaQuery.of(context).size;
     UserViewModel userViewModel = ref.watch(userViewModelProvider.notifier);
     TextViewModel textViewModel = ref.watch(textViewModelProvider.notifier);
+    ToiletListViewModel toiletListViewModel = ref.watch(toiletListViewModelProvider.notifier);
 
     setMapController();
     markers = Set.from(
@@ -277,7 +278,7 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
                                   Text(
                                     hasDestination()
                                         ? "${textViewModel.destText()}: ${userViewModel.getDestName()}"
-                                        : textViewModel.findToiletInRange(),
+                                        : toiletListViewModel.searchRange.toStringAsFixed(2)+textViewModel.findToiletInRange(),
                                     style: TextStyle(
                                       color: hasDestination()
                                           ? Colors.blue

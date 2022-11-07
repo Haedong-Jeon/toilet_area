@@ -2,7 +2,7 @@
   "toiletListLoadingText": "화장실 목록을 불러오는 중입니다.",
   "toiletListLoadFailText": "화장실 목록을 불러오는데 실패했습니다.",
   "toiletListLoadSuccessText": "화장실 목록을 불러오는데 성공했습니다.",
-  "findToiletInRange": "3km 내 화장실을 탐색 중입니다.",
+  "findToiletInRange": "km 내 화장실을 탐색 중입니다.",
   "noNameToilet": "이름 없는 화장실",
   "menUrineNumberText": "남성 소변기 수",
   "menToiletBowlNumberText": "남성 대변기 수",
