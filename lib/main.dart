@@ -153,8 +153,8 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
           toiletListViewModel.updateToiletListByRangeChange();
 
           Map<String, dynamic> newSetting = {
-            "dest_marker_color": "red",
-            "not_dest_marker_color": "blue",
+            "dest_marker_color": "blue",
+            "not_dest_marker_color": "red",
             "search_range": toiletListViewModel.searchRange,
           };
           settingViewModel.saveSetting(settingJson: jsonEncode(newSetting));
