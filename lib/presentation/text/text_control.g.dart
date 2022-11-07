@@ -25,12 +25,13 @@ _$_TextControl _$$_TextControlFromJson(Map<String, dynamic> json) =>
           json['menHandicapToiletBowlNumberText'] as String?,
       enterentCctvYnText: json['enterentCctvYnText'] as String?,
       setDestinationAskText: json['setDestinationAskText'] as String?,
-      vibrateWhenNearText: json['vibrateWhenNearText'] as String?,
+      notiWhenNear: json['notiWhenNear'] as String?,
       setDestinationButtnText: json['setDestinationButtnText'] as String?,
       yesText: json['yesText'] as String?,
       noText: json['noText'] as String?,
       destText: json['destText'] as String?,
       cancelDestinationAskText: json['cancelDestinationAskText'] as String?,
+      cancelDestinationButtnText: json['cancelDestinationButtnText'] as String?,
       arrivalText: json['arrivalText'] as String?,
     );
 
@@ -52,11 +53,12 @@ Map<String, dynamic> _$$_TextControlToJson(_$_TextControl instance) =>
           instance.menHandicapToiletBowlNumberText,
       'enterentCctvYnText': instance.enterentCctvYnText,
       'setDestinationAskText': instance.setDestinationAskText,
-      'vibrateWhenNearText': instance.vibrateWhenNearText,
+      'notiWhenNear': instance.notiWhenNear,
       'setDestinationButtnText': instance.setDestinationButtnText,
       'yesText': instance.yesText,
       'noText': instance.noText,
       'destText': instance.destText,
       'cancelDestinationAskText': instance.cancelDestinationAskText,
+      'cancelDestinationButtnText': instance.cancelDestinationButtnText,
       'arrivalText': instance.arrivalText,
     };

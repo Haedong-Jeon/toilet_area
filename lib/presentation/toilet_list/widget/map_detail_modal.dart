@@ -91,11 +91,16 @@ class _MapDetailModalState extends ConsumerState<MapDetailModal> {
                   builder: (context) {
                     return CupertinoAlertDialog(
                       title: Text(
-                        textViewModel.setDestinationAskText(),
+                        isAlreadySelectedToilet()
+                            ? textViewModel.cancelDestinationAskText()
+                            : textViewModel.setDestinationAskText(),
                       ),
-                      content: Text(
-                        textViewModel.vibrateWhenNearText(),
-                      ),
+                      content: isAlreadySelectedToilet()
+                          //이미 등록 된 목적지를 취소 할 땐 content가 따로 필요 없다.
+                          ? null
+                          : Text(
+                              textViewModel.notiWhenNear(),
+                            ),
                       actions: [
                         TextButton(
                           onPressed: () {
@@ -107,17 +112,9 @@ class _MapDetailModalState extends ConsumerState<MapDetailModal> {
                         ),
                         TextButton(
                           onPressed: () {
-                            double destLat =
-                                double.tryParse(widget.toilet.latitude ?? "") ??
-                                    0;
-                            double destLng = double.tryParse(
-                                    widget.toilet.longitude ?? "") ??
-                                0;
-                            userViewModel.setDestination(
-                              destLng: destLng,
-                              destLat: destLat,
-                              name: widget.toilet.toiletNm.toString(),
-                            );
+                            isAlreadySelectedToilet()
+                                ? cancelDestination()
+                                : setDestination();
 
                             Navigator.of(context).pop();
                             Navigator.of(context).pop();
@@ -132,7 +129,9 @@ class _MapDetailModalState extends ConsumerState<MapDetailModal> {
             },
             style: buttonStyle,
             child: Text(
-              textViewModel.setDestinationButtnText(),
+              isAlreadySelectedToilet()
+                  ? textViewModel.cancelDestinationButtnText()
+                  : textViewModel.setDestinationButtnText(),
               style: buttonTextStyle,
             ),
           ),
@@ -140,6 +139,31 @@ class _MapDetailModalState extends ConsumerState<MapDetailModal> {
         ],
       ),
     );
+  }
+
+  void setDestination() {
+    double destLat = double.tryParse(widget.toilet.latitude ?? "") ?? 0;
+    double destLng = double.tryParse(widget.toilet.longitude ?? "") ?? 0;
+    UserViewModel userViewModel = ref.watch(userViewModelProvider.notifier);
+    userViewModel.setDestination(
+      destLng: destLng,
+      destLat: destLat,
+      name: widget.toilet.toiletNm.toString(),
+    );
+  }
+
+  void cancelDestination() {
+    UserViewModel userViewModel = ref.watch(userViewModelProvider.notifier);
+    userViewModel.cancelDestination();
+  }
+
+  bool isAlreadySelectedToilet() {
+    double latitude = double.tryParse(widget.toilet.latitude ?? "") ?? -1.0;
+    double longitude = double.tryParse(widget.toilet.longitude ?? "") ?? -1.0;
+    double destLat = ref.watch(userViewModelProvider).destLat ?? -1.0;
+    double destLng = ref.watch(userViewModelProvider).destLng ?? -1.0;
+
+    return latitude == destLat && longitude == destLng;
   }
 
   Row renderToiletData({bool isMen = true}) {

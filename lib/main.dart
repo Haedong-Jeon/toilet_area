@@ -1,15 +1,12 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:toilet_area/di/noti/noti_setup.dart';
 import 'package:toilet_area/di/set_up.dart';
 import 'package:toilet_area/di/text/text_setup.dart';
 import 'package:toilet_area/di/toilet/toilet_setup.dart';
 import 'package:toilet_area/di/user/user_setup.dart';
-import 'package:toilet_area/domain/model/toilet/toilet.dart';
 import 'package:toilet_area/presentation/text/view_model/text_view_model.dart';
 import 'package:toilet_area/presentation/toilet_list/view_model/toilet_list_view_model.dart';
 import 'package:toilet_area/presentation/toilet_list/widget/load_fail_widget.dart';

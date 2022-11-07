@@ -36,12 +36,13 @@ mixin _$TextControl {
       throw _privateConstructorUsedError;
   String? get enterentCctvYnText => throw _privateConstructorUsedError;
   String? get setDestinationAskText => throw _privateConstructorUsedError;
-  String? get vibrateWhenNearText => throw _privateConstructorUsedError;
+  String? get notiWhenNear => throw _privateConstructorUsedError;
   String? get setDestinationButtnText => throw _privateConstructorUsedError;
   String? get yesText => throw _privateConstructorUsedError;
   String? get noText => throw _privateConstructorUsedError;
   String? get destText => throw _privateConstructorUsedError;
   String? get cancelDestinationAskText => throw _privateConstructorUsedError;
+  String? get cancelDestinationButtnText => throw _privateConstructorUsedError;
   String? get arrivalText => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -71,12 +72,13 @@ abstract class $TextControlCopyWith<$Res> {
       String? menHandicapToiletBowlNumberText,
       String? enterentCctvYnText,
       String? setDestinationAskText,
-      String? vibrateWhenNearText,
+      String? notiWhenNear,
       String? setDestinationButtnText,
       String? yesText,
       String? noText,
       String? destText,
       String? cancelDestinationAskText,
+      String? cancelDestinationButtnText,
       String? arrivalText});
 }
 
@@ -107,12 +109,13 @@ class _$TextControlCopyWithImpl<$Res, $Val extends TextControl>
     Object? menHandicapToiletBowlNumberText = freezed,
     Object? enterentCctvYnText = freezed,
     Object? setDestinationAskText = freezed,
-    Object? vibrateWhenNearText = freezed,
+    Object? notiWhenNear = freezed,
     Object? setDestinationButtnText = freezed,
     Object? yesText = freezed,
     Object? noText = freezed,
     Object? destText = freezed,
     Object? cancelDestinationAskText = freezed,
+    Object? cancelDestinationButtnText = freezed,
     Object? arrivalText = freezed,
   }) {
     return _then(_value.copyWith(
@@ -174,9 +177,9 @@ class _$TextControlCopyWithImpl<$Res, $Val extends TextControl>
           ? _value.setDestinationAskText
           : setDestinationAskText // ignore: cast_nullable_to_non_nullable
               as String?,
-      vibrateWhenNearText: freezed == vibrateWhenNearText
-          ? _value.vibrateWhenNearText
-          : vibrateWhenNearText // ignore: cast_nullable_to_non_nullable
+      notiWhenNear: freezed == notiWhenNear
+          ? _value.notiWhenNear
+          : notiWhenNear // ignore: cast_nullable_to_non_nullable
               as String?,
       setDestinationButtnText: freezed == setDestinationButtnText
           ? _value.setDestinationButtnText
@@ -197,6 +200,10 @@ class _$TextControlCopyWithImpl<$Res, $Val extends TextControl>
       cancelDestinationAskText: freezed == cancelDestinationAskText
           ? _value.cancelDestinationAskText
           : cancelDestinationAskText // ignore: cast_nullable_to_non_nullable
+              as String?,
+      cancelDestinationButtnText: freezed == cancelDestinationButtnText
+          ? _value.cancelDestinationButtnText
+          : cancelDestinationButtnText // ignore: cast_nullable_to_non_nullable
               as String?,
       arrivalText: freezed == arrivalText
           ? _value.arrivalText
@@ -229,12 +236,13 @@ abstract class _$$_TextControlCopyWith<$Res>
       String? menHandicapToiletBowlNumberText,
       String? enterentCctvYnText,
       String? setDestinationAskText,
-      String? vibrateWhenNearText,
+      String? notiWhenNear,
       String? setDestinationButtnText,
       String? yesText,
       String? noText,
       String? destText,
       String? cancelDestinationAskText,
+      String? cancelDestinationButtnText,
       String? arrivalText});
 }
 
@@ -263,12 +271,13 @@ class __$$_TextControlCopyWithImpl<$Res>
     Object? menHandicapToiletBowlNumberText = freezed,
     Object? enterentCctvYnText = freezed,
     Object? setDestinationAskText = freezed,
-    Object? vibrateWhenNearText = freezed,
+    Object? notiWhenNear = freezed,
     Object? setDestinationButtnText = freezed,
     Object? yesText = freezed,
     Object? noText = freezed,
     Object? destText = freezed,
     Object? cancelDestinationAskText = freezed,
+    Object? cancelDestinationButtnText = freezed,
     Object? arrivalText = freezed,
   }) {
     return _then(_$_TextControl(
@@ -330,9 +339,9 @@ class __$$_TextControlCopyWithImpl<$Res>
           ? _value.setDestinationAskText
           : setDestinationAskText // ignore: cast_nullable_to_non_nullable
               as String?,
-      vibrateWhenNearText: freezed == vibrateWhenNearText
-          ? _value.vibrateWhenNearText
-          : vibrateWhenNearText // ignore: cast_nullable_to_non_nullable
+      notiWhenNear: freezed == notiWhenNear
+          ? _value.notiWhenNear
+          : notiWhenNear // ignore: cast_nullable_to_non_nullable
               as String?,
       setDestinationButtnText: freezed == setDestinationButtnText
           ? _value.setDestinationButtnText
@@ -353,6 +362,10 @@ class __$$_TextControlCopyWithImpl<$Res>
       cancelDestinationAskText: freezed == cancelDestinationAskText
           ? _value.cancelDestinationAskText
           : cancelDestinationAskText // ignore: cast_nullable_to_non_nullable
+              as String?,
+      cancelDestinationButtnText: freezed == cancelDestinationButtnText
+          ? _value.cancelDestinationButtnText
+          : cancelDestinationButtnText // ignore: cast_nullable_to_non_nullable
               as String?,
       arrivalText: freezed == arrivalText
           ? _value.arrivalText
@@ -380,12 +393,13 @@ class _$_TextControl implements _TextControl {
       this.menHandicapToiletBowlNumberText,
       this.enterentCctvYnText,
       this.setDestinationAskText,
-      this.vibrateWhenNearText,
+      this.notiWhenNear,
       this.setDestinationButtnText,
       this.yesText,
       this.noText,
       this.destText,
       this.cancelDestinationAskText,
+      this.cancelDestinationButtnText,
       this.arrivalText});
 
   factory _$_TextControl.fromJson(Map<String, dynamic> json) =>
@@ -420,7 +434,7 @@ class _$_TextControl implements _TextControl {
   @override
   final String? setDestinationAskText;
   @override
-  final String? vibrateWhenNearText;
+  final String? notiWhenNear;
   @override
   final String? setDestinationButtnText;
   @override
@@ -432,11 +446,13 @@ class _$_TextControl implements _TextControl {
   @override
   final String? cancelDestinationAskText;
   @override
+  final String? cancelDestinationButtnText;
+  @override
   final String? arrivalText;
 
   @override
   String toString() {
-    return 'TextControl(toiletListLoadFailText: $toiletListLoadFailText, toiletListLoadingText: $toiletListLoadingText, findToiletInRange: $findToiletInRange, toiletListLoadSuccessText: $toiletListLoadSuccessText, noNameToilet: $noNameToilet, menUrineNumberText: $menUrineNumberText, menToiletBowlNumberText: $menToiletBowlNumberText, ladiesToiletBowlNumberText: $ladiesToiletBowlNumberText, menHandicapUrinalNumberText: $menHandicapUrinalNumberText, ladiesHandicapToiletBowlNumberText: $ladiesHandicapToiletBowlNumberText, dipersExchgPosiText: $dipersExchgPosiText, menHandicapToiletBowlNumberText: $menHandicapToiletBowlNumberText, enterentCctvYnText: $enterentCctvYnText, setDestinationAskText: $setDestinationAskText, vibrateWhenNearText: $vibrateWhenNearText, setDestinationButtnText: $setDestinationButtnText, yesText: $yesText, noText: $noText, destText: $destText, cancelDestinationAskText: $cancelDestinationAskText, arrivalText: $arrivalText)';
+    return 'TextControl(toiletListLoadFailText: $toiletListLoadFailText, toiletListLoadingText: $toiletListLoadingText, findToiletInRange: $findToiletInRange, toiletListLoadSuccessText: $toiletListLoadSuccessText, noNameToilet: $noNameToilet, menUrineNumberText: $menUrineNumberText, menToiletBowlNumberText: $menToiletBowlNumberText, ladiesToiletBowlNumberText: $ladiesToiletBowlNumberText, menHandicapUrinalNumberText: $menHandicapUrinalNumberText, ladiesHandicapToiletBowlNumberText: $ladiesHandicapToiletBowlNumberText, dipersExchgPosiText: $dipersExchgPosiText, menHandicapToiletBowlNumberText: $menHandicapToiletBowlNumberText, enterentCctvYnText: $enterentCctvYnText, setDestinationAskText: $setDestinationAskText, notiWhenNear: $notiWhenNear, setDestinationButtnText: $setDestinationButtnText, yesText: $yesText, noText: $noText, destText: $destText, cancelDestinationAskText: $cancelDestinationAskText, cancelDestinationButtnText: $cancelDestinationButtnText, arrivalText: $arrivalText)';
   }
 
   @override
@@ -476,8 +492,8 @@ class _$_TextControl implements _TextControl {
                 other.enterentCctvYnText == enterentCctvYnText) &&
             (identical(other.setDestinationAskText, setDestinationAskText) ||
                 other.setDestinationAskText == setDestinationAskText) &&
-            (identical(other.vibrateWhenNearText, vibrateWhenNearText) ||
-                other.vibrateWhenNearText == vibrateWhenNearText) &&
+            (identical(other.notiWhenNear, notiWhenNear) ||
+                other.notiWhenNear == notiWhenNear) &&
             (identical(other.setDestinationButtnText, setDestinationButtnText) ||
                 other.setDestinationButtnText == setDestinationButtnText) &&
             (identical(other.yesText, yesText) || other.yesText == yesText) &&
@@ -486,8 +502,10 @@ class _$_TextControl implements _TextControl {
                 other.destText == destText) &&
             (identical(other.cancelDestinationAskText, cancelDestinationAskText) ||
                 other.cancelDestinationAskText == cancelDestinationAskText) &&
-            (identical(other.arrivalText, arrivalText) ||
-                other.arrivalText == arrivalText));
+            (identical(other.cancelDestinationButtnText, cancelDestinationButtnText) ||
+                other.cancelDestinationButtnText ==
+                    cancelDestinationButtnText) &&
+            (identical(other.arrivalText, arrivalText) || other.arrivalText == arrivalText));
   }
 
   @JsonKey(ignore: true)
@@ -508,12 +526,13 @@ class _$_TextControl implements _TextControl {
         menHandicapToiletBowlNumberText,
         enterentCctvYnText,
         setDestinationAskText,
-        vibrateWhenNearText,
+        notiWhenNear,
         setDestinationButtnText,
         yesText,
         noText,
         destText,
         cancelDestinationAskText,
+        cancelDestinationButtnText,
         arrivalText
       ]);
 
@@ -547,12 +566,13 @@ abstract class _TextControl implements TextControl {
       final String? menHandicapToiletBowlNumberText,
       final String? enterentCctvYnText,
       final String? setDestinationAskText,
-      final String? vibrateWhenNearText,
+      final String? notiWhenNear,
       final String? setDestinationButtnText,
       final String? yesText,
       final String? noText,
       final String? destText,
       final String? cancelDestinationAskText,
+      final String? cancelDestinationButtnText,
       final String? arrivalText}) = _$_TextControl;
 
   factory _TextControl.fromJson(Map<String, dynamic> json) =
@@ -587,7 +607,7 @@ abstract class _TextControl implements TextControl {
   @override
   String? get setDestinationAskText;
   @override
-  String? get vibrateWhenNearText;
+  String? get notiWhenNear;
   @override
   String? get setDestinationButtnText;
   @override
@@ -598,6 +618,8 @@ abstract class _TextControl implements TextControl {
   String? get destText;
   @override
   String? get cancelDestinationAskText;
+  @override
+  String? get cancelDestinationButtnText;
   @override
   String? get arrivalText;
   @override

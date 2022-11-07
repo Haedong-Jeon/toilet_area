@@ -81,7 +81,7 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
         if (isNear) {
           try {
             String destName = userViewModel.getDestName();
-            userViewModel.setDestination(destLng: 0, destLat: 0);
+            userViewModel.cancelDestination();
             Vibration.vibrate();
             ref.read(notiViewModelProvider.notifier).setNoti("",
                 "${textViewModel.destText()}: [$destName]${textViewModel.arrivalText()}");
