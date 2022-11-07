@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lottie/lottie.dart';
 import 'package:toilet_area/di/text/text_setup.dart';
+import 'package:toilet_area/presentation/style/color/color.dart';
 
 class LoadSuccessWidget extends ConsumerStatefulWidget {
   const LoadSuccessWidget({Key? key}) : super(key: key);
@@ -47,7 +48,7 @@ class _LoadSuccessWidgetState extends ConsumerState<LoadSuccessWidget> {
             children: [
               const CircleAvatar(
                 radius: 25,
-                backgroundColor: Colors.indigo,
+                backgroundColor: APP_PRIMARY_COLOR,
                 child: Icon(Icons.check, color: Colors.white),
               ),
               const SizedBox(height: 15),

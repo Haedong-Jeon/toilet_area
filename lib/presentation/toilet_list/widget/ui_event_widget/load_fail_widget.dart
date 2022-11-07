@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toilet_area/di/text/text_setup.dart';
+import 'package:toilet_area/presentation/style/color/color.dart';
 
 class LoadFailWidget extends ConsumerStatefulWidget {
   final String error;
@@ -48,7 +49,7 @@ class _LoadFailWidgetState extends ConsumerState<LoadFailWidget> {
             children: [
               const CircleAvatar(
                 radius: 25,
-                backgroundColor: Colors.indigo,
+                backgroundColor: APP_PRIMARY_COLOR,
                 child: Icon(Icons.close, color: Colors.white),
               ),
               const SizedBox(height: 15),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:toilet_area/presentation/style/color/color.dart';
 
 TextStyle modalTitleStyle = const TextStyle(
   color: Colors.black,
@@ -30,15 +31,16 @@ TextStyle toiletDataStyle = const TextStyle(
 );
 
 ButtonStyle buttonStyle = ButtonStyle(
-    fixedSize: MaterialStateProperty.all<Size>(
-      const Size(
-        double.maxFinite,
-        50,
-      ),
+  fixedSize: MaterialStateProperty.all<Size>(
+    const Size(
+      double.maxFinite,
+      50,
     ),
-    backgroundColor: MaterialStateProperty.all<Color>(
-      Colors.black,
-    ));
+  ),
+  backgroundColor: MaterialStateProperty.all<Color>(
+    APP_PRIMARY_COLOR,
+  ),
+);
 TextStyle buttonTextStyle = const TextStyle(
   color: Colors.white,
   fontSize: 17,
