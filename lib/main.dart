@@ -7,13 +7,16 @@ import 'package:toilet_area/di/set_up.dart';
 import 'package:toilet_area/di/text/text_setup.dart';
 import 'package:toilet_area/di/toilet/toilet_setup.dart';
 import 'package:toilet_area/di/user/user_setup.dart';
+import 'package:toilet_area/presentation/style/color/color.dart';
 import 'package:toilet_area/presentation/text/view_model/text_view_model.dart';
 import 'package:toilet_area/presentation/toilet_list/view_model/toilet_list_view_model.dart';
-import 'package:toilet_area/presentation/toilet_list/widget/load_fail_widget.dart';
-import 'package:toilet_area/presentation/toilet_list/widget/load_success_widget.dart';
-import 'package:toilet_area/presentation/toilet_list/widget/loading_widget.dart';
-import 'package:toilet_area/presentation/toilet_list/widget/map_widget.dart';
+import 'package:toilet_area/presentation/toilet_list/widget/side_drawer_widget/side_drawer.dart';
+import 'package:toilet_area/presentation/toilet_list/widget/ui_event_widget/load_fail_widget.dart';
+import 'package:toilet_area/presentation/toilet_list/widget/map_widget/map_widget.dart';
+import 'package:toilet_area/presentation/toilet_list/widget/ui_event_widget/load_success_widget.dart';
 import 'package:toilet_area/presentation/user/view_model/user_view_model.dart';
+
+import 'presentation/toilet_list/widget/ui_event_widget/loading_widget.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,7 +35,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: APP_PRIMARY_COLOR,
         bottomSheetTheme: const BottomSheetThemeData(
           backgroundColor: Colors.white,
           constraints: BoxConstraints(
@@ -129,7 +132,18 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    ToiletListViewModel toiletListViewModel = ref.watch(toiletListViewModelProvider.notifier);
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).primaryColor,
+      ),
+      drawer: const CustomSideDrawer(),
+      onDrawerChanged: (isOpen) {
+        //드로어가 열리고 닫힐 때, 콜백 함수를 이곳에서 정의 할 수 있다.
+        if(!isOpen) {
+          toiletListViewModel.updateToiletListByRangeChange();
+        }
+      },
       body: Column(
         children: const [
           Expanded(child: MapWidget()),

@@ -22,6 +22,8 @@ class ToiletListViewModel extends StateNotifier<List<Toilet>> {
   final GetKakaoKeyUseCase getKakaoKeyUseCase;
   final IsNoToiletNearByUseCase isNoToiletNearByUseCase;
   final GetNearToiletsUseCase getNearToiletsUseCase;
+  double searchRange = 3.0;
+  double lastSearchRange = 3.0;
 
   final _uiEventController = StreamController<ToiletListUiEvent>.broadcast();
 
@@ -39,6 +41,7 @@ class ToiletListViewModel extends StateNotifier<List<Toilet>> {
 
   Future getToiletListFromRemote(double userLat, double userLng,
       {bool isLoadMore = false}) async {
+    lastSearchRange = searchRange;
     if (!isLoadMore) {
       _uiEventController.add(const ToiletListUiEvent.onLoading());
     }
@@ -58,7 +61,7 @@ class ToiletListViewModel extends StateNotifier<List<Toilet>> {
       } else {
         _uiEventController.add(const ToiletListUiEvent.onSuccess());
         dv.log("✅ toilet found...!");
-        state = [...state, ...results];
+        state = getNearToilets(results, userLat, userLng, searchRange);
         return state;
       }
     } catch (e) {
@@ -68,6 +71,22 @@ class ToiletListViewModel extends StateNotifier<List<Toilet>> {
     return state;
   }
 
+  void clearToiletList() {
+    state = [];
+  }
+
+  void setRange(double val) {
+    searchRange = val;
+  }
+
+  void updateToiletListByRangeChange() {
+    if(lastSearchRange == searchRange) {
+      return;
+    }
+    clearToiletList();
+    getToiletListLocal();
+  }
+
   Future<List<Toilet>> loadMoreToiletFromRemote(
       double userLat, double userLng) async {
     toiletListPage += 1;
@@ -75,19 +94,20 @@ class ToiletListViewModel extends StateNotifier<List<Toilet>> {
   }
 
   Future<List<Toilet>> getToiletListLocal() async {
+    lastSearchRange = searchRange;
     _uiEventController.add(const ToiletListUiEvent.onLoading());
     List<Toilet> toilets = await getToiletListLocalUseCase();
     Position? userPos = await GeoLocator().getUserPosition();
     state = getNearToilets(
-        toilets, userPos?.latitude ?? 0, userPos?.longitude ?? 0);
+        toilets, userPos?.latitude ?? 0, userPos?.longitude ?? 0, searchRange);
     _uiEventController.add(const ToiletListUiEvent.onSuccess());
     return state;
   }
 
   List<Toilet> getNearToilets(
-      List<Toilet> toilets, double userLat, double userLng) {
+      List<Toilet> toilets, double userLat, double userLng, double range) {
     return getNearToiletsUseCase(
-        toilets: toilets, userLat: userLat, userLng: userLng);
+        toilets: toilets, userLat: userLat, userLng: userLng, range: range);
   }
 
   String getKakaoKey() {

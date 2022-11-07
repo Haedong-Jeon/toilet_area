@@ -2,12 +2,16 @@ import 'package:maps_toolkit/maps_toolkit.dart';
 import 'package:toilet_area/domain/model/toilet/toilet.dart';
 
 const int KILO = 1000;
+
 class GetNearToiletsUseCase {
   GetNearToiletsUseCase();
 
-  List<Toilet>call({
+  List<Toilet> call({
     double userLat = 0,
     double userLng = 0,
+
+    ///range는 미터 단위
+    double range = 3,
     List<Toilet> toilets = const [],
   }) {
     List<Toilet> results = [];
@@ -18,7 +22,8 @@ class GetNearToiletsUseCase {
       if (latitude == null || longitude == null) {
         continue;
       }
-      if(_getDistance(latitude, longitude, userLat, userLng).abs() <= 3*KILO) {
+      if (_getDistance(latitude, longitude, userLat, userLng).abs() <=
+          range * KILO) {
         results.add(toilet);
       }
     }

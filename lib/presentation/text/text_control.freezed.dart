@@ -42,6 +42,7 @@ mixin _$TextControl {
   String? get noText => throw _privateConstructorUsedError;
   String? get destText => throw _privateConstructorUsedError;
   String? get cancelDestinationAskText => throw _privateConstructorUsedError;
+  String? get searchRangeText => throw _privateConstructorUsedError;
   String? get cancelDestinationButtnText => throw _privateConstructorUsedError;
   String? get arrivalText => throw _privateConstructorUsedError;
 
@@ -78,6 +79,7 @@ abstract class $TextControlCopyWith<$Res> {
       String? noText,
       String? destText,
       String? cancelDestinationAskText,
+      String? searchRangeText,
       String? cancelDestinationButtnText,
       String? arrivalText});
 }
@@ -115,6 +117,7 @@ class _$TextControlCopyWithImpl<$Res, $Val extends TextControl>
     Object? noText = freezed,
     Object? destText = freezed,
     Object? cancelDestinationAskText = freezed,
+    Object? searchRangeText = freezed,
     Object? cancelDestinationButtnText = freezed,
     Object? arrivalText = freezed,
   }) {
@@ -201,6 +204,10 @@ class _$TextControlCopyWithImpl<$Res, $Val extends TextControl>
           ? _value.cancelDestinationAskText
           : cancelDestinationAskText // ignore: cast_nullable_to_non_nullable
               as String?,
+      searchRangeText: freezed == searchRangeText
+          ? _value.searchRangeText
+          : searchRangeText // ignore: cast_nullable_to_non_nullable
+              as String?,
       cancelDestinationButtnText: freezed == cancelDestinationButtnText
           ? _value.cancelDestinationButtnText
           : cancelDestinationButtnText // ignore: cast_nullable_to_non_nullable
@@ -242,6 +249,7 @@ abstract class _$$_TextControlCopyWith<$Res>
       String? noText,
       String? destText,
       String? cancelDestinationAskText,
+      String? searchRangeText,
       String? cancelDestinationButtnText,
       String? arrivalText});
 }
@@ -277,6 +285,7 @@ class __$$_TextControlCopyWithImpl<$Res>
     Object? noText = freezed,
     Object? destText = freezed,
     Object? cancelDestinationAskText = freezed,
+    Object? searchRangeText = freezed,
     Object? cancelDestinationButtnText = freezed,
     Object? arrivalText = freezed,
   }) {
@@ -363,6 +372,10 @@ class __$$_TextControlCopyWithImpl<$Res>
           ? _value.cancelDestinationAskText
           : cancelDestinationAskText // ignore: cast_nullable_to_non_nullable
               as String?,
+      searchRangeText: freezed == searchRangeText
+          ? _value.searchRangeText
+          : searchRangeText // ignore: cast_nullable_to_non_nullable
+              as String?,
       cancelDestinationButtnText: freezed == cancelDestinationButtnText
           ? _value.cancelDestinationButtnText
           : cancelDestinationButtnText // ignore: cast_nullable_to_non_nullable
@@ -399,6 +412,7 @@ class _$_TextControl implements _TextControl {
       this.noText,
       this.destText,
       this.cancelDestinationAskText,
+      this.searchRangeText,
       this.cancelDestinationButtnText,
       this.arrivalText});
 
@@ -446,13 +460,15 @@ class _$_TextControl implements _TextControl {
   @override
   final String? cancelDestinationAskText;
   @override
+  final String? searchRangeText;
+  @override
   final String? cancelDestinationButtnText;
   @override
   final String? arrivalText;
 
   @override
   String toString() {
-    return 'TextControl(toiletListLoadFailText: $toiletListLoadFailText, toiletListLoadingText: $toiletListLoadingText, findToiletInRange: $findToiletInRange, toiletListLoadSuccessText: $toiletListLoadSuccessText, noNameToilet: $noNameToilet, menUrineNumberText: $menUrineNumberText, menToiletBowlNumberText: $menToiletBowlNumberText, ladiesToiletBowlNumberText: $ladiesToiletBowlNumberText, menHandicapUrinalNumberText: $menHandicapUrinalNumberText, ladiesHandicapToiletBowlNumberText: $ladiesHandicapToiletBowlNumberText, dipersExchgPosiText: $dipersExchgPosiText, menHandicapToiletBowlNumberText: $menHandicapToiletBowlNumberText, enterentCctvYnText: $enterentCctvYnText, setDestinationAskText: $setDestinationAskText, notiWhenNear: $notiWhenNear, setDestinationButtnText: $setDestinationButtnText, yesText: $yesText, noText: $noText, destText: $destText, cancelDestinationAskText: $cancelDestinationAskText, cancelDestinationButtnText: $cancelDestinationButtnText, arrivalText: $arrivalText)';
+    return 'TextControl(toiletListLoadFailText: $toiletListLoadFailText, toiletListLoadingText: $toiletListLoadingText, findToiletInRange: $findToiletInRange, toiletListLoadSuccessText: $toiletListLoadSuccessText, noNameToilet: $noNameToilet, menUrineNumberText: $menUrineNumberText, menToiletBowlNumberText: $menToiletBowlNumberText, ladiesToiletBowlNumberText: $ladiesToiletBowlNumberText, menHandicapUrinalNumberText: $menHandicapUrinalNumberText, ladiesHandicapToiletBowlNumberText: $ladiesHandicapToiletBowlNumberText, dipersExchgPosiText: $dipersExchgPosiText, menHandicapToiletBowlNumberText: $menHandicapToiletBowlNumberText, enterentCctvYnText: $enterentCctvYnText, setDestinationAskText: $setDestinationAskText, notiWhenNear: $notiWhenNear, setDestinationButtnText: $setDestinationButtnText, yesText: $yesText, noText: $noText, destText: $destText, cancelDestinationAskText: $cancelDestinationAskText, searchRangeText: $searchRangeText, cancelDestinationButtnText: $cancelDestinationButtnText, arrivalText: $arrivalText)';
   }
 
   @override
@@ -502,9 +518,10 @@ class _$_TextControl implements _TextControl {
                 other.destText == destText) &&
             (identical(other.cancelDestinationAskText, cancelDestinationAskText) ||
                 other.cancelDestinationAskText == cancelDestinationAskText) &&
+            (identical(other.searchRangeText, searchRangeText) ||
+                other.searchRangeText == searchRangeText) &&
             (identical(other.cancelDestinationButtnText, cancelDestinationButtnText) ||
-                other.cancelDestinationButtnText ==
-                    cancelDestinationButtnText) &&
+                other.cancelDestinationButtnText == cancelDestinationButtnText) &&
             (identical(other.arrivalText, arrivalText) || other.arrivalText == arrivalText));
   }
 
@@ -532,6 +549,7 @@ class _$_TextControl implements _TextControl {
         noText,
         destText,
         cancelDestinationAskText,
+        searchRangeText,
         cancelDestinationButtnText,
         arrivalText
       ]);
@@ -572,6 +590,7 @@ abstract class _TextControl implements TextControl {
       final String? noText,
       final String? destText,
       final String? cancelDestinationAskText,
+      final String? searchRangeText,
       final String? cancelDestinationButtnText,
       final String? arrivalText}) = _$_TextControl;
 
@@ -618,6 +637,8 @@ abstract class _TextControl implements TextControl {
   String? get destText;
   @override
   String? get cancelDestinationAskText;
+  @override
+  String? get searchRangeText;
   @override
   String? get cancelDestinationButtnText;
   @override

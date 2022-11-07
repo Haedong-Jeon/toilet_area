@@ -100,4 +100,7 @@ class TextViewModel extends StateNotifier<TextControl> {
   String cancelDestinationButtnText() {
     return state.cancelDestinationButtnText ?? "";
   }
+  String searchRangeText() {
+    return state.searchRangeText ?? "";
+  }
 }

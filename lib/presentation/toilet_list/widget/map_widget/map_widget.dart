@@ -21,7 +21,7 @@ import 'package:toilet_area/di/user/user_setup.dart';
 import 'package:toilet_area/domain/model/toilet/toilet.dart';
 import 'package:toilet_area/presentation/text/view_model/text_view_model.dart';
 import 'package:toilet_area/presentation/toilet_list/view_model/toilet_list_view_model.dart';
-import 'package:toilet_area/presentation/toilet_list/widget/map_detail_modal.dart';
+import 'package:toilet_area/presentation/toilet_list/widget/map_widget/map_detail_modal.dart';
 import 'package:toilet_area/presentation/user/view_model/user_view_model.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
@@ -187,12 +187,6 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
       body: SafeArea(
         child: Column(
           children: [
-            SizedBox(
-              height: 50,
-              child: AdWidget(
-                ad: adBanner,
-              ),
-            ),
             Expanded(
               child: Stack(
                 children: [
@@ -307,6 +301,12 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
                     ],
                   ),
                 ],
+              ),
+            ),
+            SizedBox(
+              height: 50,
+              child: AdWidget(
+                ad: adBanner,
               ),
             ),
           ],
